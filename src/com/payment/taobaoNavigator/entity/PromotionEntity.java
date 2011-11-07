@@ -1,13 +1,16 @@
 package com.payment.taobaoNavigator.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-import org.springframework.stereotype.Repository;
-
-@Repository
+@Entity
+@Table(name="promotion")
 public class PromotionEntity extends BaseEntity {
 
 	@Id
@@ -27,11 +30,13 @@ public class PromotionEntity extends BaseEntity {
 	@Column(name = "enabled", nullable = false)
 	private Integer enabled;
 
-	@Column(name = "product_id")
-	private Integer productId;
+	@OneToOne
+	@JoinColumn(name="product_id")
+	private ProductEntity product;
 	
-	@Column(name = "catagory_id")
-	private Integer catagoryId;
+	@OneToOne
+	@JoinColumn(name="catagory_id")
+	private CatagoryEntity catagory;
 
 	public String getName() {
 		return name;
@@ -65,20 +70,20 @@ public class PromotionEntity extends BaseEntity {
 		this.enabled = enabled;
 	}
 
-	public Integer getProductId() {
-		return productId;
+	public ProductEntity getProduct() {
+		return product;
 	}
 
-	public void setProductId(Integer productId) {
-		this.productId = productId;
+	public void setProduct(ProductEntity product) {
+		this.product = product;
 	}
 
-	public Integer getCatagoryId() {
-		return catagoryId;
+	public CatagoryEntity getCatagory() {
+		return catagory;
 	}
 
-	public void setCatagoryId(Integer catagoryId) {
-		this.catagoryId = catagoryId;
+	public void setCatagory(CatagoryEntity catagory) {
+		this.catagory = catagory;
 	}
 
 	public Integer getId() {
