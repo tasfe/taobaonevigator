@@ -3,13 +3,16 @@ package com.payment.taobaoNavigator.entity;
 import java.sql.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-import org.springframework.stereotype.Repository;
-
-@Repository
+@Entity
+@Table(name="product")
 public class ProductEntity extends BaseEntity {
 
 	@Id
@@ -17,8 +20,9 @@ public class ProductEntity extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@Column(name = "catagory_id")
-	private Integer catagory_id;
+	@OneToOne
+	@JoinColumn(name="catagory_id")
+	private CatagoryEntity catagory;
 
 	@Column(name = "name", nullable = false)
 	private String name;
@@ -38,12 +42,12 @@ public class ProductEntity extends BaseEntity {
 	@Column(name = "modified_date")
 	private Date modifiedDate;
 
-	public Integer getCatagory_id() {
-		return catagory_id;
+	public CatagoryEntity getCatagory() {
+		return catagory;
 	}
 
-	public void setCatagory_id(Integer catagory_id) {
-		this.catagory_id = catagory_id;
+	public void setCatagory(CatagoryEntity catagory) {
+		this.catagory = catagory;
 	}
 
 	public String getName() {

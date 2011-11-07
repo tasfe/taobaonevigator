@@ -1,5 +1,9 @@
 package com.payment.taobaoNavigator.dao;
 
-public abstract class AbstractBaseDao implements IBaseDao{
+import org.springframework.stereotype.Repository;
 
+@Repository
+public abstract class AbstractBaseDao implements IBaseDao{
+	
+	
 }
