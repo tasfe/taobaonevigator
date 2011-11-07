@@ -1,5 +1,8 @@
 package com.payment.taobaoNavigator.entity;
 
-public class BaseEntity {
+import org.springframework.stereotype.Repository;
 
+@Repository
+public class BaseEntity {
+	
 }
