@@ -1,4 +1,4 @@
-package com.payment.taobaoNevigator.entity;
+package com.payment.taobaoNavigator.entity;
 
 public class DemoEntity extends BaseEntity {
 

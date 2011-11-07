@@ -1,4 +1,4 @@
-package com.payment.taobaoNevigator.service;
+package com.payment.taobaoNavigator.service;
 
 import org.springframework.stereotype.Service;
 

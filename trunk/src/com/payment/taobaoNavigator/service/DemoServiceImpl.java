@@ -1,4 +1,4 @@
-package com.payment.taobaoNevigator.service;
+package com.payment.taobaoNavigator.service;
 
 import java.util.Date;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.payment.taobaoNevigator.dao.IDemoDao;
+import com.payment.taobaoNavigator.dao.IDemoDao;
 
 @Service
 public class DemoServiceImpl implements IDemoService {

@@ -1,4 +1,4 @@
-package com.payment.taobaoNevigator.form;
+package com.payment.taobaoNavigator.form;
 
 public class DemoForm {
 	private String demoField;
