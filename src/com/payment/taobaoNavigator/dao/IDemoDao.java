@@ -1,4 +1,4 @@
-package com.payment.taobaoNevigator.dao;
+package com.payment.taobaoNavigator.dao;
 
 import org.springframework.stereotype.Repository;
 

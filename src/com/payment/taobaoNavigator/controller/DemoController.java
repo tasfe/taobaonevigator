@@ -1,4 +1,4 @@
-package com.payment.taobaoNevigator.controller;
+package com.payment.taobaoNavigator.controller;
 
 import java.util.Date;
 
@@ -9,8 +9,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.payment.taobaoNevigator.form.DemoForm;
-import com.payment.taobaoNevigator.service.IDemoService;
+import com.payment.taobaoNavigator.form.DemoForm;
+import com.payment.taobaoNavigator.service.IDemoService;
 
 @Controller
 public class DemoController {
