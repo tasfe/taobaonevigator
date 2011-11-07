@@ -1,0 +1,39 @@
+CREATE TABLE `catagory` (
+  `id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `product` (
+  `id` int(11) NOT NULL,
+  `catagory_id` int(11) DEFAULT NULL,
+  `name` varchar(45) NOT NULL,
+  `description` varchar(120) DEFAULT NULL,
+  `price` double NOT NULL,
+  `picture` varchar(120) DEFAULT NULL,
+  `created_date` datetime NOT NULL,
+  `modified_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `promotion` (
+  `id` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `description` varchar(120) DEFAULT NULL,
+  `picture` varchar(120) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `catagory_id` int(11) DEFAULT NULL,
+  `enabled` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `click_count` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `product_id` int(11) NOT NULL,
+  `count` int(11) NOT NULL,
+  `first_click_date` date DEFAULT NULL,
+  `last_click_date` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+)
+
+
+
