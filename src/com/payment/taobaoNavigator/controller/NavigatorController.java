@@ -15,15 +15,11 @@ import com.payment.taobaoNavigator.util.NavigatorCache;
 
 @Controller
 public class NavigatorController {
-
-	@Autowired
-	@Qualifier("navigatorCache")
-	private NavigatorCache navigatorCache;
 	
 	@RequestMapping("index.do")
 	public ModelAndView index() {
 		
-	List list=navigatorCache.processAction("query",0);
+	List list=NavigatorCache.processAction("query",0);
 	System.out.println(list.size()+"!!!!!!");
 	DemoForm demoForm =new DemoForm();
 	
