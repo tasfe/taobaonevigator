@@ -31,17 +31,17 @@
 		<property name="maxIdle" value="${minIdle}" />
 		<property name="minIdle" value="${minIdle}" />
 	</bean>
-
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	 <property name="dataSource" ref="dataSource"></property>
+	 <property name="persistenceXmlLocation" value="classpath:/META-INF/persistence.xml"></property>
+	 <property name="persistenceUnitName" value="taobaonavigator"></property>
 	</bean>
+
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory">
-			<ref bean="entityManagerFactory" />
+		<property name="entityManagerFactory"><ref bean="entityManagerFactory" />
 		</property>
 	</bean>
 

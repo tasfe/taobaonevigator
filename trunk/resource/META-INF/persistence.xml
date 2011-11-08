@@ -5,6 +5,9 @@
 	version="1.0">
 	<persistence-unit name="taobaonavigator" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<mapping-file>/jpql/FindAllNamedQueries.xml</mapping-file>
+		<mapping-file>/jpql/FindByNamedQueries.xml</mapping-file>
+		
 		<class>com.payment.taobaoNavigator.entity.CatagoryEntity</class>
 		<class>com.payment.taobaoNavigator.entity.ProductEntity</class>
 		<class>com.payment.taobaoNavigator.entity.PromotionEntity</class>
