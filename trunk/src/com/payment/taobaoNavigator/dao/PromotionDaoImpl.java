@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.payment.taobaoNavigator.entity.PromotionEntity;
 
 @Repository
-public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
+public class PromotionDaoImpl extends BaseDaoImp implements PromotionDao {
 
 	@Override
 	public List<PromotionEntity> getPromotions() {
