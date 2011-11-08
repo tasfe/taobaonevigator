@@ -12,6 +12,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="catagory")
 public class CatagoryEntity extends BaseEntity {
+	private static final long serialVersionUID = 1L;
+	public static final String FETCH_ALL = "FETCH_ALL";
 	
 	@Id
 	@Column(name = "id")
