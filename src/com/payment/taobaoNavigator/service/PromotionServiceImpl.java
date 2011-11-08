@@ -13,7 +13,7 @@ import com.payment.taobaoNavigator.form.PromotionForm;
 public class PromotionServiceImpl implements PromotionService {
 	
 	@Autowired
-	@Qualifier("promotionImpl")
+	@Qualifier("promotionDaoImpl")
 	private PromotionDao promotionDao;
 
 	@Override
