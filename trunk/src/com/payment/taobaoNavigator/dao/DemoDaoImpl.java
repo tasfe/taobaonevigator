@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.payment.taobaoNavigator.entity.CatagoryEntity;
 
 @Repository
-public class DemoDaoImpl extends BaseDaoImp implements IDemoDao {
+public class DemoDaoImpl extends BaseDaoImpl implements IDemoDao {
 	
 	@javax.persistence.PersistenceContext
 	private EntityManager em;
