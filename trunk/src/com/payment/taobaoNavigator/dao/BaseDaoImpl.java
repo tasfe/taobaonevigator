@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.payment.taobaoNavigator.entity.BaseEntity;
 
 @Repository
-public abstract class BaseDaoImpl implements IBaseDao{
+public abstract class BaseDaoImpl implements BaseDao{
 	
 	@PersistenceContext(unitName = "taobaonavigator")
 	protected EntityManager em;

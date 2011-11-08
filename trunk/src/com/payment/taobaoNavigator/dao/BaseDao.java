@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.payment.taobaoNavigator.entity.BaseEntity;
 
-public interface IBaseDao {
+public interface BaseDao {
 	public <T extends BaseEntity> T create(T entity);
 	public <T extends BaseEntity> T update(T entity);
 	public <T extends BaseEntity> T delete(T entity);
