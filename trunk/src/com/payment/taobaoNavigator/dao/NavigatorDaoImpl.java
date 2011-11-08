@@ -10,7 +10,7 @@ import com.payment.taobaoNavigator.entity.BaseEntity;
 import com.payment.taobaoNavigator.entity.CatagoryEntity;
 
 @Repository
-public class NavigatorDaoImpl extends BaseDaoImp implements NavigatorDao {
+public class NavigatorDaoImpl extends BaseDaoImpl implements NavigatorDao {
 
 	@Override
 	public List<CatagoryEntity> findNavigatorByParentId(int pid) {
