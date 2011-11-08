@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.payment.taobaoNavigator.entity.BaseEntity;
 
 @Repository
-public class NavigatorDaoImpl extends BaseDaoImp implements NavigatorDao {
+public class NavigatorDaoImpl extends BaseDaoImpl implements NavigatorDao {
 
 	@Override
 	public List<BaseEntity> findNavigatorByParentId(int pid) {
