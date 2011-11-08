@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.payment.taobaoNavigator.entity.BaseEntity;
 
 @Repository
-public abstract class BaseDaoImpl implements BaseDao{
+public abstract class BaseDaoImp implements BaseDao{
 	
 	@PersistenceContext(unitName = "taobaonavigator")
 	protected EntityManager em;
@@ -63,7 +63,7 @@ public abstract class BaseDaoImpl implements BaseDao{
 	public <T extends BaseEntity> List<T> findByNamedQuery(
 			Class<T> entityClass, String namedQuery,
 			Map<String, Object> parameters) {
-		Query query=em.createNamedQuery(entityClass+"."+namedQuery);
+		Query query=em.createNamedQuery(entityClass.getSimpleName()+"."+namedQuery);
 		if (parameters != null) {
 			for (Entry<String, Object> param : parameters.entrySet()) {
 				query.setParameter(param.getKey(), param.getValue());
