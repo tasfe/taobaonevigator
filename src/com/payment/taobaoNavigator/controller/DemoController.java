@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.payment.taobaoNavigator.form.DemoForm;
-import com.payment.taobaoNavigator.service.IDemoService;
+import com.payment.taobaoNavigator.service.DemoService;
 
 @Controller
 public class DemoController {
 
 	@Autowired
 	@Qualifier("demoServiceImpl")
-	private IDemoService demoService;
+	private DemoService demoService;
 	
 	@RequestMapping("show.do")
 	public ModelAndView show(ModelMap model) {
