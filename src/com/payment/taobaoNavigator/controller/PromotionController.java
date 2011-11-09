@@ -12,5 +12,14 @@ public class PromotionController {
 	@Autowired
 	@Qualifier("promotionServiceImpl")
 	private PromotionService promotionService;
+	
+	public boolean clearPromotions() {
+		return promotionService.clearPromotions();
+	}
+	
+	//add for mockito test.
+	public void setPromotionService(PromotionService promotionService) {
+		this.promotionService = promotionService;
+	}
 		
 }
