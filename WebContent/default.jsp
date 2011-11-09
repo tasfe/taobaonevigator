@@ -1,3 +1,6 @@
+<%@page import="com.payment.taobaoNavigator.entity.CatagoryEntity"%>
+<%@page import="java.util.List"%>
+<%@page import="com.payment.taobaoNavigator.util.NavigatorCache"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -113,6 +116,26 @@ function addBottom(){
 				</li>
 				<li><a href="#">分类列表</a>
 					<div class="list">
+						<%
+							List<CatagoryEntity> catagoryEntitys = NavigatorCache.getByParentId(0);
+							for(CatagoryEntity entity : catagoryEntitys){
+								%>
+						<div class="list_content">
+							<span id="list_title">『<%=entity.getName() %>』</span>
+							<%
+								List<CatagoryEntity> children = NavigatorCache.getByParentId(entity.getId());
+								for(int i = 0 ; i < children.size() ; i++){
+									%>
+							<span id="list_detail">
+								<%=children.get(i).getName() %>
+							</span>
+									<%
+								}
+							%>
+						</div>
+								<%
+							}
+						%>
 						<div class="list_content">
 							<span id="list_title">『少儿读物』</span>
 							<span id="list_detail">
@@ -196,7 +219,44 @@ function addBottom(){
 				</span>
 				<div class="detail">这里是详细信息</div>
 			</div>
+			<!-- 这里开始是展示侧栏的导航 -->
+			<%
+				for(CatagoryEntity entity : catagoryEntitys){
+					%>
+			<div class="catalog">
+				<span class="catalog_title"><a href="#"><%=entity.getName() %><a></span><br>
+				<span>
+					<%
+						List<CatagoryEntity> children = NavigatorCache.getByParentId(entity.getId());
+						for(int i = 0 ; i < 2 ; i++){
+							%>
+							<a href="#"><%=children.get(i).getName() %></a> 
+							<%
+						}
+					%>
+				</span>
+				<div class="detail">
+					<div>
+					<%
+					for(int i = 2 ; i < children.size() ; i++){
+						%>
+						<a href="#"><%=children.get(i).getName() %></a> 						
+						<%
+						if((i+4)%5==0){
+							out.print("<br><br>");
+						}
+					}
+					%>
+					</div>
+				</div>
+			</div>
+					<%
+				}
+			%>
+			
 		</div>
+		
+		
 		<div id="pov">
 			
 			
