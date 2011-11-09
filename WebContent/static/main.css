@@ -111,6 +111,9 @@ a:hover{
 	font-weight: normal;
 	cursor:pointer;
 }
+#list_detail:hover{
+	text-decoration: underline;
+}
 #navigator ul li:hover div{
 	position:relative;
 	display:block;
