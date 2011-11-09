@@ -21,13 +21,13 @@ public interface PromotionDao {
 	
 	public PromotionEntity updatePromotion(PromotionEntity promotion);
 	
-	public boolean deletePromotionById(Integer id);
+	public void deletePromotionById(Integer id);
 	
-	public boolean deletePromotionByIds(List<Integer> ids);
+	public void deletePromotionByIds(List<Integer> ids);
 	
-	public boolean deletePromotionByName(String name);
+	public void deletePromotionByName(String name);
 	
-	public boolean deletePromotionByNames(List<String> names);
+	public void deletePromotionByNames(List<String> names);
 	
-	public boolean clearPromotions();
+	public void clearPromotions();
 }
