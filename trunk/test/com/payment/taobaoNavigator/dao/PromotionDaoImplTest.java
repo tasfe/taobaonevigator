@@ -68,7 +68,7 @@ public class PromotionDaoImplTest {
 		promotionEntity.setProduct(productEntity);
 		promotionDaoImpl.createPromotion(promotionEntity);
 	}
-
+/*
 	// @Test
 	public void testUpdatePromotion() {
 		PromotionEntity promotionEntity = new PromotionEntity();
@@ -104,5 +104,5 @@ public class PromotionDaoImplTest {
 	public void testClearPromotions() {
 		assertEquals(true, promotionDaoImpl.clearPromotions());
 	}
-
+*/
 }
