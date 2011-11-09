@@ -4,22 +4,22 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.payment.taobaoNavigator.form.PromotionForm;
+import com.payment.taobaoNavigator.entity.PromotionEntity;
 
 @Service
 public interface PromotionService {
 	
-public List<PromotionForm> getPromotions();
+public List<PromotionEntity> getPromotions();
 	
-	public List<PromotionForm> getEnabledPromotions();
+	public List<PromotionEntity> getEnabledPromotions();
 	
-	public PromotionForm getPromotionById(Integer id);
+	public PromotionEntity getPromotionById(Integer id);
 	
-	public PromotionForm getPromotionByName(String name);
+	public PromotionEntity getPromotionByName(String name);
 	
-	public PromotionForm createPromotion(PromotionForm promotion);
+	public PromotionEntity createPromotion(PromotionEntity promotion);
 	
-	public PromotionForm updatePromotion(PromotionForm promotion);
+	public PromotionEntity updatePromotion(PromotionEntity promotion);
 	
 	public boolean deletePromotionById(Integer id);
 	

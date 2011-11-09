@@ -1,5 +1,6 @@
 package com.payment.taobaoNavigator.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.payment.taobaoNavigator.dao.PromotionDao;
-import com.payment.taobaoNavigator.form.PromotionForm;
+import com.payment.taobaoNavigator.entity.PromotionEntity;
 
 @Service
 public class PromotionServiceImpl implements PromotionService {
@@ -17,37 +18,41 @@ public class PromotionServiceImpl implements PromotionService {
 	private PromotionDao promotionDao;
 
 	@Override
-	public List<PromotionForm> getPromotions() {
+	public List<PromotionEntity> getPromotions() {
+		List<PromotionEntity> promotionEntities = promotionDao.getPromotions();
+		if (promotionEntities == null || promotionEntities.isEmpty()) {
+			return new ArrayList<PromotionEntity>();
+		}
+
+		return promotionEntities;
+	}
+	
+	@Override
+	public List<PromotionEntity> getEnabledPromotions() {
 
 		return null;
 	}
 
 	@Override
-	public List<PromotionForm> getEnabledPromotions() {
+	public PromotionEntity getPromotionById(Integer id) {
 
 		return null;
 	}
 
 	@Override
-	public PromotionForm getPromotionById(Integer id) {
+	public PromotionEntity getPromotionByName(String name) {
 
 		return null;
 	}
 
 	@Override
-	public PromotionForm getPromotionByName(String name) {
+	public PromotionEntity createPromotion(PromotionEntity promotion) {
 
 		return null;
 	}
 
 	@Override
-	public PromotionForm createPromotion(PromotionForm promotion) {
-
-		return null;
-	}
-
-	@Override
-	public PromotionForm updatePromotion(PromotionForm promotion) {
+	public PromotionEntity updatePromotion(PromotionEntity promotion) {
 
 		return null;
 	}
@@ -80,6 +85,11 @@ public class PromotionServiceImpl implements PromotionService {
 	public boolean clearPromotions() {
 
 		return false;
+	}
+	
+	//add for mockito test
+	public void setPromotionDao(PromotionDao promotionDao) {
+		this.promotionDao = promotionDao;
 	}
 
 }
