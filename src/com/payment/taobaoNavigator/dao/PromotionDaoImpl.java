@@ -2,7 +2,10 @@ package com.payment.taobaoNavigator.dao;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.payment.taobaoNavigator.entity.PromotionEntity;
 
@@ -11,8 +14,10 @@ public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
 
 	@Override
 	public List<PromotionEntity> getPromotions() {
-
-		return null;
+		String hql = "select p from PromotionEntity p";
+		Query query = em.createQuery(hql);
+		List<PromotionEntity> promotions = query.getResultList();
+		return promotions;
 	}
 
 	@Override
@@ -50,7 +55,7 @@ public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
 
 		return false;
 	}
-	
+
 	@Override
 	public boolean deletePromotionByIds(List<Integer> ids) {
 
@@ -68,7 +73,7 @@ public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
 
 		return false;
 	}
-	
+
 	@Override
 	public boolean clearPromotions() {
 
