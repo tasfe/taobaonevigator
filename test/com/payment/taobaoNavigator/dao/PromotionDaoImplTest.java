@@ -2,78 +2,98 @@ package com.payment.taobaoNavigator.dao;
 
 import static org.junit.Assert.*;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.payment.taobaoNavigator.entity.CatagoryEntity;
+import com.payment.taobaoNavigator.entity.ProductEntity;
+import com.payment.taobaoNavigator.entity.PromotionEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
 public class PromotionDaoImplTest {
+	@Autowired
+	private PromotionDao promotionDaoImpl;
 
-	@Before
+	// @Before
 	public void setUp() throws Exception {
 	}
 
-	@After
+	// @After
 	public void tearDown() throws Exception {
 	}
 
-	@Test
+	// @Test
 	public void testGetPromotions() {
-		fail("Not yet implemented");
+		assertNotNull(promotionDaoImpl.getPromotions());
+
 	}
 
-	@Test
+	// @Test
 	public void testGetEnabledPromotions() {
-		fail("Not yet implemented");
+		promotionDaoImpl.getEnabledPromotions();
 	}
 
-	@Test
+	// @Test
 	public void testGetPromotionById() {
-		fail("Not yet implemented");
+		promotionDaoImpl.getPromotionById(1);
 	}
 
-	@Test
+	// @Test
 	public void testGetPromotionByName() {
-		fail("Not yet implemented");
+		promotionDaoImpl.getPromotionByName("1");
 	}
 
 	@Test
 	public void testCreatePromotion() {
-		fail("Not yet implemented");
+		
 	}
 
-	@Test
+	// @Test
 	public void testUpdatePromotion() {
-		fail("Not yet implemented");
+		PromotionEntity promotionEntity = new PromotionEntity();
+
 	}
 
-	@Test
+	// @Test
 	public void testDeletePromotionById() {
-		fail("Not yet implemented");
+		promotionDaoImpl.deletePromotionById(new Integer(2));
 	}
 
-	@Test
+	// @Test
 	public void testDeletePromotionByIds() {
-		fail("Not yet implemented");
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(2);
+		list.add(3);
+		promotionDaoImpl.deletePromotionByIds(list);
 	}
 
-	@Test
+	// @Test
 	public void testDeletePromotionByName() {
-		fail("Not yet implemented");
+		promotionDaoImpl.deletePromotionByName("2");
 	}
 
-	@Test
+	// @Test
 	public void testDeletePromotionByNames() {
-		fail("Not yet implemented");
+		List<String> list = new ArrayList<String>();
+		list.add("2");
+		list.add("3");
+		promotionDaoImpl.deletePromotionByNames(list);
 	}
 
-	@Test
+	// @Test
 	public void testClearPromotions() {
-		fail("Not yet implemented");
+		promotionDaoImpl.clearPromotions();
 	}
 
 }
