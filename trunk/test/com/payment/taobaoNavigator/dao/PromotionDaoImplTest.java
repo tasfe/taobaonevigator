@@ -41,33 +41,40 @@ public class PromotionDaoImplTest {
 
 	// @Test
 	public void testGetEnabledPromotions() {
-		promotionDaoImpl.getEnabledPromotions();
+		assertNotNull(promotionDaoImpl.getEnabledPromotions());
 	}
 
 	// @Test
 	public void testGetPromotionById() {
-		promotionDaoImpl.getPromotionById(1);
+		assertNotNull(promotionDaoImpl.getPromotionById(1));
 	}
 
 	// @Test
 	public void testGetPromotionByName() {
-		promotionDaoImpl.getPromotionByName("1");
+		assertNotNull(promotionDaoImpl.getPromotionByName("1"));
 	}
 
 	@Test
 	public void testCreatePromotion() {
-		
+		PromotionEntity promotionEntity = new PromotionEntity();
+		CatagoryEntity catagoryEntity = new CatagoryEntity();
+		catagoryEntity.setName("chair");
+		// catagoryEntity.setParentCatagory(4);
+		catagoryEntity.setRemark("11");
+		ProductEntity productEntity = new ProductEntity();
+		productEntity.setCatagory(catagoryEntity);
+
+		promotionDaoImpl.createPromotion(promotionEntity);
 	}
 
 	// @Test
 	public void testUpdatePromotion() {
 		PromotionEntity promotionEntity = new PromotionEntity();
-
 	}
 
 	// @Test
 	public void testDeletePromotionById() {
-		promotionDaoImpl.deletePromotionById(new Integer(2));
+		assertEquals(true, promotionDaoImpl.deletePromotionById(new Integer(2)));
 	}
 
 	// @Test
@@ -80,7 +87,7 @@ public class PromotionDaoImplTest {
 
 	// @Test
 	public void testDeletePromotionByName() {
-		promotionDaoImpl.deletePromotionByName("2");
+		assertEquals(true, promotionDaoImpl.deletePromotionByName("2"));
 	}
 
 	// @Test
@@ -88,12 +95,12 @@ public class PromotionDaoImplTest {
 		List<String> list = new ArrayList<String>();
 		list.add("2");
 		list.add("3");
-		promotionDaoImpl.deletePromotionByNames(list);
+		assertEquals(true, promotionDaoImpl.deletePromotionByNames(list));
 	}
 
 	// @Test
 	public void testClearPromotions() {
-		promotionDaoImpl.clearPromotions();
+		assertEquals(true, promotionDaoImpl.clearPromotions());
 	}
 
 }
