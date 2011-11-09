@@ -1,17 +1,27 @@
 package com.payment.taobaoNavigator.controller;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.payment.taobaoNavigator.constant.PromotionConstants;
+import com.payment.taobaoNavigator.entity.PromotionEntity;
 import com.payment.taobaoNavigator.service.PromotionService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,11 +45,20 @@ public class PromotionControllerTest {
 	}
 
 	@Test
-	public void test() {
-		System.out.println(promotionController.toString());
-		Mockito.when(promotionService.clearPromotions()).thenReturn(true);
-		boolean result = promotionController.clearPromotions();
-		Assert.assertEquals(true, result);
+	public void testGetPromotions() {
+		List<PromotionEntity> promotions = new ArrayList<PromotionEntity>();
+		PromotionEntity promotion = new PromotionEntity();
+		promotion.setName("name");
+		promotion.setPicture("picture");
+		promotions.add(promotion);
+		when(promotionService.getPromotions()).thenReturn(promotions);
+		
+		ModelAndView result = promotionController.getPromotions();
+		
+		verify(promotionService, times(1)).getPromotions();
+		verifyNoMoreInteractions(promotionService);
+		Assert.assertEquals("index", result.getViewName());
+		Assert.assertNotNull(result.getModelMap().get(PromotionConstants.KEY_PROMOTIONS));
 	}
 
 }
