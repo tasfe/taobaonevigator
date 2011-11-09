@@ -10,12 +10,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="catagory")
+@Table(name = "catagory")
 public class CatagoryEntity extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	public static final String FETCH_ALL = "FETCH_ALL";
-	public static final String BYPARENTID="ByParentId";
-	
+	public static final String BYPARENTID = "ByParentId";
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,14 +23,18 @@ public class CatagoryEntity extends BaseEntity {
 
 	@Column(name = "name")
 	private String name;
-	
+
 	@OneToOne
 	@JoinColumn(name = "parent_catagory")
 	private CatagoryEntity parentCatagory;
-	
+
 	@Column(name = "remark")
 	private String remark;
-	
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -57,5 +61,10 @@ public class CatagoryEntity extends BaseEntity {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	@Override
+	public String toString() {
+		return "id : " + this.getId() + ", name:" + this.getName() + "\n";
 	}
 }
