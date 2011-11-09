@@ -2,9 +2,9 @@ package com.payment.taobaoNavigator.dao;
 
 import static org.junit.Assert.*;
 
+import java.sql.Date;
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -59,11 +59,13 @@ public class PromotionDaoImplTest {
 		PromotionEntity promotionEntity = new PromotionEntity();
 		CatagoryEntity catagoryEntity = new CatagoryEntity();
 		catagoryEntity.setName("chair");
-		// catagoryEntity.setParentCatagory(4);
-		catagoryEntity.setRemark("11");
+		catagoryEntity.setParentCatagory(catagoryEntity);
+		//catagoryEntity.setRemark("11");
 		ProductEntity productEntity = new ProductEntity();
-		productEntity.setCatagory(catagoryEntity);
-
+		productEntity.setName("wood");
+		productEntity.setPrice(12.0);
+		promotionEntity.setCatagory(catagoryEntity);
+		promotionEntity.setProduct(productEntity);
 		promotionDaoImpl.createPromotion(promotionEntity);
 	}
 
