@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.payment.taobaoNavigator.entity.PromotionEntity;
 
 @Repository
+@Transactional
 public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
 
 	@Override
@@ -33,7 +34,8 @@ public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
 		String hql = "select p from PromotionEntity p where p.id = :id";
 		Query query = em.createQuery(hql);
 		query.setParameter("id", id);
-		PromotionEntity promotionEntity = (PromotionEntity)query.getSingleResult();
+		PromotionEntity promotionEntity = (PromotionEntity) query
+				.getSingleResult();
 		return promotionEntity;
 	}
 
@@ -42,12 +44,12 @@ public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
 		String hql = "select p from PromotionEntity p where p.name = :name";
 		Query query = em.createQuery(hql);
 		query.setParameter("name", name);
-		PromotionEntity promotionEntity = (PromotionEntity)query.getSingleResult();
+		PromotionEntity promotionEntity = (PromotionEntity) query
+				.getSingleResult();
 		return promotionEntity;
 	}
 
 	@Override
-	@Transactional
 	public PromotionEntity createPromotion(PromotionEntity promotion) {
 		PromotionEntity createdPromotion = this.create(promotion);
 		return createdPromotion;
@@ -60,30 +62,27 @@ public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
 	}
 
 	@Override
-	@Transactional
 	public void deletePromotionById(Integer id) {
 		PromotionEntity promotionEntity = this.find(PromotionEntity.class, id);
 		this.delete(promotionEntity);
 	}
 
 	@Override
-	@Transactional
 	public void deletePromotionByIds(List<Integer> ids) {
 		for (Integer id : ids) {
-			PromotionEntity promotionEntity = this.find(PromotionEntity.class, id);
+			PromotionEntity promotionEntity = this.find(PromotionEntity.class,
+					id);
 			this.delete(promotionEntity);
 		}
 	}
 
 	@Override
-	@Transactional
 	public void deletePromotionByName(String name) {
 		PromotionEntity promotionEntity = this.getPromotionByName(name);
 		this.delete(promotionEntity);
 	}
 
 	@Override
-	@Transactional
 	public void deletePromotionByNames(List<String> names) {
 		for (String name : names) {
 			this.deletePromotionByName(name);
@@ -91,7 +90,6 @@ public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
 	}
 
 	@Override
-	@Transactional
 	public void clearPromotions() {
 		String hql = "delete from PromotionEntity p";
 		Query query = em.createQuery(hql);
