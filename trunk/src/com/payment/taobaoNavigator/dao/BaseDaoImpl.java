@@ -77,4 +77,12 @@ public abstract class BaseDaoImpl implements BaseDao{
 
 		return resultList;
 	}
+
+	@Override
+	public Query createCachedQuery(String queryCommand) {
+		Query query = em.createQuery(queryCommand);
+		query.setHint("org.hibernate.cacheable", true);
+		return query;
+	}
+	
 }

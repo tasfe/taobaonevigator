@@ -16,7 +16,7 @@ public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
 	@Override
 	public List<PromotionEntity> getPromotions() {
 		String hql = "select p from PromotionEntity p";
-		Query query = em.createQuery(hql);
+		Query query = this.createCachedQuery(hql);
 		List<PromotionEntity> promotions = query.getResultList();
 		return promotions;
 	}
@@ -24,7 +24,7 @@ public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
 	@Override
 	public List<PromotionEntity> getEnabledPromotions() {
 		String hql = "select p from PromotionEntity p where p.enabled = 1";
-		Query query = em.createQuery(hql);
+		Query query = this.createCachedQuery(hql);
 		List<PromotionEntity> promotions = query.getResultList();
 		return promotions;
 	}
@@ -32,7 +32,7 @@ public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
 	@Override
 	public PromotionEntity getPromotionById(Integer id) {
 		String hql = "select p from PromotionEntity p where p.id = :id";
-		Query query = em.createQuery(hql);
+		Query query = this.createCachedQuery(hql);
 		query.setParameter("id", id);
 		PromotionEntity promotionEntity = (PromotionEntity) query
 				.getSingleResult();
@@ -42,7 +42,7 @@ public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
 	@Override
 	public PromotionEntity getPromotionByName(String name) {
 		String hql = "select p from PromotionEntity p where p.name = :name";
-		Query query = em.createQuery(hql);
+		Query query = this.createCachedQuery(hql);
 		query.setParameter("name", name);
 		PromotionEntity promotionEntity = (PromotionEntity) query
 				.getSingleResult();
@@ -70,8 +70,7 @@ public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
 	@Override
 	public void deletePromotionByIds(List<Integer> ids) {
 		for (Integer id : ids) {
-			PromotionEntity promotionEntity = this.find(PromotionEntity.class,
-					id);
+			PromotionEntity promotionEntity = this.find(PromotionEntity.class, id);
 			this.delete(promotionEntity);
 		}
 	}
