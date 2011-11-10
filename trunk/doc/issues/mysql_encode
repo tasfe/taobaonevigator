@@ -6,12 +6,6 @@ MySQL中关于连接环境的字符集设置有  Client端，connection, results
 字符集，结果集应该是什么字符集。这样MySQL就会做必要的翻译，一旦这些参数有误，自然会导致字符串在转输过程中的转换错误。
 基本上99%的乱码由些造成。
 
-
-	
-
-
-
-
 1. 数据库表中字段的字符集设置 。show create table TableName 或 show full columns from tableName 
 解决方案：删掉数据库重新建立并且制定编码格式 以及重新新建库表并指定编码格式
 如：
@@ -22,10 +16,6 @@ cid unsigned int not null auto_increment,
 name varchar(20) not null,
 primary key(cid)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-
-
-
-
 
 2..当前联接系统参数  show variables like 'char%' 
 (确保，联接参数与这个字段字符集一致,你可以用 set name 'charsetname'; )
@@ -44,8 +34,7 @@ primary key(cid)
 	SET collation_server = utf8_bin; 
 
 
-3.
-连接数据库设置编码 
+3.连接数据库设置编码 
 jdbc:mysql://192.168.0.5:3306/test?characterEncoding=utf8 
 
 4.view page 与jsp的过滤器设置（你懂的）
