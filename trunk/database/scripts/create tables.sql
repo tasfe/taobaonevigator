@@ -1,7 +1,7 @@
 CREATE TABLE `catagory` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `parent_catagory` int(11) NOT NULL,
+  `parent_catagory` int(11),
   `remark` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`)
 )
