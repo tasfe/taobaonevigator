@@ -1,0 +1,56 @@
+MySQL中默认字符集的设置有四级:服务器级，数据库级，表级 。最终是字段级 的字符集设置。注意前三种均为默认设置，并不代表你
+的字段最终会使用这个字符集设置。
+所以我们建议要用show create table table ; 或show full fields from tableName; 来检查当前表中字段的字符集设置。
+
+MySQL中关于连接环境的字符集设置有  Client端，connection, results 通过这些参数，MySQL就知道你的客户端工具用的是什么
+字符集，结果集应该是什么字符集。这样MySQL就会做必要的翻译，一旦这些参数有误，自然会导致字符串在转输过程中的转换错误。
+基本上99%的乱码由些造成。
+
+
+	
+
+
+
+
+1. 数据库表中字段的字符集设置 。show create table TableName 或 show full columns from tableName 
+解决方案：删掉数据库重新建立并且制定编码格式 以及重新新建库表并指定编码格式
+如：
+CREATE DATABASE XXXX  DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci
+create table xxxx
+(
+cid unsigned int not null auto_increment,
+name varchar(20) not null,
+primary key(cid)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+
+
+
+2..当前联接系统参数  show variables like 'char%' 
+(确保，联接参数与这个字段字符集一致,你可以用 set name 'charsetname'; )
+2.1只有当修改my.ini中设置UTF8，才会全部修改成UTF8
+	my.ini中配置默认编码 
+	default-character-set=utf8 
+	注意设置数据设置向导里面的编码格式是UTF-8
+2.2 mysql设置编码命令 
+	SET character_set_client = utf8; 
+	SET character_set_connection = utf8; 
+	SET character_set_database = utf8; 
+	SET character_set_results = utf8;/*这里要注意很有用*/ 
+	SET character_set_server = utf8; 
+	SET collation_connection = utf8_bin; 
+	SET collation_database = utf8_bin; 
+	SET collation_server = utf8_bin; 
+
+
+3.
+连接数据库设置编码 
+jdbc:mysql://192.168.0.5:3306/test?characterEncoding=utf8 
+
+4.view page 与jsp的过滤器设置（你懂的）
+
+
+
+
+
