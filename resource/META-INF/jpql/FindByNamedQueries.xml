@@ -5,7 +5,7 @@
 	
 	<named-query name="CatagoryEntity.ByParentId">
 	   <query>
-	     from CatagoryEntity ce where ce.parentCatagory.id=:pid
+	     from CatagoryEntity ce where ce.parentCatagory.id=:pid 
 	   </query>
 	</named-query>
 </entity-mappings>
