@@ -9,11 +9,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Entity
 @Table(name = "catagory")
 public class CatagoryEntity extends BaseEntity {
+	
 	private static final long serialVersionUID = 1L;
+	
 	public static final String FETCH_ALL = "FETCH_ALL";
+	
 	public static final String BYPARENTID = "ByParentId";
 
 	@Id
