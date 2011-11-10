@@ -5,7 +5,6 @@
 	version="1.0">
 	<persistence-unit name="taobaonavigator" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		
 		<mapping-file>META-INF/jpql/FindAllNamedQueries.xml</mapping-file>
 		<mapping-file>META-INF/jpql/FindByNamedQueries.xml</mapping-file>
 		<class>com.payment.taobaoNavigator.entity.CatagoryEntity</class>
@@ -15,11 +14,19 @@
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="hibernate.current_session_context_class" value="thread"/>
 			<property name="hibernate.max_fetch_depth" value="3"/>
 			<property name="hibernate.jdbc.fetch_size" value="18"/>
 			<property name="hibernate.jdbc.batch_size" value="10"/>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
+			<!-- L2 cache start-->
+			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.SingletonEhCacheProvider" />
+  			<property name="hibernate.cache.provider_configuration" value="/ehcache.xml" />
+  			<property name="hibernate.cache.use_second_level_cache" value="true" />
+  			<property name="hibernate.cache.use_query_cache" value="true" />
+  			<!-- L2 cache end-->
+  			<property name="hibernate.generate_statistics" value="true"/>
 		</properties>
 	</persistence-unit>
 </persistence>
