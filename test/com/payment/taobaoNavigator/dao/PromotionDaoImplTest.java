@@ -33,7 +33,7 @@ public class PromotionDaoImplTest {
 	public void tearDown() throws Exception {
 	}
 
-	// @Test
+	@Test
 	public void testGetPromotions() {
 		assertNotNull(promotionDaoImpl.getPromotions());
 
@@ -54,13 +54,13 @@ public class PromotionDaoImplTest {
 		assertNotNull(promotionDaoImpl.getPromotionByName("1"));
 	}
 
-	@Test
+	// @Test
 	public void testCreatePromotion() {
 		PromotionEntity promotionEntity = new PromotionEntity();
 		CatagoryEntity catagoryEntity = new CatagoryEntity();
 		catagoryEntity.setName("chair");
 		catagoryEntity.setParentCatagory(catagoryEntity);
-		//catagoryEntity.setRemark("11");
+		// catagoryEntity.setRemark("11");
 		ProductEntity productEntity = new ProductEntity();
 		productEntity.setName("wood");
 		productEntity.setPrice(12.0);
@@ -68,41 +68,25 @@ public class PromotionDaoImplTest {
 		promotionEntity.setProduct(productEntity);
 		promotionDaoImpl.createPromotion(promotionEntity);
 	}
-/*
-	// @Test
-	public void testUpdatePromotion() {
-		PromotionEntity promotionEntity = new PromotionEntity();
-	}
-
-	// @Test
-	public void testDeletePromotionById() {
-		assertEquals(true, promotionDaoImpl.deletePromotionById(new Integer(2)));
-	}
-
-	// @Test
-	public void testDeletePromotionByIds() {
-		List<Integer> list = new ArrayList<Integer>();
-		list.add(2);
-		list.add(3);
-		promotionDaoImpl.deletePromotionByIds(list);
-	}
-
-	// @Test
-	public void testDeletePromotionByName() {
-		assertEquals(true, promotionDaoImpl.deletePromotionByName("2"));
-	}
-
-	// @Test
-	public void testDeletePromotionByNames() {
-		List<String> list = new ArrayList<String>();
-		list.add("2");
-		list.add("3");
-		assertEquals(true, promotionDaoImpl.deletePromotionByNames(list));
-	}
-
-	// @Test
-	public void testClearPromotions() {
-		assertEquals(true, promotionDaoImpl.clearPromotions());
-	}
-*/
+	/*
+	 * // @Test public void testUpdatePromotion() { PromotionEntity
+	 * promotionEntity = new PromotionEntity(); }
+	 * 
+	 * // @Test public void testDeletePromotionById() { assertEquals(true,
+	 * promotionDaoImpl.deletePromotionById(new Integer(2))); }
+	 * 
+	 * // @Test public void testDeletePromotionByIds() { List<Integer> list =
+	 * new ArrayList<Integer>(); list.add(2); list.add(3);
+	 * promotionDaoImpl.deletePromotionByIds(list); }
+	 * 
+	 * // @Test public void testDeletePromotionByName() { assertEquals(true,
+	 * promotionDaoImpl.deletePromotionByName("2")); }
+	 * 
+	 * // @Test public void testDeletePromotionByNames() { List<String> list =
+	 * new ArrayList<String>(); list.add("2"); list.add("3"); assertEquals(true,
+	 * promotionDaoImpl.deletePromotionByNames(list)); }
+	 * 
+	 * // @Test public void testClearPromotions() { assertEquals(true,
+	 * promotionDaoImpl.clearPromotions()); }
+	 */
 }
