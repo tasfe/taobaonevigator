@@ -2,6 +2,7 @@ package com.payment.taobaoNavigator.support;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -25,14 +26,20 @@ public final class CommandReader {
 	 */
 	public static List<String> read(String className, String methodName) {
 		
+		List<String> lines = new ArrayList<String>();
+		
 		StringBuffer dataFilePath = new StringBuffer();
 		dataFilePath.append(DATA_FILE_DIR).append(className)
 					.append(DIR_SEPERATOR).append(methodName).append(DATA_FILE_SUFFIX);
 		String path = dataFilePath.toString();
-		
-		List<String> lines = null;
+		File file = new File(path);
+		if (!file.exists()){
+			System.err.println("Warn: " + path + " does not exist. ignore the initialization process.");
+			return lines;
+		}
+	
 		try {
-			FileInputStream fstream = new FileInputStream(path);
+			FileInputStream fstream = new FileInputStream(file);
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			String strLine;
