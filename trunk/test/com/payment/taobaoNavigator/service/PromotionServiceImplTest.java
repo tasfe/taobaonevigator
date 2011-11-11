@@ -30,10 +30,10 @@ public class PromotionServiceImplTest {
 
 	@Autowired
 	private PromotionServiceImpl promotionServiceImpl;
-	
+
 	@Mock
 	private PromotionDao promotionDao;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
@@ -46,13 +46,13 @@ public class PromotionServiceImplTest {
 
 	@Test
 	public void testGetPromotionsReturnNull() {
-		when(promotionDao.getPromotions()).thenReturn(null);	
+		when(promotionDao.getPromotions()).thenReturn(null);
 		List<PromotionEntity> result = promotionServiceImpl.getPromotions();
 		verify(promotionDao, times(1)).getPromotions();
 		verifyNoMoreInteractions(promotionDao);
 		Assert.assertEquals(0, result.size());
 	}
-	
+
 	@Test
 	public void testGetPromotionsReturnEmpty() {
 		List<PromotionEntity> promotions = new ArrayList<PromotionEntity>();
@@ -62,7 +62,7 @@ public class PromotionServiceImplTest {
 		verifyNoMoreInteractions(promotionDao);
 		Assert.assertEquals(0, result1.size());
 	}
-	
+
 	@Test
 	public void testGetPromotionsReturnNotNullNotEmpty() {
 		List<PromotionEntity> promotions = new ArrayList<PromotionEntity>();
@@ -71,9 +71,9 @@ public class PromotionServiceImplTest {
 		promotion.setPicture("picture");
 		promotions.add(promotion);
 		when(promotionDao.getPromotions()).thenReturn(promotions);
-		
+
 		List<PromotionEntity> result = promotionServiceImpl.getPromotions();
-		
+
 		verify(promotionDao, times(1)).getPromotions();
 		verifyNoMoreInteractions(promotionDao);
 		Assert.assertEquals(1, result.size());
@@ -82,54 +82,30 @@ public class PromotionServiceImplTest {
 	}
 
 	/*
-	@Test
-	public void testGetEnabledPromotions() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPromotionById() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPromotionByName() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCreatePromotion() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdatePromotion() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeletePromotionById() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeletePromotionByIds() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeletePromotionByName() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeletePromotionByNames() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testClearPromotions() {
-		fail("Not yet implemented");
-	}
-	*/
+	 * @Test public void testGetEnabledPromotions() {
+	 * fail("Not yet implemented"); }
+	 * 
+	 * @Test public void testGetPromotionById() { fail("Not yet implemented"); }
+	 * 
+	 * @Test public void testGetPromotionByName() { fail("Not yet implemented");
+	 * }
+	 * 
+	 * @Test public void testCreatePromotion() { fail("Not yet implemented"); }
+	 * 
+	 * @Test public void testUpdatePromotion() { fail("Not yet implemented"); }
+	 * 
+	 * @Test public void testDeletePromotionById() {
+	 * fail("Not yet implemented"); }
+	 * 
+	 * @Test public void testDeletePromotionByIds() {
+	 * fail("Not yet implemented"); }
+	 * 
+	 * @Test public void testDeletePromotionByName() {
+	 * fail("Not yet implemented"); }
+	 * 
+	 * @Test public void testDeletePromotionByNames() {
+	 * fail("Not yet implemented"); }
+	 * 
+	 * @Test public void testClearPromotions() { fail("Not yet implemented"); }
+	 */
 }
