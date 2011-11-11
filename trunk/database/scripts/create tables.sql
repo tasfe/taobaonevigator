@@ -1,10 +1,15 @@
-CREATE TABLE `catagory` (
-  `id` int(11) NOT NULL,
+
+use askleave;
+CREATE TABLE `catagory`  
+(
+  `id` int(11) auto_increment NOT NULL,
   `name` varchar(45) NOT NULL,
   `parent_catagory` int(11),
   `remark` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`)
-)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+drop   table catagory
 
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
