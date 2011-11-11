@@ -8,13 +8,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ehcache.transaction.xa.commands.Command;
-
 import org.apache.log4j.Logger;
 
 public final class CommandReader {
 
-	public static final Logger logger = Logger.getLogger(Command.class);
+	public static final Logger logger = Logger.getLogger(CommandReader.class);
 	
 	//TODO put in properties
 	public static final String DATA_FILE_DIR = "D:\\TaobaoNevigator\\workspace" +

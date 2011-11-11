@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import net.sf.ehcache.transaction.xa.commands.Command;
-
 import org.apache.log4j.Logger;
 
 public final class ConnectionFactory {
