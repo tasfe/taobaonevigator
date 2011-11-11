@@ -45,6 +45,14 @@ public final class DBInitializer {
 			//execute
 			int[] counts = stmt.executeBatch();
 			
+			//clear resource
+			if (stmt != null) {
+				stmt.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+
 			logger.debug("database initialization done successfully.");
 			
 			//...
