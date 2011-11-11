@@ -6,8 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import net.sf.ehcache.transaction.xa.commands.Command;
+
+import org.apache.log4j.Logger;
+
 public final class ConnectionFactory {
 
+	public static final Logger logger = Logger.getLogger(ConnectionFactory.class);
+	
 	//TODO put these information into properties
 	private static final String DATABASE_URL = "jdbc:mysql://192.168.71.187:3306/taobaonavigator_test?useUnicode=true&characterEncoding=UTF-8";
 	private static final String DATABASE_USER = "test";
@@ -18,7 +24,7 @@ public final class ConnectionFactory {
 		try {
 			Class.forName(DATABASE_DRIVER);
 		} catch (ClassNotFoundException e) {
-			System.out.println("ERROR:exception loading driver class");
+			logger.error("ERROR:exception loading driver class");
 		}
 	}
 

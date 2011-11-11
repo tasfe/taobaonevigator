@@ -20,18 +20,14 @@ public class PromotionDaoImplTest extends DaoTestBase{
 
 	@Before
 	public void setUp() throws Exception {
-		System.out.println("setUp");
 	}
 	
 	@After
 	public void tearDown() throws Exception {
-		System.out.println("tearDown");
 	}
 
 	@Test
 	public void testGetPromotions() {
-		System.out.println("teh real method");
-		System.out.println(promotionDaoImpl);
 		assertNotNull(promotionDaoImpl.getPromotions());
 	}
 

@@ -5,7 +5,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 public final class DBInitializer {
+	
+	public static final Logger logger = Logger.getLogger(DBInitializer.class);
 	
 	/**
 	 * initialize database for dao's unit test.
@@ -27,21 +31,22 @@ public final class DBInitializer {
 			//prepare
 			Connection conn = ConnectionFactory.getConnection();
 			if (conn == null) {
-				System.err.println("database initialization ERROR can not get connection by current configuration.");
+				logger.error("database initialization ERROR can not get connection by current configuration.");
 				return;
 			}
 			Statement stmt = conn.createStatement();
 			List<String> commands = CommandReader.read(className, methodName);
 			if (commands != null) {
 				for (String command : commands) {
-					System.out.println("database initialization command: " + command);
+					logger.debug("database initialization command: " + command);
 					stmt.addBatch(command);
 				}
 			}
 			//execute
 			int[] counts = stmt.executeBatch();
 			
-			System.out.println("database initialization done successfully.");
+			logger.debug("database initialization done successfully.");
+			
 			//...
 		} catch (SQLException e) {
 			e.printStackTrace();
