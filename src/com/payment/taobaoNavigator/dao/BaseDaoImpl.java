@@ -69,6 +69,7 @@ public abstract class BaseDaoImpl implements BaseDao{
 				query.setParameter(param.getKey(), param.getValue());
 			}
 		}
+		query.setHint("org.hibernate.cacheable", true);
 		final List<T> resultList = query.getResultList();
 		
 		if (resultList == null) {
