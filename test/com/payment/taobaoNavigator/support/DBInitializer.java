@@ -16,12 +16,10 @@ public final class DBInitializer {
 	public static void doInit(String className, String methodName) {
 		
 		if (className == null || className.isEmpty()) {
-			System.err.println("database initialization ERROR please specify class name which is being tested");
 			return;
 		}
 		
 		if (methodName == null || methodName.isEmpty()) {
-			System.err.println("database initialization ERROR please specify method name which will be tested");
 			return;
 		}
 		
@@ -34,9 +32,11 @@ public final class DBInitializer {
 			}
 			Statement stmt = conn.createStatement();
 			List<String> commands = CommandReader.read(className, methodName);
-			for (String command : commands) {
-				System.out.println("database initialization command: " + command);
-				stmt.addBatch(command);
+			if (commands != null) {
+				for (String command : commands) {
+					System.out.println("database initialization command: " + command);
+					stmt.addBatch(command);
+				}
 			}
 			//execute
 			int[] counts = stmt.executeBatch();
