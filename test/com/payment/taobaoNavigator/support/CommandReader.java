@@ -8,8 +8,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.ehcache.transaction.xa.commands.Command;
+
+import org.apache.log4j.Logger;
+
 public final class CommandReader {
 
+	public static final Logger logger = Logger.getLogger(Command.class);
+	
 	//TODO put in properties
 	public static final String DATA_FILE_DIR = "D:\\TaobaoNevigator\\workspace" +
 			"\\taobaonavigator_online\\test\\com\\payment\\taobaoNavigator\\data\\";
@@ -34,7 +40,7 @@ public final class CommandReader {
 		String path = dataFilePath.toString();
 		File file = new File(path);
 		if (!file.exists()){
-			System.err.println("Warn: " + path + " does not exist. ignore the initialization process.");
+			logger.warn("Warn: " + path + " does not exist. ignore the initialization process.");
 			return lines;
 		}
 	
@@ -52,7 +58,7 @@ public final class CommandReader {
 			in.close();
 			
 		} catch (Exception e) {
-			System.err.println("Error: " + e.getMessage());
+			logger.error("Error: " + e.getMessage());
 		}
 		
 		return lines;

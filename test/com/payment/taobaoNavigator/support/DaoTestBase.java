@@ -1,5 +1,6 @@
 package com.payment.taobaoNavigator.support;
 
+import org.apache.log4j.Logger;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContext;
@@ -23,6 +24,8 @@ public class DaoTestBase {
 }
 
 class BeforeMethod implements TestExecutionListener {
+	
+	public static final Logger logger = Logger.getLogger(BeforeMethod.class);
 
 	@Override
 	public void afterTestClass(TestContext arg0) throws Exception {
@@ -40,10 +43,10 @@ class BeforeMethod implements TestExecutionListener {
 	public void beforeTestMethod(TestContext con) throws Exception {
 		
 		String testClass = con.getTestClass().getSimpleName();
-		System.out.println("database initialization class name: " + testClass);
+		logger.debug("database initialization class name: " + testClass);
 		
 		String testMethod = con.getTestMethod().getName();
-		System.out.println("database initialization method name: " + testMethod);
+		logger.debug("database initialization method name: " + testMethod);
 		
 		DBInitializer.doInit(testClass, testMethod);
 	}
