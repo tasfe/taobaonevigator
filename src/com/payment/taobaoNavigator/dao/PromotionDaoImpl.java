@@ -15,8 +15,9 @@ public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
 
 	@Override
 	public List<PromotionEntity> getPromotions() {
-		String hql = "select p from PromotionEntity p";
+		String hql = "select p from PromotionEntity p order by p.id";
 		Query query = this.createCachedQuery(hql);
+		query.setMaxResults(6);
 		List<PromotionEntity> promotions = query.getResultList();
 		return promotions;
 	}
@@ -70,7 +71,8 @@ public class PromotionDaoImpl extends BaseDaoImpl implements PromotionDao {
 	@Override
 	public void deletePromotionByIds(List<Integer> ids) {
 		for (Integer id : ids) {
-			PromotionEntity promotionEntity = this.find(PromotionEntity.class, id);
+			PromotionEntity promotionEntity = this.find(PromotionEntity.class,
+					id);
 			this.delete(promotionEntity);
 		}
 	}
