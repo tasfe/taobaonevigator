@@ -1,42 +1,38 @@
 package com.payment.taobaoNavigator.dao;
 
-import static org.junit.Assert.*;
-
-import java.sql.Date;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 
 import com.payment.taobaoNavigator.entity.CatagoryEntity;
 import com.payment.taobaoNavigator.entity.ProductEntity;
 import com.payment.taobaoNavigator.entity.PromotionEntity;
+import com.payment.taobaoNavigator.support.DaoTestBase;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:applicationContext.xml")
-public class PromotionDaoImplTest {
+public class PromotionDaoImplTest extends DaoTestBase{
+	
 	@Autowired
 	private PromotionDao promotionDaoImpl;
 
-	// @Before
+	@Before
 	public void setUp() throws Exception {
+		System.out.println("setUp");
 	}
-
-	// @After
+	
+	@After
 	public void tearDown() throws Exception {
+		System.out.println("tearDown");
 	}
 
 	@Test
 	public void testGetPromotions() {
+		System.out.println("teh real method");
+		System.out.println(promotionDaoImpl);
 		assertNotNull(promotionDaoImpl.getPromotions());
-
 	}
 
 	// @Test
@@ -90,3 +86,4 @@ public class PromotionDaoImplTest {
 	 * promotionDaoImpl.clearPromotions()); }
 	 */
 }
+
