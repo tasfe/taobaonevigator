@@ -70,6 +70,31 @@ public abstract class BaseDaoImpl implements BaseDao{
 			}
 		}
 		query.setHint("org.hibernate.cacheable", true);
+		
+		final List<T> resultList = query.getResultList();
+		
+		if (resultList == null) {
+			return new LinkedList<T>();
+		}
+
+		return resultList;
+	}
+	
+	@Override
+	public <T extends BaseEntity> List<T> findByNamedQuery(
+			Class<T> entityClass, String queryName,
+			Map<String, Object> parameters,Integer maxnum) {
+		Query query = em.createNamedQuery(entityClass.getSimpleName() + "." + queryName);
+		if (parameters != null) {
+			for (Entry<String, Object> param : parameters.entrySet()) {
+				query.setParameter(param.getKey(), param.getValue());
+			}
+		}
+		query.setHint("org.hibernate.cacheable", true);
+		if(maxnum!=null){
+			query.setMaxResults(maxnum.intValue());
+		}
+		query.setHint("org.hibernate.cacheable", true);
 		final List<T> resultList = query.getResultList();
 		
 		if (resultList == null) {
