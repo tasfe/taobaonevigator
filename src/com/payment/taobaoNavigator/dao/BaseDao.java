@@ -15,5 +15,7 @@ public interface BaseDao {
 	public <T extends BaseEntity> List<T> findByNamedQuery(Class<T> entityClass, String namedQuery);
 	public <T extends BaseEntity> List<T> findByNamedQuery(Class<T> entityClass, String namedQuery,
 			Map<String, Object> parameters);
+	public <T extends BaseEntity> List<T> findByNamedQuery(Class<T> entityClass, String namedQuery,
+			Map<String, Object> parameters,Integer maxnum);
 	public Query createCachedQuery(String queryCommand);
 }
