@@ -22,7 +22,7 @@ public class ProductEntity extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	
 	public static final String FETCH_ALL = "FETCH_ALL";
-	
+	public static final String BYCATAGORYID = "ByCatagoryid";
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
