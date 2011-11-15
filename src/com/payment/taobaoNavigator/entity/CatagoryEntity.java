@@ -22,6 +22,7 @@ public class CatagoryEntity extends BaseEntity {
 	public static final String FETCH_ALL = "FETCH_ALL";
 	
 	public static final String BYPARENTID = "ByParentId";
+	
 
 	@Id
 	@Column(name = "id")
