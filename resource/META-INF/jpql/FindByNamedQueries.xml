@@ -8,5 +8,11 @@
 	     from CatagoryEntity ce where ce.parentCatagory.id=:pid 
 	   </query>
 	</named-query>
+	
+		<named-query name="ProductEntity.ByCatagoryid">
+	   <query>
+	     from ProductEntity pe where ce.catagory.id=:catagoryId
+	   </query>
+	</named-query>
 </entity-mappings>
 
