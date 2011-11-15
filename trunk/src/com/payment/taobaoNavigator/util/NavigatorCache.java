@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.payment.taobaoNavigator.entity.CatagoryEntity;
+import com.payment.taobaoNavigator.entity.ProductEntity;
 import com.payment.taobaoNavigator.service.NavigatorService;
 
 public abstract class NavigatorCache {
@@ -44,19 +45,15 @@ public abstract class NavigatorCache {
 			childList = navigatorServiceImpl.findCatagoryByPid(parentId);
 			//remove the root get itself...
 //			java.util.ConcurrentModificationException
-			if(0==parentId){
+			if(1==parentId){
 			 for (Iterator it = childList.iterator(); it.hasNext();) {
 				 CatagoryEntity child=(CatagoryEntity)it.next();
 				 if(child.getId()==0){
 						it.remove();
-					}
-				 
-				 System.out.println(child.getId()+"==="+child.getName());
-				 
+					} 
 			 }
 			}
 			addNavigatorCache(parentId, childList);
-			
 		}
 		return childList;
 	}
@@ -94,78 +91,6 @@ public abstract class NavigatorCache {
 	 * @return
 	 */
 	public static List<CatagoryEntity> getByParentId(int parentId) {
-		
-//		if (parentId == 0) {
-//			List<CatagoryEntity> result = new ArrayList<CatagoryEntity>();
-//			CatagoryEntity entity = createDefaultCatagoryEntity();
-//			entity.setName("测试种类一");
-//			entity.setId(1);
-//			result.add(entity);
-//			entity = createDefaultCatagoryEntity();
-//			entity.setName("测试种类二");
-//			entity.setId(2);
-//			result.add(entity);
-//			System.out.println(result);
-//			return result;
-//		}
-//		if (parentId == 1) {
-//			List<CatagoryEntity> result = new ArrayList<CatagoryEntity>();
-//			CatagoryEntity entity = createDefaultCatagoryEntity();
-//			entity.setName("类一分类一");
-//			entity.setId(3);
-//			result.add(entity);
-//			entity = createDefaultCatagoryEntity();
-//			entity.setName("类一分类二");
-//			entity.setId(4);
-//			result.add(entity);
-//			entity = createDefaultCatagoryEntity();
-//			entity.setName("类一分类三");
-//			entity.setId(5);
-//			result.add(entity);
-//			System.out.println(result);
-//			return result;
-//		}
-//		if (parentId == 2) {
-//			List<CatagoryEntity> result = new ArrayList<CatagoryEntity>();
-//			CatagoryEntity entity = createDefaultCatagoryEntity();
-//			entity.setName("类二分类1");
-//			entity.setId(6);
-//			result.add(entity);
-//			entity = createDefaultCatagoryEntity();
-//			entity.setName("类二分类2");
-//			entity.setId(7);
-//			result.add(entity);
-//			entity = createDefaultCatagoryEntity();
-//			entity.setName("类二分类3");
-//			entity.setId(8);
-//			result.add(entity);
-//			entity = createDefaultCatagoryEntity();
-//			entity.setName("类二分类4");
-//			entity.setId(9);
-//			result.add(entity);
-//			entity = createDefaultCatagoryEntity();
-//			entity.setName("类二分类5");
-//			entity.setId(10);
-//			result.add(entity);
-//			entity = createDefaultCatagoryEntity();
-//			entity.setName("类二分类6");
-//			entity.setId(11);
-//			result.add(entity);
-//			entity = createDefaultCatagoryEntity();
-//			entity.setName("类二分类7");
-//			entity.setId(12);
-//			result.add(entity);
-//			entity = createDefaultCatagoryEntity();
-//			entity.setName("类二分类8");
-//			entity.setId(13);
-//			result.add(entity);
-//			entity = createDefaultCatagoryEntity();
-//			entity.setName("类二分类9");
-//			entity.setId(14);
-//			result.add(entity);
-//			System.out.println(result);
-//			return result;
-//		}
 		return processAction("query", parentId);
 	}
 
@@ -173,5 +98,11 @@ public abstract class NavigatorCache {
 		CatagoryEntity result = new CatagoryEntity();
 		return result;
 	}
+	
+	public Map<CatagoryEntity, List<ProductEntity>> getHotProducts(int parentId,int maxNumber) {
+		return navigatorServiceImpl.getHotProducts(parentId,maxNumber);
+	}
+	
+	 
 
 }
