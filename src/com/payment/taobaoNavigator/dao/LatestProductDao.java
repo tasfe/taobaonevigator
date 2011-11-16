@@ -9,5 +9,5 @@ import com.payment.taobaoNavigator.entity.ProductEntity;
 @Repository
 public interface LatestProductDao {
 	public List<ProductEntity> getLatestProductions(int max);
-	public List<ClickCountEntity> getHotSells(int max);
+	public List<ProductEntity> getHotSells(int max);
 }
