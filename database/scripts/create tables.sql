@@ -9,8 +9,6 @@ CREATE TABLE `catagory`
   PRIMARY KEY (`id`)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
-drop   table catagory
-
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
   `catagory_id` int(11) DEFAULT NULL,
@@ -21,7 +19,7 @@ CREATE TABLE `product` (
   `created_date` datetime NOT NULL,
   `modified_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 CREATE TABLE `promotion` (
   `id` int(11) NOT NULL,
@@ -32,7 +30,7 @@ CREATE TABLE `promotion` (
   `catagory_id` int(11) DEFAULT NULL,
   `enabled` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 CREATE TABLE `click_count` (
   `id` int(11) NOT NULL DEFAULT '0',
@@ -41,7 +39,7 @@ CREATE TABLE `click_count` (
   `first_click_date` date DEFAULT NULL,
   `last_click_date` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 
 
