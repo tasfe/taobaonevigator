@@ -9,7 +9,7 @@ ALTER TABLE promotion ADD
       FOREIGN    KEY (product_id)
       REFERENCES product(id)
       ON DELETE CASCADE ON UPDATE CASCADE;
-
+      
 ALTER TABLE promotion ADD
       CONSTRAINT promotion_FK_catagory_id
       FOREIGN    KEY (catagory_id)
