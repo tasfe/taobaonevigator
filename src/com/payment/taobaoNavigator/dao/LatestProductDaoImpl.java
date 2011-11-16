@@ -23,11 +23,11 @@ public class LatestProductDaoImpl extends BaseDaoImpl implements
 	}
 
 	@Override
-	public List<ClickCountEntity> getHotSells(int max) {
-		String hql = "select c from ClickCountEntity c order by c.count desc";
+	public List<ProductEntity> getHotSells(int max) {
+		String hql = "select p from ClickCountEntity c  join c.product p order by c.count desc";
 		Query query = this.createCachedQuery(hql);
 		query.setMaxResults(max);
-		List<ClickCountEntity> clickCountEntity = query.getResultList();
-		return clickCountEntity;
+		List<ProductEntity> productEntity = query.getResultList();
+		return productEntity;
 	}
 }
