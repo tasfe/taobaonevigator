@@ -19,7 +19,7 @@ public abstract class NavigatorCache {
 		ApplicationContext ac = new FileSystemXmlApplicationContext("classpath:applicationContext.xml");
 
 		navigatorServiceImpl = (NavigatorService) ac.getBean("navigatorServiceImpl");
-		
+
 	}
 	private static Map<String, List<CatagoryEntity>> NavigatorCache = new HashMap<String, List<CatagoryEntity>>();
 
@@ -43,15 +43,13 @@ public abstract class NavigatorCache {
 		List<CatagoryEntity> childList = contain(parentId);
 		if (null == childList || 0 == childList.size()) {
 			childList = navigatorServiceImpl.findCatagoryByPid(parentId);
-			//remove the root get itself...
-//			java.util.ConcurrentModificationException
-			if(1==parentId){
-			 for (Iterator it = childList.iterator(); it.hasNext();) {
-				 CatagoryEntity child=(CatagoryEntity)it.next();
-				 if(child.getId()==0){
+			if (1 == parentId) {
+				for (Iterator it = childList.iterator(); it.hasNext();) {
+					CatagoryEntity child = (CatagoryEntity) it.next();
+					if (child.getId() == 1) {
 						it.remove();
-					} 
-			 }
+					}
+				}
 			}
 			addNavigatorCache(parentId, childList);
 		}
@@ -98,11 +96,9 @@ public abstract class NavigatorCache {
 		CatagoryEntity result = new CatagoryEntity();
 		return result;
 	}
-	
-	public Map<CatagoryEntity, List<ProductEntity>> getHotProducts(int parentId,int maxNumber) {
-		return navigatorServiceImpl.getHotProducts(parentId,maxNumber);
+
+	public Map<CatagoryEntity, List<ProductEntity>> getHotProducts(int parentId, int maxNumber) {
+		return navigatorServiceImpl.getHotProducts(parentId, maxNumber);
 	}
-	
-	 
 
 }
