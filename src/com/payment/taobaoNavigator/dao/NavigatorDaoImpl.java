@@ -19,7 +19,7 @@ public class NavigatorDaoImpl extends BaseDaoImpl implements NavigatorDao {
 		Map parameters = new HashMap();
 		parameters.put("pid", pid);
 		List<CatagoryEntity> childs = this.findByNamedQuery(
-				CatagoryEntity.class, CatagoryEntity.BYPARENTID, parameters);
+				CatagoryEntity.class, CatagoryEntity.FETCH_BY_PARENTID, parameters);
 		if (1 == pid) {
 			for (Iterator it = childs.iterator(); it.hasNext();) {
 				CatagoryEntity child = (CatagoryEntity) it.next();
