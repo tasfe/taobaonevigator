@@ -2,6 +2,7 @@ package com.payment.taobaoNavigator.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,8 +19,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class PromotionEntity extends BaseEntity {
 	
 	private static final long serialVersionUID = 1L;
-	
-	public static final String FETCH_ALL = "FETCH_ALL";
 	
 	@Id
 	@Column(name = "id")
@@ -38,11 +37,11 @@ public class PromotionEntity extends BaseEntity {
 	@Column(name = "enabled", nullable = false)
 	private Integer enabled;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="product_id")
 	private ProductEntity product;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="catagory_id")
 	private CatagoryEntity catagory;
 

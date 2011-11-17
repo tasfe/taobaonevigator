@@ -2,6 +2,7 @@ package com.payment.taobaoNavigator.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,8 +20,6 @@ public class CatagoryEntity extends BaseEntity {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public static final String FETCH_ALL = "FETCH_ALL";
-	
 	public static final String FETCH_BY_PARENTID = "ByParentId";
 	
 	@Id
@@ -31,7 +30,7 @@ public class CatagoryEntity extends BaseEntity {
 	@Column(name = "name")
 	private String name;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_catagory")
 	private CatagoryEntity parentCatagory;
 

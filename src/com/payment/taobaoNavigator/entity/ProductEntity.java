@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,15 +21,15 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class ProductEntity extends BaseEntity {
 	
 	private static final long serialVersionUID = 1L;
+
+	public static final String BYCATAGORYID = "ByCatagoryId";
 	
-	public static final String FETCH_ALL = "FETCH_ALL";
-	public static final String BYCATAGORYID = "ByCatagoryid";
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="catagory_id")
 	private CatagoryEntity catagory;
 

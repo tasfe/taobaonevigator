@@ -9,4 +9,6 @@ public class BaseEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	public static final String FETCH_ALL = "FETCH_ALL";
+	
 }
