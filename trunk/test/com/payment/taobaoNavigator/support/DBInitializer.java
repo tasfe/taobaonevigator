@@ -28,15 +28,17 @@ public final class DBInitializer {
 		}
 		
 		try {
-			//prepare
-			Connection conn = ConnectionFactory.getConnection();
-			if (conn == null) {
-				logger.error("database initialization ERROR can not get connection by current configuration.");
-				return;
-			}
-			Statement stmt = conn.createStatement();
+			Connection conn = null;
+			Statement stmt = null;
 			List<String> commands = CommandReader.read(className, methodName);
-			if (commands != null) {
+			//get connection only if commands exist.
+			if (commands != null && !commands.isEmpty()) {
+				conn = ConnectionFactory.getConnection();
+				if (conn == null) {
+					logger.error("database initialization ERROR can not get connection by current configuration.");
+					return;
+				}
+				stmt = conn.createStatement();
 				for (String command : commands) {
 					logger.debug("database initialization command: " + command);
 					stmt.addBatch(command);
@@ -57,7 +59,7 @@ public final class DBInitializer {
 			
 			//...
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 
 	}
