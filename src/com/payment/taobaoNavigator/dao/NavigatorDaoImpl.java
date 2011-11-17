@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.payment.taobaoNavigator.entity.CatagoryEntity;
 import com.payment.taobaoNavigator.entity.ProductEntity;
 
+@Transactional
 @Repository
 public class NavigatorDaoImpl extends BaseDaoImpl implements NavigatorDao {
 
@@ -39,13 +41,13 @@ public class NavigatorDaoImpl extends BaseDaoImpl implements NavigatorDao {
 
 	@Override
 	public CatagoryEntity updateNavigator(CatagoryEntity entity) {
-		// TODO Auto-generated method stub
+		
 		return this.update(entity);
 	}
 
 	@Override
 	public void deleteNavigator(CatagoryEntity entity) {
-		// TODO Auto-generated method stub
+		
 		this.delete(entity);
 
 	}
@@ -72,7 +74,7 @@ public class NavigatorDaoImpl extends BaseDaoImpl implements NavigatorDao {
 
 	@Override
 	public List<ProductEntity> getHotProduct(String catagoryId, int maxNumber) {
-		// TODO Auto-generated method stub
+		
 		Map parameters = new HashMap();
 		parameters.put("catagoryId", catagoryId);
 		List products = this.findByNamedQuery(ProductEntity.class,
