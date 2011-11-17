@@ -14,6 +14,7 @@
 <%@page import="com.payment.taobaoNavigator.entity.CatagoryEntity"%>
 <%@page import="java.util.List"%>
 <%@page import="com.payment.taobaoNavigator.util.NavigatorCache"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -353,14 +354,22 @@ function addBottom(){
 			<span>新品推荐</span>
 			<div id="hotTitle">
 				<ul>
-					<li id="1" class="hotCurrent">新书
+					<li id="1" class="hotCurrent">最新
 						<div class="hotContent hotCurrent">
-							这里是新书的具体内容
+							这里展示的是最新的产品信息
+							<c:forEach var="latestProduct" items="${latestProducts}">
+									<div class="latest_title">『<a href="#">${latestProduct.name}</a></div> 
+									<div class="latest_content">』${latestProduct.description} </div><br>
+							</c:forEach>
 						</div>
 					</li>
 					<li id="2">热卖
 						<div class="hotContent" style="margin-left:-70px;">
-							这里是热卖的内容
+							这里展示的是最热卖的产品信息
+							<c:forEach var="hottestProduct" items="${hottestProducts}">
+									<div class="latest_title">『<a href="#">${hottestProduct.name}</a></div> 
+									<div class="latest_content">』${hottestProduct.description} </div><br>
+							</c:forEach>
 						</div>
 					</li>
 					<li id="3">排行榜

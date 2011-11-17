@@ -201,6 +201,13 @@ a:hover{
 	font-size:14px;
 	font-weight:bold;
 }
+#hotSale div ul li div{
+	text-align: left;
+}
+#hotSale div ul li div div{
+	font-size:12px;
+	font-weight:normal;
+}
 #hotTitle ul li{
 	display:block;
 	border:#acd1eb 1px solid;
@@ -212,6 +219,17 @@ a:hover{
 	text-align:center;
 	cursor:pointer;
 }
+.latest_title{
+	position:relative;
+	width: 100px;
+	overflow: hidden;
+	float: left;
+	white-space:nowrap;
+}
+.latest_content{
+	position:relative;
+	float: left;
+}
 .hotContent{
 	display:none;
 	positoon:relative;
@@ -219,6 +237,7 @@ a:hover{
 }
 .hotCurrent{
 	display:block;
+	font-size: 12px;
 }
 #categoryContainer{
 	position:relative;

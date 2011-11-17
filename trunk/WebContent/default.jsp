@@ -117,7 +117,7 @@ function addBottom(){
 				<li><a href="#">分类列表</a>
 					<div class="list">
 						<%
-							List<CatagoryEntity> catagoryEntitys = NavigatorCache.getByParentId(0);
+							List<CatagoryEntity> catagoryEntitys = NavigatorCache.getByParentId(1);
 							for(CatagoryEntity entity : catagoryEntitys){
 								%>
 						<div class="list_content">
