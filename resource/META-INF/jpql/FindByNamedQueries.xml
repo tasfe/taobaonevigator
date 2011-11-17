@@ -2,17 +2,18 @@
 <entity-mappings version="1.0"
 	xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd ">
-	
+
 	<named-query name="CatagoryEntity.ByParentId">
-	   <query>
-	     from CatagoryEntity ce where ce.parentCatagory.id=:pid 
+		<query>
+	     FROM CatagoryEntity ce WHERE ce.parentCatagory.id = :pid 
+	   </query>
+	</named-query>
+
+	<named-query name="ProductEntity.ByCatagoryid">
+		<query>
+	     FROM ProductEntity pe WHERE pe.catagory.id = :catagoryId
 	   </query>
 	</named-query>
 	
-		<named-query name="ProductEntity.ByCatagoryid">
-	   <query>
-	     from ProductEntity pe where pe.catagory.id=:catagoryId
-	   </query>
-	</named-query>
 </entity-mappings>
 
