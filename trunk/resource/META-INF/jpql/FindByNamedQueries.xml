@@ -9,7 +9,7 @@
 	   </query>
 	</named-query>
 
-	<named-query name="ProductEntity.ByCatagoryid">
+	<named-query name="ProductEntity.ByCatagoryId">
 		<query>
 	     FROM ProductEntity pe WHERE pe.catagory.id = :catagoryId
 	   </query>
