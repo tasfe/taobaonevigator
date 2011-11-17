@@ -2,6 +2,7 @@ package com.payment.taobaoNavigator.entity;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,16 +21,14 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class ClickCountEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
-	
-	public static final String FETCH_ALL = "FETCH_ALL";
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@OneToOne
-	@JoinColumn(name="product_id")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="product_id", nullable = false)
 	private ProductEntity product;
 
 	@Column(name = "count", nullable = false)
