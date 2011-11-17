@@ -2,7 +2,9 @@ package com.payment.taobaoNavigator.dao;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,15 +14,15 @@ public class LatestProductDaoImplTest extends DaoTestBase {
 	@Autowired
 	private LatestProductDao latestProductDaoImpl;
 
-	// @Before
+	 @Before
 	public void setUp() throws Exception {
 	}
 
-	// @After
+	 @After
 	public void tearDown() throws Exception {
 	}
 
-	//@Test
+	@Test
 	public void testGetLatestProductions() {
 		assertNotNull(latestProductDaoImpl.getLatestProductions(2));
 	}
