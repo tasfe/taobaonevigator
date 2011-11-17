@@ -51,7 +51,10 @@ public final class CommandReader {
 				if (lines == null) {
 					lines = new ArrayList<String>();
 				}
-				lines.add(strLine);
+				// -- identifies the comment
+				if (!strLine.startsWith("--")) {
+					lines.add(strLine);
+				}
 			}
 			in.close();
 			
