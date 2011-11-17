@@ -1,16 +1,7 @@
-<%-- 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<c:forEach var="promotion" items="${promotions}">
-	<tr>
-		<td>${promotion.name}</td>
-		<td>${promotion.picture}</td>
-		<td>${promotion.enabled}</td>
-		<td>${promotion.id}</td>
-		<td>${promotion.catagory.name}</td>
-	</tr><br/>
-</c:forEach>
---%>
+<%@page import="java.util.Map.Entry"%>
+<%@page import="java.util.Set"%>
+<%@page import="com.payment.taobaoNavigator.entity.ProductEntity"%>
+<%@page import="java.util.Map"%>
 <%@page import="com.payment.taobaoNavigator.entity.CatagoryEntity"%>
 <%@page import="java.util.List"%>
 <%@page import="com.payment.taobaoNavigator.util.NavigatorCache"%>
@@ -448,39 +439,36 @@ function addBottom(){
 					</div>
 				</div>
 			</div>
+			
+			
+			
+			<%
+				Map<CatagoryEntity, List<ProductEntity>> hotProducts = NavigatorCache.getHotProducts(0,6);
+				Set<Entry<CatagoryEntity, List<ProductEntity>>> entrySet = hotProducts.entrySet();
+				for(Entry<CatagoryEntity, List<ProductEntity>> entry : entrySet){
+			%>
 			<div id="category">
-				<span class="category_title">『少儿读物』</span>
+				<span class="category_title">『<%=entry.getKey().getName() %>』</span>
 				<span class="category_title_detail">热搜关键词：排球、教案、谐音笑话、歇后语、大全运动会、加油稿、六年级上册语文第四单元</span>
 				<div id="category_detail">
+					<%
+						for(ProductEntity pEntry : entry.getValue()){
+					%>
 					<div>
-						<img src="static/images/76094b36843076a9a2cc2b77.jpg"/><br>
-						<span ><a href="#" style="display:block;color:black;padding-top:3px;">小学教材</a></span>
+						<img src="static/images/<%=pEntry.getPicture() %>.jpg"/><br>
+						<span ><a href="#" style="display:block;color:black;padding-top:3px;"><%=pEntry.getName() %></a></span>
 					</div>	
-					<div>
-						<img src="static/images/76094b36843076a9a2cc2b77.jpg"/><br>
-						<span ><a href="#" style="display:block;color:black;padding-top:3px;">小学教材</a></span>
-					</div>	
-					<div>
-						<img src="static/images/76094b36843076a9a2cc2b77.jpg"/><br>
-						<span ><a href="#" style="display:block;color:black;padding-top:3px;">小学教材</a></span>
-					</div>	
-					<div>
-						<img src="static/images/76094b36843076a9a2cc2b77.jpg"/><br>
-						<span ><a href="#" style="display:block;color:black;padding-top:3px;">小学教材</a></span>
-					</div>	
-					<div>
-						<img src="static/images/76094b36843076a9a2cc2b77.jpg"/><br>
-						<span ><a href="#" style="display:block;color:black;padding-top:3px;">小学教材</a></span>
-					</div>
-					<div>
-						<img src="static/images/76094b36843076a9a2cc2b77.jpg"/><br>
-						<span ><a href="#" style="display:block;color:black;padding-top:3px;">小学教材</a></span>
-					</div>
+					<%
+						}
+					%>
 					<div style="background:inherit">
-						本处罗列出了少儿读物中的一些细节
+						<%=entry.getKey().getRemark() %>
 					</div>
 				</div>
 			</div>
+			<%		
+				}
+			%>
 	</div>
 	<div id="foot">
 		Copyright : Grom@gmail.com

@@ -97,7 +97,7 @@ public abstract class NavigatorCache {
 		return result;
 	}
 
-	public Map<CatagoryEntity, List<ProductEntity>> getHotProducts(int parentId, int maxNumber) {
+	public static Map<CatagoryEntity, List<ProductEntity>> getHotProducts(int parentId, int maxNumber) {
 		return navigatorServiceImpl.getHotProducts(parentId, maxNumber);
 	}
 
