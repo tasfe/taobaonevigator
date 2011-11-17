@@ -6,11 +6,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.payment.taobaoNavigator.dao.NavigatorDao;
 import com.payment.taobaoNavigator.entity.CatagoryEntity;
 import com.payment.taobaoNavigator.entity.ProductEntity;
 
+@Transactional
 @Service
 public class NavigatorServiceImpl implements NavigatorService {
 	
