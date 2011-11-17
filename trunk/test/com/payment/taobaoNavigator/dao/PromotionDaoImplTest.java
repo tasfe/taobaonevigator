@@ -31,22 +31,22 @@ public class PromotionDaoImplTest extends DaoTestBase{
 		assertNotNull(promotionDaoImpl.getPromotions());
 	}
 
-	// @Test
+	 @Test
 	public void testGetEnabledPromotions() {
 		assertNotNull(promotionDaoImpl.getEnabledPromotions());
 	}
 
-	// @Test
+	 @Test
 	public void testGetPromotionById() {
 		assertNotNull(promotionDaoImpl.getPromotionById(1));
 	}
 
-	// @Test
+	 @Test
 	public void testGetPromotionByName() {
 		assertNotNull(promotionDaoImpl.getPromotionByName("1"));
 	}
 
-	// @Test
+	 @Test
 	public void testCreatePromotion() {
 		PromotionEntity promotionEntity = new PromotionEntity();
 		CatagoryEntity catagoryEntity = new CatagoryEntity();
