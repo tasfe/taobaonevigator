@@ -23,6 +23,8 @@ public abstract class NavigatorCache {
 	}
 	private static Map<String, List<CatagoryEntity>> NavigatorCache = new HashMap<String, List<CatagoryEntity>>();
 
+	private static Map<CatagoryEntity, List<ProductEntity>>  CatagoryCache=new HashMap<CatagoryEntity, List<ProductEntity>>();
+	
 	private static List<CatagoryEntity> contain(int pid) {
 		return NavigatorCache.get(String.valueOf(pid));
 	}
@@ -97,8 +99,22 @@ public abstract class NavigatorCache {
 		return result;
 	}
 
+
 	public static Map<CatagoryEntity, List<ProductEntity>> getHotProducts(int parentId, int maxNumber) {
-		return navigatorServiceImpl.getHotProducts(parentId, maxNumber);
+		List<ProductEntity> hotProducts=CatagoryCache.get(parentId);
+		
+		if(hotProducts==null||hotProducts.size()==0){
+			System.out.println(hotProducts==null);
+			CatagoryCache=navigatorServiceImpl.getHotProducts(parentId, maxNumber);
+			return CatagoryCache;
+		}else{
+			return	CatagoryCache;
+		}
+		
+
+//	public static Map<CatagoryEntity, List<ProductEntity>> getHotProducts(int parentId, int maxNumber) {
+//		return navigatorServiceImpl.getHotProducts(parentId, maxNumber);
+//
 	}
 
 }
