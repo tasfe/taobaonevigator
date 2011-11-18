@@ -1,5 +1,6 @@
 package com.payment.taobaoNavigator.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -71,15 +72,17 @@ public class NavigatorDaoImpl extends BaseDaoImpl implements NavigatorDao {
 
 		return hotProducts;
 	}
-
 	@Override
-	public List<ProductEntity> getHotProduct(String catagoryId, int maxNumber) {
+	public List<ProductEntity> getHotProduct(int catagoryId,int maxNumber) {
+		return getHotProduct(String.valueOf(catagoryId), maxNumber);
+	}
+	
+	private List<ProductEntity> getHotProduct(String catagoryId, int maxNumber) {
 		
 		Map parameters = new HashMap();
-		parameters.put("catagoryId", catagoryId);
+		parameters.put("catagoryId", Integer.valueOf(catagoryId));
 		List products = this.findByNamedQuery(ProductEntity.class,
-				ProductEntity.BYCATAGORYID, parameters,
-				Integer.valueOf(maxNumber));
+				ProductEntity.BYCATAGORYID, parameters,	maxNumber);
 
 		return products;
 	}

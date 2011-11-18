@@ -83,17 +83,21 @@ public abstract class BaseDaoImpl implements BaseDao{
 	@Override
 	public <T extends BaseEntity> List<T> findByNamedQuery(
 			Class<T> entityClass, String queryName,
-			Map<String, Object> parameters,Integer maxnum) {
+			Map<String, Object> parameters,int maxnum) {
 		Query query = em.createNamedQuery(entityClass.getSimpleName() + "." + queryName);
 		if (parameters != null) {
 			for (Entry<String, Object> param : parameters.entrySet()) {
-				query.setParameter(param.getKey(), param.getValue());
+				System.out.println(param.getKey()+"==="+param.getValue());
+				query.setParameter(param.getKey(),param.getValue());
 			}
 		}
 		query.setHint("org.hibernate.cacheable", true);
-		if(maxnum!=null){
-			query.setMaxResults(maxnum.intValue());
+		
+		if(maxnum!=99){
+			query.setMaxResults(maxnum);
 		}
+			
+		
 		query.setHint("org.hibernate.cacheable", true);
 		final List<T> resultList = query.getResultList();
 		
