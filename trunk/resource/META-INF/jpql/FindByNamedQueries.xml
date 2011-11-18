@@ -11,7 +11,7 @@
 
 	<named-query name="ProductEntity.ByCatagoryId">
 		<query>
-	     FROM ProductEntity pe WHERE pe.catagory.id = :catagoryId
+	     FROM ProductEntity pe WHERE pe.catagory.id =:catagoryId
 	   </query>
 	</named-query>
 	
