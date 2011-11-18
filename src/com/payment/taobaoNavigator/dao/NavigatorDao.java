@@ -17,6 +17,7 @@ public interface NavigatorDao {
 	public void deleteNavigator(CatagoryEntity entity);
 	
 	public Map<CatagoryEntity ,List<ProductEntity>>getHotProducts(int pid,int maxNumber);
-	public List<ProductEntity> getHotProduct(String catagoryId,int maxNumber);
+//	public List<ProductEntity> getHotProduct(String catagoryId,int maxNumber);
 	public List<CatagoryEntity> getAllChildCatagory(int i);
+	public List<ProductEntity> getHotProduct(int pid,int maxNumber);
 }
