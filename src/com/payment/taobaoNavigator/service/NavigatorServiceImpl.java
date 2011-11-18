@@ -31,6 +31,19 @@ public class NavigatorServiceImpl implements NavigatorService {
 		
 		return navigatorDaoImpl.getHotProducts(parentId, maxNumber);
 	}
+
+	@Override
+	public List<ProductEntity> getHotProduct(int catagoryId, int maxNumber) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+//	@Override
+//	public List<ProductEntity> getHotProduct(
+//			int catagoryId, int maxNumber) {
+//		
+//		return navigatorDaoImpl.getHotProduct(String.valueOf(catagoryId), maxNumber);
+//	}
 	
 	
 	
