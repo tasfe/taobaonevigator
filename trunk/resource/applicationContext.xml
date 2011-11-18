@@ -17,8 +17,15 @@
 
 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
+	<!-- new style
 	<context:property-placeholder
 		location="classpath:dataSource.properties" />
+	-->
+	<!-- use customized properties configurer to expose properties to program -->
+	<bean id="configBean" 
+		class="com.payment.taobaoNavigator.util.CustomizedPropertyConfigurer">
+		<property name="location" value="classpath:dataSource.properties" />
+	</bean>
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
