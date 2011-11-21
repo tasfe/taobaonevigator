@@ -33,7 +33,6 @@ public class NavigatorDaoImpl extends BaseDaoImpl implements NavigatorDao {
 		}
 		return childs;
 	}
-
 	@Override
 	public CatagoryEntity createNavigator(CatagoryEntity entity) {
 
@@ -66,10 +65,9 @@ public class NavigatorDaoImpl extends BaseDaoImpl implements NavigatorDao {
 			List<ProductEntity> everyHotProduct=null;
 		 //get the product for every catagory	
 			for (CatagoryEntity entity : Catagorys) {
-				everyHotProduct=this.getHotProduct(entity.getId().toString(), maxNumber);
+				everyHotProduct=getHotProduct(entity.getId(), maxNumber);
 				hotProducts.put(entity, everyHotProduct);
 			}
-
 		return hotProducts;
 	}
 	@Override
@@ -116,5 +114,4 @@ public class NavigatorDaoImpl extends BaseDaoImpl implements NavigatorDao {
 		List<CatagoryEntity> childCatagorys = this.findNavigatorByParentId(id);
 		return (childCatagorys.size() == 0) ? true : false;
 	}
-
 }
