@@ -31,19 +31,23 @@ public final class DBInitializer {
 			Connection conn = null;
 			Statement stmt = null;
 			List<String> commands = CommandReader.read(className, methodName);
+			
 			//get connection only if commands exist.
-			if (commands != null && !commands.isEmpty()) {
-				conn = ConnectionFactory.getConnection();
-				if (conn == null) {
-					logger.error("database initialization ERROR can not get connection by current configuration.");
-					return;
-				}
-				stmt = conn.createStatement();
-				for (String command : commands) {
-					logger.debug("database initialization command: " + command);
-					stmt.addBatch(command);
-				}
+			if (commands == null || commands.isEmpty()) {
+				return;
 			}
+			
+			conn = ConnectionFactory.getConnection();
+			if (conn == null) {
+				logger.error("database initialization ERROR can not get connection by current configuration.");
+				return;
+			}
+			stmt = conn.createStatement();
+			for (String command : commands) {
+				logger.debug("database initialization command: " + command);
+				stmt.addBatch(command);
+			}
+			
 			//execute
 			int[] counts = stmt.executeBatch();
 			
