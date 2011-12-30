@@ -1,0 +1,14 @@
+package com.walmart.fraudengine.rules.resources.drl;
+
+import com.walmart.fraudengine.rules.RuleEngineOrder;
+import com.walmart.fraudengine.util.FraudCheckConst;
+
+rule "challenge_category_has_MOVIES_line_quantity_greater_than_5"
+	salience 99
+	when
+		$order: RuleEngineOrder(hitSomeRule == false)
+		eval(DroolsUtil.getAmountByCategory($order, "Electronics") > 5000)
+	then
+		$order.setHitSomeRule(true);
+		orderStatus.setOrderScore(FraudCheckConst.CHALLENGE_STATUS);
+end

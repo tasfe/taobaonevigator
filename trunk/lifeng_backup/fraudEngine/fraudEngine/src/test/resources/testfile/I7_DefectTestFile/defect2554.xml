@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Order CustomerContactID="1234" CustomerEMailID="esun@walmart.com" DocumentType="0001" EnteredBy="1610546" EnterpriseCode="CHINA" EntryType="ESTORE" OrderDate="2011-09-15T19:00:07-04:00" 
+OrderNo="o9092018" OrderType="SO" PaymentStatus="NOT_APPLICABLE" Status="Created" xmlns:date="http://exslt.org/dates-and-times" xmlns:uuid="xalan://java.util.UUID">
+  <Extn CustomerAccountAge="6" CustomerIPAddr="XXX" FraudLastTransactionID="f82aa06c-52a8-4ea8-9472-159558c092018" VisitorNo="1610546" /> 
+  <PriceInfo TotalAmount="300" /> 
+<OrderLines>
+<OrderLine OrderedQty="1" PrimeLineNo="1" SubLineNo="1">
+  <Item CostCurrency="" ItemCategory="2000" ItemDesc="" ItemID="sku125758" UnitCost="0.00" UnitOfMeasure="EACH" /> 
+  <PersonInfoShipTo AddressLine1="" AddressLine2="" AddressLine3="" AddressLine4="" AddressLine5="" City="??" Company="" Country="China" DayPhone="" EMailID="" EveningPhone="" FirstName="ssss" LastName="" MiddleName="" MobilePhone="" State="??" ZipCode="301203" /> 
+  <LinePriceInfo LineTotal="50" UnitPrice="153.00" /> 
+<LineCharges>
+  <LineCharge ChargeCategory="Shipping" ChargeName="Shipping" ChargePerLine="8.20" ChargePerUnit="0.00" Reference="XXX" /> 
+  </LineCharges>
+  </OrderLine>
+<OrderLine OrderedQty="1.00" PrimeLineNo="2" SubLineNo="1">
+  <Item CostCurrency="" ItemCategory="3000" ItemDesc="" ItemID="sku158880" UnitCost="0.00" UnitOfMeasure="EACH" /> 
+  <PersonInfoShipTo AddressLine1="" AddressLine2="" AddressLine3="" AddressLine4="" AddressLine5="" City="??" Company="" Country="China" DayPhone="" EMailID="" EveningPhone="" FirstName="ssss" LastName="" MiddleName="" MobilePhone="" State="??" ZipCode="301203" /> 
+  <LinePriceInfo LineTotal="2000" UnitPrice="137.00" /> 
+<LineCharges>
+  <LineCharge ChargeCategory="Shipping" ChargeName="Shipping" ChargePerLine="8.20" ChargePerUnit="0.00" Reference="XXX" /> 
+  </LineCharges>
+  </OrderLine>
+<OrderLine OrderedQty="1.00" PrimeLineNo="2" SubLineNo="1">
+  <Item CostCurrency="" ItemCategory="4000" ItemDesc="" ItemID="sku158880" UnitCost="0.00" UnitOfMeasure="EACH" /> 
+  <PersonInfoShipTo AddressLine1="" AddressLine2="" AddressLine3="" AddressLine4="" AddressLine5="" City="??" Company="" Country="China" DayPhone="" EMailID="" EveningPhone="" FirstName="ssss" LastName="" MiddleName="" MobilePhone="" State="??" ZipCode="301203" /> 
+  <LinePriceInfo LineTotal="6000" UnitPrice="137.00" /> 
+<LineCharges>
+  <LineCharge ChargeCategory="Shipping" ChargeName="Shipping" ChargePerLine="8.20" ChargePerUnit="0.00" Reference="XXX" /> 
+  </LineCharges>
+  </OrderLine>
+  </OrderLines>
+  <PersonInfoShipTo AddressLine1="" AddressLine2="" AddressLine3="" AddressLine4="" AddressLine5="" City="??" Company="" Country="China" DayPhone="" EMailID="esun@walmart.com" EveningPhone="999-999-9999" FirstName="ssss" LastName="" MiddleName="" MobilePhone="999-999-9999" State="??" ZipCode="301203" /> 
+  <PersonInfoBillTo AddressLine1="" AddressLine2="" AddressLine3="" AddressLine4="" AddressLine5="" City="??" Company="" Country="China" DayPhone="" EMailID="esun@walmart.com" EveningPhone="999-999-9999" FirstName="ssss" LastName="" MiddleName="" MobilePhone="999-999-9999" State="??" ZipCode="301203" /> 
+<PaymentMethods>
+<PaymentMethod CustomerAccountNo="" FirstName="ssss" PaymentType="Alipay">
+  <PaymentDetails /> 
+  <PersonInfoBillTo AddressLine1="" AddressLine2="" AddressLine3="" AddressLine4="" AddressLine5="" City="??" Company="" Country="China" DayPhone="" EMailID="esun@walmart.com" EveningPhone="999-999-9999" FirstName="ssss" LastName="" MiddleName="" MobilePhone="999-999-9999" State="??" ZipCode="301203" /> 
+  </PaymentMethod>
+  </PaymentMethods>
+<OrderDates>
+  <OrderDate ActualDate="2011-09-15T19:05:39-04:00" DateTypeId="XXX" /> 
+  </OrderDates>
+  </Order>

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Order CustomerContactID="700056" CustomerEMailID="Test_001@test.com"
+    DocumentType="0001" EnteredBy="700056" EnterpriseCode="CHINA"
+    EntryType="ESTORE" OrderDate="2011-09-13T19:20:11-04:00"
+    OrderNo="o1050876" OrderType="SO" PaymentStatus="NOT_APPLICABLE"
+    Status="Created" xmlns:date="http://exslt.org/dates-and-times" xmlns:uuid="xalan://java.util.UUID">
+    <Extn CustomerAccountAge="15" CustomerIPAddr="XXX"
+        FraudLastTransactionID="95c30f61-bfc9-4381-80c2-f7fcbb70466b" VisitorNo="700056"/>
+    <PriceInfo TotalAmount="116.10"/>
+    <OrderLines>
+        <OrderLine OrderedQty="1.00" PrimeLineNo="1" SubLineNo="1">
+            <Item CostCurrency="" ItemCategory="" ItemDesc=""
+                ItemID="sku132216" UnitCost="0.00" UnitOfMeasure="EACH"/>
+            <PersonInfoShipTo AddressLine1="1118WestYananRoad"
+                AddressLine2="" AddressLine3="" AddressLine4=""
+               AddressLine5="" City="上海" Company="" Country=""
+                DayPhone="21321512" EMailID="" EveningPhone=""
+                FirstName="丁丁" LastName="" MiddleName="" MobilePhone=""
+                State="上海" ZipCode="200052"/>
+            <LinePriceInfo LineTotal="116.10" UnitPrice="126.00"/>
+            <LineCharges>
+                <LineCharge ChargeCategory="Discount"
+                    ChargeName="Discount" ChargePerLine="9.90"
+                    ChargePerUnit="0.00" Reference="XXX"/>
+            </LineCharges>
+        </OrderLine>
+    </OrderLines>
+    <PersonInfoShipTo AddressLine1="1118WestYananRoad" AddressLine2=""
+        AddressLine3="" AddressLine4="" AddressLine5="" City="上海"
+        Company="" Country="" DayPhone="21321512"
+        EMailID="Test_001@test.com" EveningPhone="999-999-9999"
+        FirstName="丁丁" LastName="" MiddleName=""
+        MobilePhone="999-999-9999" State="上海" ZipCode="200052"/>
+    <PersonInfoBillTo AddressLine1="1118WestYananRoad" AddressLine2=""
+        AddressLine3="" AddressLine4="" AddressLine5="" City="上海"
+        Company="" Country="" DayPhone="21321512"
+        EMailID="Test_001@test.com" EveningPhone="999-999-9999"
+        FirstName="丁丁" LastName="" MiddleName=""
+        MobilePhone="999-999-9999" State="上海" ZipCode="200052"/>
+    <PaymentMethods>
+        <PaymentMethod CustomerAccountNo="" FirstName="丁丁" PaymentType="COD">
+            <PaymentDetails/>
+            <PersonInfoBillTo AddressLine1="1118WestYananRoad"
+                AddressLine2="" AddressLine3="" AddressLine4=""
+                AddressLine5="" City="上海" Company="" Country=""
+                DayPhone="21321512" EMailID="Test_001@test.com"
+                EveningPhone="999-999-9999" FirstName="丁丁" LastName=""
+                MiddleName="" MobilePhone="999-999-9999" State="上海" ZipCode="200052"/>
+        </PaymentMethod>
+    </PaymentMethods>
+    <OrderDates>
+        <OrderDate ActualDate="2011-09-13T19:25:41-04:00" DateTypeId="XXX"/>
+    </OrderDates>
+</Order>

@@ -1,0 +1,111 @@
+@charset "utf-8";
+
+body,div,table,td,th,p,form,ul,li,dl,dt,dd,span,img {
+	margin: 0;
+	padding: 0;
+	font-family: Verdana;
+	font-size: 12px;
+	border: 0;
+}
+#formDiv{
+	margin: auto;
+	margin-top:20px;
+}
+
+div #message{
+	align:center;
+	font-size:20px;
+	font-family:Verdana;
+	
+}
+.formele{
+	width:80%;
+}
+a,a:visited {
+	color: #295A87;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #c33;
+}
+
+.required {
+	color: red;
+}
+
+table tr {
+	text-align: left;
+}
+
+table.logoTable {
+	border-style: none;
+	border-collapse: collapse;
+}
+
+table.logoTable td {
+	border-style: none;
+	padding: 3px;
+}
+
+table.listTable {
+	border-width: 1px;
+	border-style: solid;
+	border-collapse: collapse;
+	border-color: #99bbe8;
+    margin:auto;
+    font-size:11px;
+    width: 400px;
+	height:500px;
+}
+
+table.listTable #th {
+	border-width: 1px;
+	border-style: solid;
+	padding: 3px;
+	border-color: #99bbe8;
+	background-color: #c4d5e9;
+	color: #15428b;
+	text-align: center;
+}
+
+table.listTable td {
+	border-width: 0px;
+	border-style: solid;
+	padding: 3px;
+	border-color: #99bbe8;
+	font-size:15px;
+}
+
+table.wwFormTable {
+	border-width: 1px;
+	border-style: solid;
+	border-collapse: collapse;
+	border-color: #99bbe8;
+}
+
+table.wwFormTable th {
+	border-width: 1px;
+	border-style: solid;
+	padding: 3px;
+	border-color: #99bbe8;
+	background-color: #c4d5e9;
+	color: #15428b;
+}
+
+table.wwFormTable td {
+	border-width: 0px;
+	border-style: solid;
+	padding: 3px;
+	border-color: #99bbe8;
+}
+
+.cell {
+	width: 100px;
+	background-color: #e1edfc;
+}
+
+.tdLabel {
+	width: 100px;
+	background-color: #e1edfc;
+}

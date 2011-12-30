@@ -1,0 +1,63 @@
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (1, '1100', 'Accept Customer ID', 'Established Customer, Established Customer History,Established COD customer,Established Alipay Customer', 1, 'N', '21-JUL-11 04.25.12.000000 PM', 'SYSTEM', '21-JUL-11 04.25.12.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (2, '1200', 'Accept Email Address', 'Accept customers order for provided email address', 1, 'N', '21-JUL-11 04.25.13.000000 PM', 'SYSTEM', '21-JUL-11 04.25.13.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (3, '1300', 'Accept Shipping Address', 'Accept customers order who provides this shipping address', 1, 'N', '21-JUL-11 04.25.13.000000 PM', 'SYSTEM', '21-JUL-11 04.25.13.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (4, '1400', 'Accept Phone Number', 'Accept customers order who provides this phone number', 1, 'N', '21-JUL-11 04.25.13.000000 PM', 'SYSTEM', '21-JUL-11 04.25.13.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (5, '1500', 'Accept Alipay Account', 'Accept customers order who has this alipay account', 1, 'N', '21-JUL-11 04.25.13.000000 PM', 'SYSTEM', '21-JUL-11 04.25.13.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (6, '4100', 'Challenge Customer ID', 'Name does not verify with Alipay Account,High Doorstop rejection,High Return Rate', 2, 'N', '21-JUL-11 04.25.14.000000 PM', 'SYSTEM', '21-JUL-11 04.25.14.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (7, '4200', 'Challenge Email Address', 'Challenge all order with this  email address', 2, 'N', '21-JUL-11 04.25.14.000000 PM', 'SYSTEM', '21-JUL-11 04.25.14.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (8, '4300', 'Challenge Shipping Address', 'Challenge all order with this shipping address', 2, 'N', '21-JUL-11 04.25.14.000000 PM', 'SYSTEM', '21-JUL-11 04.25.14.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (9, '4400', 'Challenge Phone Number', 'Challenge all order with this phone number', 2, 'N', '21-JUL-11 04.25.14.000000 PM', 'SYSTEM', '21-JUL-11 04.25.14.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (10, '4500', 'Challenge Alipay Account', 'Challenge all order with this Alipay account', 2, 'N', '21-JUL-11 04.25.15.000000 PM', 'SYSTEM', '21-JUL-11 04.25.15.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (11, '7100', 'Deny Customer ID', 'Deny all orders submitted by this Customer ID', 3, 'N', '21-JUL-11 04.25.15.000000 PM', 'SYSTEM', '21-JUL-11 04.25.15.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (12, '7200', 'Deny Email Address', 'Deny all address with this Email Address', 3, 'N', '21-JUL-11 04.25.15.000000 PM', 'SYSTEM', '21-JUL-11 04.25.15.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (13, '7300', 'Deny Shipping Address', 'Deny all address with this shipping address', 3, 'N', '21-JUL-11 04.25.16.000000 PM', 'SYSTEM', '21-JUL-11 04.25.16.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (14, '7400', 'Deny Phone Number', 'Deny all order with this phone number', 3, 'N', '21-JUL-11 04.25.16.000000 PM', 'SYSTEM', '21-JUL-11 04.25.16.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (15, '7500', 'Deny Alipay Account', 'Deny all orders with this Alipay account', 3, 'N', '21-JUL-11 04.25.16.000000 PM', 'SYSTEM', '21-JUL-11 04.25.16.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (16, '7600', 'Deny IP Address', 'Deny all orders submitted from this IP Address', 3, 'N', '21-JUL-11 04.25.16.000000 PM', 'SYSTEM', '21-JUL-11 04.25.16.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (41, '4600', 'Challenge Billing address', 'Challenge all orders with this billing address', 2, 'N', '01-AUG-11 02.09.49.000000 AM', 'SYSTEM', '01-AUG-11 02.09.49.000000 AM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (61, '1600', 'Accept Billing address', 'Accept all orders with this Billing address', 1, 'N', '07-AUG-11 08.25.28.000000 PM', 'SYSTEM', '07-AUG-11 08.25.28.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (62, '1700', 'Accept IP address', 'Accept all orders with this IP address', 1, 'N', '07-AUG-11 08.25.28.000000 PM', 'SYSTEM', '07-AUG-11 08.25.28.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (63, '4700', 'Challenge IP address', 'Challenge all orders with this IP address', 2, 'N', '07-AUG-11 08.25.28.000000 PM', 'SYSTEM', '07-AUG-11 08.25.28.000000 PM', 'SYSTEM', 1);
+
+insert into pos_neg_reason_lk (POS_NEG_REASON_PK, REASON_CODE, REASON_SHORT_DESC, REASON_LONG_DESC, STATUS_FK, SOFT_DELETE, CREATED_DATE, CREATED_BY, LAST_MODIFIED_DATE, LAST_MODIFIED_BY, VERSION)
+values (64, '7700', 'Deny Billing address', 'Deny all orders with this Billing address', 3, 'N', '07-AUG-11 11.06.51.000000 PM', 'SYSTEM', '07-AUG-11 11.06.51.000000 PM', 'SYSTEM', 1);
+

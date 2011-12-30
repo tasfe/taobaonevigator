@@ -1,0 +1,81 @@
+package com.walmart.fraudengine.rules.resources.drl;
+
+import com.walmart.fraudengine.rules.domain.*;
+import com.walmart.fraudengine.rules.domain.value.*;
+import com.walmart.fraudengine.rules.engine.service.OrderScoringService;
+
+global java.util.Map reportTemplate;
+
+#Accept where total order amount is less than 10 CNY
+rule "ACCEPT_TOTAL_ORDER_AMOUNT_LESS_THAN_10_CNY"
+	salience 100
+	when
+		$order: Order(calculateAmountSubtotal < 10)
+	then
+		$order.setScore(Order.OrderScore.ACCEPT);
+		reportTemplate.put(OrderScoringService.REPORT_KEY_ORDER_SCORE, $order.getScore());
+		reportTemplate.put(OrderScoringService.REPORT_KEY_RULES_HIT, "ACCEPT_TOTAL_ORDER_AMOUNT_LESS_THAN_10_CNY");
+end
+
+#Challenge where total order amount is greater than 5000 CNY
+rule "CHALLENGE_TOTAL_ORDER_AMOUNT_GREATER_THAN_5000_CNY"
+	salience 99
+	when
+		$order: Order(calculateAmountSubtotal > 5000)
+	then
+		$order.setScore(Order.OrderScore.CHALLENGE);
+		reportTemplate.put(OrderScoringService.REPORT_KEY_ORDER_SCORE, $order.getScore());
+		reportTemplate.put(OrderScoringService.REPORT_KEY_RULES_HIT, "CHALLENGE_TOTAL_ORDER_AMOUNT_GREATER_THAN_5000_CNY");
+end
+
+/*
+#Challenge where cateory is Electronics and total amount is greater than 500 CNY
+rule "CHALLENGE_CATEGORY_IS_ELECTRONICS_AND_TOTAL_AMOUNT_GREATER_THAN_500_CNY"
+	salience 99
+	when
+		$order: Order(calculateAmountSubtotal > 500)
+		$cat: Category(name == "Electronics")
+		$item: Item(category == $cat)
+		forall ($orderLine: Order.OrderLine( owner == $order)
+							Order.OrderLine( this == $orderLine, item == $item )
+				)
+	then
+		$order.setScore(Order.OrderScore.CHALLENGE);
+		reportTemplate.put(OrderScoringService.REPORT_KEY_ORDER_SCORE, $order.getScore());
+		reportTemplate.put(OrderScoringService.REPORT_KEY_RULES_HIT, "CHALLENGE_CATEGORY_IS_ELECTRONICS_AND_TOTAL_AMOUNT_GREATER_THAN_500_CNY");
+end
+
+
+#Challenge where cateory is Movies and total quantity is more than 5
+rule "CHALLENGE_CATEGORY_IS_MOVIES_AND_TOTAL_QUANTITY_MORE_THAN_5"
+	salience 99
+	when
+	then
+end
+
+#Challenge where category is Videos and total amount is greater than 500 CNY
+rule "CHALLENGE_CATEGORY_IS_VIDEOS_AND_TOTAL_AMOUNT_GREATER_THAN_500_CNY"
+	salience 99
+	when
+	then
+end
+
+#Challenge where payment method is Alipay and total amount is greater than 8000 CNY
+rule "CHALLENGE_PAYMENT_METHOD_IS_ALIPAY_AND_TOTAL_AMOUNT_GREATER_THAN_8000_CNY"
+	salience 99
+	when
+	then
+end
+*/
+
+#Deny where payment method is CoD and total amount is greater than 10000 CNY
+rule "DENY_PAYMENT_METHOD_IS_CoD_AND_TOTAL_AMOUNT_GREATER_THAN_10000_CNY"
+	salience 98
+	when
+		$payment: Payment(paymentMethod == Payment.PaymentMethod.CoD)
+		$order: Order(paymentInfo == $payment && calculateAmountSubtotal > 10000)
+	then
+		$order.setScore(Order.OrderScore.DENY);
+		reportTemplate.put(OrderScoringService.REPORT_KEY_ORDER_SCORE, $order.getScore());
+		reportTemplate.put(OrderScoringService.REPORT_KEY_RULES_HIT, "DENY_PAYMENT_METHOD_IS_CoD_AND_TOTAL_AMOUNT_GREATER_THAN_10000_CNY");
+end

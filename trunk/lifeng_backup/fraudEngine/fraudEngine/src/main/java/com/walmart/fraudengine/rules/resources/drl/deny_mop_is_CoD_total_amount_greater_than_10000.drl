@@ -1,0 +1,17 @@
+package com.walmart.fraudengine.rules.resources.drl;
+
+import com.walmart.fraudengine.rules.RuleEngineOrder;
+import com.walmart.fraudengine.util.FraudCheckConst;
+import com.walmart.fraudengine.rules.RuleOrderStatus;
+
+global RuleOrderStatus orderStatus;
+
+rule "deny_mop_is_CoD_total_amount_greater_than_10000"
+	salience 98
+	when
+		$order: RuleEngineOrder(hitSomeRule == false)
+		eval()
+	then
+		$order.setHitSomeRule(true);
+		orderStatus.setOrderScore(FraudCheckConst.DENY_STATUS);
+end

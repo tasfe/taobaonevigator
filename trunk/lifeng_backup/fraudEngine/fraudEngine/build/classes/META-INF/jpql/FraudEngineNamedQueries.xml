@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd ">
+	<named-query name="StatusLkEntity.BY_NAME">
+		<query>
+			From StatusLkEntity slks where slks.name = :name and slks.softDelete = :softDelete 		
+		</query>
+	</named-query>
+	<named-query name="BusRuleHitEntity.BY_RULE_ID">
+		<query>
+			From BusRuleHitEntity br where br.busRule.busRulePk = :bizRuleId and br.softDelete = :softDelete		
+		</query>
+	</named-query>
+	<named-query name="BusRulePropertyEntity.BY_RULE_ID">
+		<query>
+			From BusRulePropertyEntity brp where brp.busRuleFk = :bizRuleId and brp.softDelete = :softDelete		
+		</query>
+	</named-query>
+	<named-query name="BusRulePriorityEntity.BY_RULE_ID">
+		<query>
+			From BusRulePriorityEntity brp where brp.busRule.busRulePk = :bizRuleId and brp.softDelete = :softDelete		
+		</query>
+	</named-query>
+	<named-query name="OrderDetailEntity.BY_OMS_ORDER_ID">
+		<query>
+			From OrderDetailEntity od where od.omsOrderId = :omsOrderId	and od.softDelete = :softDelete order by od.createdDate desc
+		</query>
+	</named-query>
+	<named-query name="UserMasterEntity.BY_USER_NAME">
+		<query>
+			From UserMasterEntity um where um.username = :userName and um.softDelete = :softDelete		
+		</query>
+	</named-query>
+	<named-query name="BusRuleEntity.BY_FILE_NAME_AND_DESC">
+		<query>
+			From BusRuleEntity br where br.ruleFileName = :ruleFileName and br.ruleDescription = :ruleDescription and br.softDelete = :softDelete 		
+		</query>
+	</named-query>
+</entity-mappings>
+

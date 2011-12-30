@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" >
+
+	<persistence-unit name="fraudPersistenceUnit" transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:OracleDS</jta-data-source>
+		<mapping-file>META-INF/jpql/FraudEngineNamedQueries.xml</mapping-file>
+		<mapping-file>META-INF/jpql/FindAllNamedQueries.xml</mapping-file>
+		<class>com.walmart.fraudengine.model.AddressDetailEntity</class>
+		<class>com.walmart.fraudengine.model.BusRuleEntity</class>
+		<class>com.walmart.fraudengine.model.BusRuleHitEntity</class>
+		<class>com.walmart.fraudengine.model.BusRulePriorityEntity</class>
+		<class>com.walmart.fraudengine.model.BusRulePropertyEntity</class>
+		<class>com.walmart.fraudengine.model.FieldTypeLkEntity</class>
+		<class>com.walmart.fraudengine.model.OrderDetailEntity</class>
+		<class>com.walmart.fraudengine.model.OrderStatusEntity</class>
+		<class>com.walmart.fraudengine.model.PosNegListEntity</class>
+		<class>com.walmart.fraudengine.model.PosNegReasonLkEntity</class>
+		<class>com.walmart.fraudengine.model.SchedulerDetailEntity</class>
+		<class>com.walmart.fraudengine.model.SchedulerMasterEntity</class>
+		<class>com.walmart.fraudengine.model.StatusLkEntity</class>
+		<class>com.walmart.fraudengine.model.PosNegListView</class>
+		<class>com.walmart.fraudengine.model.UserDetailEntity</class>
+		<class>com.walmart.fraudengine.model.UserMasterEntity</class>
+		<properties>
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+			<property name="hibernate.current_session_context_class" value="thread" />
+			<property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup"/>
+		</properties>
+	</persistence-unit>
+</persistence>

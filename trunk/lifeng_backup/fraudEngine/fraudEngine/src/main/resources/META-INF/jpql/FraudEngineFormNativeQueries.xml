@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings>
+	<named-query name="BusRuleForm.FETCH_ALL">
+		<query>
+			select r.bus_rule_pk busRulePk,r.RULE_DESCRIPTION ruleDescription,r.RULE_FILE_NAME ruleFileName,
+			p.PRIORITY priority, r.START_DATE startDate, r.END_DATE endDate ,
+			decode(h.HIT_COUNT,null,0,h.HIT_COUNT) hit 
+			from bus_rule r inner join bus_rule_priority p on p.bus_rule_fk = r.bus_rule_pk 
+			left join bus_rule_hit h on h.bus_rule_fk = r.bus_rule_pk 
+			where r.soft_delete = 'N' and p.soft_delete = 'N' and 
+			(h.soft_delete = 'N' or h.soft_delete is null)
+	   </query>
+	</named-query>
+</entity-mappings> 
+
