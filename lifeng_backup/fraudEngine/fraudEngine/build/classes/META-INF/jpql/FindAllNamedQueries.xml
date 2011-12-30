@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd ">
+	<named-query name="AddressDetailEntity.FETCH_ALL">
+		<query>
+			From AddressDetailEntity ad where ad.softDelete = :softDelete 		
+		</query>
+	</named-query>
+	<named-query name="BusRuleEntity.FETCH_ALL">
+		<query>
+			From BusRuleEntity br where br.softDelete = :softDelete		
+		</query>
+	</named-query>
+	<named-query name="BusRulePropertyEntity.FETCH_ALL">
+		<query>
+			From BusRulePropertyEntity brp where brp.softDelete = :softDelete		
+		</query>
+	</named-query>
+	<named-query name="PosNegListEntity.FETCH_ALL">
+		<query>
+			From PosNegListEntity pnl where pnl.softDelete = :softDelete		
+		</query>
+	</named-query>
+	<named-query name="BusRuleEntity.FETCH_ALL_BY_STATUS">
+		<query>
+			From BusRuleEntity br where br.softDelete = :softDelete and br.statusLk.name = :status		
+		</query>
+	</named-query>
+	<named-query name="BusRulePriorityEntity.FETCH_ALL_ORDER_BY_PRIORITY">
+		<query>
+			From BusRulePriorityEntity brp where brp.softDelete = :softDelete and brp.busRule.statusLk.name = :status order by brp.priority	desc	
+		</query>
+	</named-query>
+	<named-query name="BusRuleEntity.FETCH_ALL_ORDER_BY_FILE_NAME">
+		<query>
+			From BusRuleEntity br where br.softDelete = :softDelete order by br.ruleFileName		
+		</query>
+	</named-query>
+	<named-query name="OrderDetailEntity.FETCH_ALL">
+	   <query>
+	   From OrderDetailEntity odr where odr.softDelete = :softDelete
+	   </query>
+	</named-query>
+	
+</entity-mappings>
+

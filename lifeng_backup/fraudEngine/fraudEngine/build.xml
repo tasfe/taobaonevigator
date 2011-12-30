@@ -1,0 +1,381 @@
+<project name="FraudEngine" default="all" basedir=".">
+	
+	<property file="${basedir}/build.properties"/>
+	
+	<property name="project.name" value="fraudengine"/>
+	
+	<property name="src.dir" value="${basedir}/src"/>
+	<property name="target.dir" value="${basedir}/target"/>
+	
+	<property name="java.classes" value="${target.dir}/classes"/>
+	<property name="test.classes" value="${target.dir}/test-classes" />
+	
+	<!-- These jars will be bundled in the final WAR artifact. -->
+	<property name="compile.lib.dir" value="${src.dir}/main/webapp/WEB-INF/lib/compile"/>
+	
+	<!-- These jars will be bundled in the final WAR artifact only is production-mode property is set to false. -->
+	<property name="test.lib.dir" value="${src.dir}/main/webapp/WEB-INF/lib/test"/>
+	
+	<property name="package.dir" value="${target.dir}/${project.name}-${release-version}"/>
+	
+	<property name="prop.filename" value="fraudEngine.properties"/>
+	<property name="resprop.dir" value="${basedir}/buildResource"/>
+	
+	<property environment="env"/>
+	<property name="ds.filename" value="${project.env}-oracle-ds.xml"/>
+	
+	<target name="all" depends="compile-src, compile-test, cobertura-coverage-report, package-war, 
+		copy-packaged-war-to-local-deploy-dir"/>
+
+
+	<!-- ================================================================================ -->
+	<!-- =============================   Source Targets     ============================= -->
+	<!-- ================================================================================ -->
+    <path id="classpath">
+        <fileset dir="${compile.lib.dir}" includes="**/*.jar"/>
+    	<fileset dir="${jboss-home}/common/lib" includes="**/*.jar"/>
+    	<pathelement location="${java.classes}"/>
+    </path>
+
+	<!-- Delete target directory. This will do a clean build. -->
+    <target name="clean">
+        <delete dir="${basedir}/target"/>
+    </target>
+	
+	<!-- Initialize build state, e.g. set properties or create directories. -->
+	<target name="initialize">
+		<!-- Set javac debug level based on production mode property -->
+		<echo message="Production Mode: ${production-mode}" />
+		<condition property="javac-debug-level" value="lines,source">
+			<istrue value="${production-mode}" />
+		</condition>
+		<!-- Set to "lines,vars,source" if not set above. Ant properties are immutable, so this will not update the property name if set above. -->
+		<property name="javac-debug-level" value="lines,vars,source" />
+		<echo message="Java Compiler Debug Level: ${javac-debug-level}" />
+		
+		<!-- Create target directory structure. -->
+		<mkdir dir="${target.dir}"/>
+		<mkdir dir="${target.dir}/classes"/>
+		<mkdir dir="${package.dir}"/>
+		<mkdir dir="${package.dir}/META-INF" />
+		<mkdir dir="${package.dir}/WEB-INF"/>
+		<mkdir dir="${package.dir}/WEB-INF/classes"/>
+		<mkdir dir="${package.dir}/WEB-INF/lib"/>
+    </target>
+	
+	<!-- Copy and process the resources into the target/classes directory, ready for packaging. -->
+	<target name="process-resources" depends="initialize"> 
+		<copy todir="${target.dir}/classes" filtering="true" verbose="true">
+			<fileset dir="${src.dir}/main/resources">
+				<include name="**/**" />
+			</fileset>
+		</copy>
+    </target>
+	
+	<!-- Compile the source code of the project. -->
+	<target name="compile-src" depends="process-resources">
+		<echo message="Compiling classes from ${src.dir}/main to ${target.dir}/classes"/>
+		<echo message="Java Compiler: ${build-java-home}/bin/javac"/>
+		<echo message="Debug Level: ${javac-debug-level}"/>
+		<echo message="Deprecation Checking: ${deprecation-checking}" />
+        <javac srcdir="src/main" destdir="target/classes" fork="yes" debug="on" debuglevel="${javac-debug-level}" 
+        	deprecation="${deprecation-checking}" executable="${build-java-home}/bin/javac">
+        	<classpath>
+        		<path refid="classpath"/>
+        	</classpath>
+        </javac>
+    </target>
+	
+	<!-- ================================================================================ -->
+	<!-- =============================     Test Targets     ============================= -->
+	<!-- ================================================================================ -->
+	<path id="test.classpath">
+		<fileset dir="${test.lib.dir}" includes="**/*.jar"/>
+        <fileset dir="${compile.lib.dir}" includes="**/*.jar"/>
+		<fileset dir="${jboss-home}/client" >
+					<include name="slf4j-api.jar"/>
+		</fileset>
+		<fileset dir="${jboss-home}/common/lib" >
+			<include name="hibernate-*.jar"/>
+			<include name="ejb3-persistence.jar"/>
+			<include name="mail.jar"/>
+			<include name="servlet-api.jar"/>
+			<include name="commons-collections.jar"/>
+		</fileset>
+    	<pathelement location="${java.classes}"/>
+		<pathelement location="${test.classes}"/>
+	</path>
+			
+	<target name="check-if-test-targets-can-be-executed">
+		<condition property="test-targets-can-be-executed">
+			<isfalse value="${production-mode}"/>
+		</condition>
+		<echo message="Execute Test Targets: ${test-targets-can-be-executed}"/>
+	</target>
+	
+	<!-- Initialize test build state, e.g. set properties or create directories. -->
+	<target name="initialize-test" depends="check-if-test-targets-can-be-executed" if="test-targets-can-be-executed">
+		<mkdir dir="target/test-classes"/>
+    </target>
+	
+	<!-- Copy and process the test resources into the test destination directory. -->
+	<target name="process-test-resources" depends="initialize-test" if="test-targets-can-be-executed"> 
+		<copy todir="${target.dir}/test-classes" filtering="true" verbose="true">
+			<fileset dir="${src.dir}/test/resources">
+				<include name="**/**" />
+			</fileset>
+		</copy>
+    </target>
+	
+	<!-- Compile the test source code into the test destination directory -->
+	<target name="compile-test" depends="compile-src, process-test-resources" if="test-targets-can-be-executed">
+		<echo message="Compiling test classes from ${src.dir}/test to ${target.dir}/test-classes"/>
+		<echo message="Java Compiler: ${build-java-home}/bin/javac"/>
+		<echo message="Debug Level: ${javac-debug-level}"/>
+		<echo message="Deprecation Checking: ${deprecation-checking}" />
+        <javac srcdir="src/test" destdir="target/test-classes" fork="yes" debug="on" debuglevel="${javac-debug-level}" 
+			deprecation="${deprecation-checking}" executable="${build-java-home}/bin/javac">
+			<classpath>
+				<path refid="test.classpath" />
+			</classpath>
+		</javac>
+    </target>
+	
+	<!-- ================================================================================ -->
+	<!-- =========================     Code Coverage Targets     ======================== -->
+	<!-- ================================================================================ -->
+	<target name="check-if-code-coverage-enabled">
+		<condition property="cobertura-code-coverage-enabled">
+			<istrue value="${code-coverage-enabled}"/>
+		</condition>
+		<echo message="Instrument Classes for Code Coverage: ${cobertura-code-coverage-enabled}"/>
+	</target>
+	
+	<taskdef classpathref="test.classpath" resource="tasks.properties"/> 
+	<target name="cobertura-instrument" depends="compile-test, check-if-code-coverage-enabled" if="cobertura-code-coverage-enabled">
+		<delete file="${target.dir}/cobertura.ser"/>
+		<cobertura-instrument classpathref="test.classpath" datafile="${target.dir}/cobertura.ser">
+			<ignore regex="org.apache.log4j.*"/>
+			<fileset dir="${java.classes}">
+				<include name="**/*.class"/>
+				<exclude name="**/*Test.class"/>
+			</fileset>
+		</cobertura-instrument>
+	</target>
+	
+	<target name="cobertura-test-coverage" depends="cobertura-instrument" if="cobertura-code-coverage-enabled">
+		<mkdir dir="${target.dir}/reports/junit/junit-reports"/>
+		<junit fork="yes" dir="${basedir}" haltonfailure="no" failureproperty="failed">
+			<sysproperty key="net.sourceforge.cobertura.datafile" file="${target.dir}/cobertura.ser"/>
+			<classpath location="${classes.dir}" />
+			<!--<classpath refid="cobertura.classpath" />-->
+			<classpath refid="test.classpath" />
+			<formatter type="xml" />
+			<batchtest fork="yes" todir="${target.dir}/reports/junit/junit-reports">
+				<fileset dir="${src.dir}/test/java">
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+	
+	<target name="cobertura-coverage-report" depends="cobertura-test-coverage" if="cobertura-code-coverage-enabled">
+		<mkdir dir="${target.dir}/reports/cobertura"/>
+		<cobertura-report format="xml" datafile="${target.dir}/cobertura.ser" srcdir="${src.dir}" 
+			destdir="${target.dir}/reports/cobertura" />
+	</target>
+		
+	<!-- ================================================================================ -->
+	<!-- ========================     Static Analysis Targets     ======================= -->
+	<!-- ================================================================================ -->
+	<!-- Generate PMD Report -->
+	<target name="pmd">
+		<mkdir dir="${target.dir}/reports/pmd"/>
+		<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="test.classpath"/>
+		<pmd targetjdk="1.6">
+			<ruleset>basic</ruleset>
+			<ruleset>unusedcode</ruleset>
+			<ruleset>design</ruleset>
+			<formatter type="xml" toFile="target/reports/pmd/pmd-report.xml" />
+			<fileset dir="${src.dir}/main/java" includes="**/*.java"/>
+		</pmd>
+	</target>
+	
+	<!-- Generate CPD Report -->
+	<target name="cpd">
+		<mkdir dir="${target.dir}/reports/cpd"/>
+		<taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="test.classpath"/>
+		<cpd minimumTokenCount="100" format="xml" outputFile="target/reports/cpd/cpd-report.xml">
+			<fileset dir="${src.dir}/main/java" includes="**/*.java"/>
+		</cpd>
+	</target>
+	
+	<!-- Generate FindBugs Report -->
+	<property name="findbugs.home" value="${test.lib.dir}" />
+	
+	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask">
+		<classpath>
+			<fileset dir="${findbugs.home}" includes="findbugs-ant.jar"/>
+		</classpath>
+	</taskdef>
+	
+	<target name="findbugs" depends="compile-src">
+		<mkdir dir="${target.dir}/reports/findbugs"/>
+		<findbugs home="${findbugs.home}" reportLevel="medium" output="xml" outputFile="target/reports/findbugs/findbugs-report.xml">
+			<class location="${java.classes}"/>
+			<auxClasspath refId="classpath"/>
+			<sourcePath path="src/main/java"/>
+		</findbugs>
+	</target>
+	
+	<!-- ================================================================================ -->
+	<!-- ============================     Package Targets     =========================== -->
+	<!-- ================================================================================ -->
+	<!-- Prepare the exploded WAR package. This will results in an unpacked, processed version of the package. -->
+	<target name="prepare-package" depends="compile-src">
+		<!-- Copy compiled classes over to package directory -->
+		<copy todir="${package.dir}/WEB-INF/classes">
+			<fileset dir="${target.dir}/classes">
+				<include name="**/**" />
+			</fileset>
+		</copy>
+		
+		<!-- Filter and copy resources under WEB-INF to package directory -->
+		<copy todir="${package.dir}/WEB-INF" filtering="true" verbose="true">
+			<fileset dir="${src.dir}/main/webapp/WEB-INF">
+				<include name="**" />
+				<exclude name="lib/**"/>
+			</fileset>
+		</copy>
+		<copy todir="${package.dir}/WEB-INF/lib" filtering="true">
+			<fileset dir="${compile.lib.dir}" includes="**/*.jar"/>
+		</copy>
+		
+		<!-- Copy static files from source directories to package directory -->
+		<copy todir="${package.dir}" filtering="true" verbose="true">
+			<fileset dir="${src.dir}/main/webapp">
+				<!--include name="**/*.properties" /-->
+				<include name="**/*.htm" />
+				<include name="**/*.html" />
+				<include name="**/*.jsp" />
+				<include name="**/*.jpg" />
+				<include name="**/*.gif" />
+				<include name="**/*.js" />
+				<include name="**/*.css" />
+			</fileset>
+		</copy>
+		
+		<!-- Create manifest file in package directory -->
+		<tstamp>
+			<format property="date.now" pattern="yyyy-MM-dd hh:mm:ss.SSS" />
+		</tstamp>
+		<manifest file="${package.dir}/META-INF/MANIFEST.MF">
+			<attribute name="Built-By" value="${user.name}" />
+			<attribute name="Built-Date" value="${date.now}" />
+			<attribute name="Package-Title" value="${project.name}" />
+			<attribute name="Package-Version" value="${release-version}" />
+			<attribute name="Package-Vendor" value="Walmart.com" />
+		</manifest>
+	</target>
+	
+	<!-- If production mode is false, test artifacts will be packaged in the war file. -->
+	<target name="prepare-test-package" depends="compile-test" if="test-targets-can-be-executed">
+		<!-- Copy compiled test classes over to package directory -->
+		<copy todir="${package.dir}/WEB-INF/classes">
+			<fileset dir="${target.dir}/test-classes">
+				<include name="**/**" />
+			</fileset>
+		</copy>
+		<copy todir="${package.dir}/WEB-INF/lib" verbose="true">
+			<fileset dir="${test.lib.dir}" >
+				<include name="**/*.jar"/>
+				<exclude name="asm*.jar"/>
+				<exclude name="commons-logging*.jar"/>
+				<exclude name="log4j*.jar"/>
+				<!--exclude name="org.springframework*.jar"/-->
+				<exclude name="xerces*.jar"/>
+			</fileset>
+		</copy>		
+	</target>
+	
+	<!-- Generate war file -->
+	<target name="package-war" depends="prepare-package, prepare-test-package,copy-properties">
+		<war warfile="${basedir}/target/${project.name}-${release-version}.war" 
+			webxml="${package.dir}/WEB-INF/web.xml"
+			manifest="${package.dir}/META-INF/MANIFEST.MF"
+			basedir="${package.dir}">
+		</war>
+	</target>
+
+	<!-- ================================================================================ -->
+	<!-- =======================     Local Deployment Targets     ======================= -->
+	<!-- ================================================================================ -->
+	<target name="copy-packaged-war-to-local-deploy-dir" depends="package-war, copy-ds">
+		<mkdir dir="${target.dir}/cargo"/>
+		<echo message="JBoss Home: ${jboss-home}"/>
+		<echo message="JBoss Server Configuration Home: ${jboss-application-server-configuration}"/>
+		<echo message="JBoss Application Deployment Directory: ${jboss-application-deployment-dir}"/>
+		<delete file="${jboss-application-deployment-dir}/${project.name}-${release-version}.war" failonerror="false"/>
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="${jboss-application-deployment-dir}/${project.name}-${release-version}.war" includes="**/*"/>	
+		</delete>
+		<condition property="check-if-explode-deploy">  
+			<istrue value="${explode-deploy}"/> 
+		</condition>  
+		<antcall target="copy-war-file"/>  
+		<antcall target="copy-explode-war"/>  
+		<copy file="${target.dir}/${ds.filename}" todir="${jboss-application-deployment-dir}"/>
+	</target>
+	
+	<target name="copy-war-file" unless="check-if-explode-deploy">
+		<copy file="${target.dir}/${project.name}-${release-version}.war" todir="${jboss-application-deployment-dir}"/>
+	</target>
+	
+	<target name="copy-explode-war" if="check-if-explode-deploy">
+		<copy todir="${jboss-application-deployment-dir}/${project.name}-${release-version}">
+			<fileset dir="${target.dir}/${project.name}-${release-version}">
+				<include name="**/**" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="copy-ds" description="Copy the database file base on the enviorment">
+		<copy file="${resprop.dir}/${ds.filename}" tofile="${target.dir}/${ds.filename}"/>
+    </target>
+	
+	<target name="copy-properties" description="Copy the spring properties file base on the enviorment">
+		<copy file="${resprop.dir}/${project.env}-${prop.filename}" tofile="${package.dir}/WEB-INF/classes/${prop.filename}"/>
+	</target>
+	
+	<taskdef resource="cargo.tasks" classpathref="test.classpath"/>
+	
+	<target name="start-local-instance-of-jboss" depends="copy-packaged-war-to-local-deploy-dir">
+		<cargo type="installed" containerId="jboss5x" home="${jboss-home}" action="start" 
+			append="false" output="${target.dir}/cargo/server-output.log" log="${target.dir}/cargo/cargo-output.log">
+			<configuration type="existing" home="${jboss-application-server-configuration}">
+				<property name="cargo.java.home" value="${build-java-home}"/>
+				<property name="cargo.servlet.port" value="8080"/>
+				<property name="cargo.jboss.configuration" value="fraudengine"/>
+				<property name="cargo.jvmargs" value="-Xms256m -Xmx768m -XX:MaxPermSize=128m"/>
+				<property name="cargo.jboss.user" value="admin"/>
+				<property name="cargo.jboss.password" value="admin"/>
+				<property name="cargo.logging" value="high"/>
+			</configuration>
+		</cargo>
+	</target>
+	
+	<target name="stop-local-instance-of-jboss" depends="start-local-instance-of-jboss">
+		<cargo type="installed" containerId="jboss5x" home="${jboss-home}" action="stop" 
+			append="false" output="${target.dir}/cargo/server-output.log" log="${target.dir}/cargo/cargo-output.log">
+			<configuration type="existing" home="${jboss-application-server-configuration}">
+				<property name="cargo.java.home" value="${build-java-home}"/>
+				<property name="cargo.servlet.port" value="8080"/>
+				<property name="cargo.jboss.configuration" value="fraudengine"/>
+				<property name="cargo.jvmargs" value="-Xms256m -Xmx768m -XX:MaxPermSize=128m"/>
+				<property name="cargo.jboss.user" value="admin"/>
+				<property name="cargo.jboss.password" value="admin"/>
+				<property name="cargo.logging" value="high"/>
+			</configuration>
+		</cargo>
+	</target>
+</project>

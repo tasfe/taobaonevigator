@@ -1,0 +1,1293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Fraud_Engine_DBS" version="42" database="Oracle" >
+	<schema name="CN_OMS_FRAUD_ENGINE" schemaname="CN_OMS_FRAUD_ENGINE" defo="y" >
+		<table name="ADDRESS_DETAIL" >
+			<column name="ADDRESS_DETAIL_PK" type="NUMBER" jt="2" mandatory="y" />
+			<column name="ADDRESS_LINE_1" type="VARCHAR2" length="70" jt="12" />
+			<column name="ADDRESS_LINE_2" type="VARCHAR2" length="70" jt="12" />
+			<column name="ADDRESS_LINE_3" type="VARCHAR2" length="70" jt="12" />
+			<column name="ADDRESS_LINE_4" type="VARCHAR2" length="70" jt="12" />
+			<column name="ADDRESS_LINE_5" type="VARCHAR2" length="70" jt="12" />
+			<column name="CITY" type="VARCHAR2" length="40" jt="12" />
+			<column name="COUNTRY" type="VARCHAR2" length="40" jt="12" />
+			<column name="ADDRESS_TYPE" type="VARCHAR2" length="20" jt="12" mandatory="y" >
+				<defo>&#039;SHIPPING&#039;</defo>
+				<comment> <![CDATA[Address type will either SHIPPING or BILLING address for an Order.]]> </comment>
+			</column>
+			<column name="SOFT_DELETE" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>&#039;N&#039;</defo>
+			</column>
+			<column name="CREATED_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" />
+			<column name="CREATED_BY" type="VARCHAR2" length="40" jt="12" mandatory="y" />
+			<column name="LAST_MODIFIED_DATE" type="TIMESTAMP" decimal="6" jt="93" />
+			<column name="LAST_MODIFIED_BY" type="VARCHAR2" length="40" jt="12" />
+			<column name="VERSION" type="NUMBER" jt="2" mandatory="y" />
+			<column name="WORK_PHONE" type="VARCHAR2" length="40" jt="12" />
+			<column name="HOME_PHONE" type="VARCHAR2" length="40" jt="12" />
+			<column name="CELL_PHONE" type="VARCHAR2" length="40" jt="12" />
+			<column name="PROVINCE" type="VARCHAR2" length="40" jt="12" />
+			<column name="DISTRICT" type="VARCHAR2" length="40" jt="12" />
+			<index name="PK_ADDRESS_DETAIL" unique="PRIMARY_KEY" >
+				<column name="ADDRESS_DETAIL_PK" />
+			</index>
+		</table>
+		<table name="BUS_RULE" >
+			<comment>This table will hold number of business rules which will be used by fraud engine.</comment>
+			<column name="BUS_RULE_PK" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[This will be a sequence from oracle]]> </comment>
+			</column>
+			<column name="RULE_FILE_NAME" type="VARCHAR2" length="100" jt="12" mandatory="y" >
+				<comment> <![CDATA[This field give information about which rule file is used for Rule]]> </comment>
+			</column>
+			<column name="RULE" type="CLOB" length="4000" jt="2005" mandatory="y" >
+				<comment> <![CDATA[This field will have actual rule file stored as Clob]]> </comment>
+			</column>
+			<column name="RULE_DESCRIPTION" type="VARCHAR2" length="1000" jt="12" mandatory="y" >
+				<comment> <![CDATA[This will describe rule in details]]> </comment>
+			</column>
+			<column name="START_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" >
+				<comment> <![CDATA[Start date of rule]]> </comment>
+			</column>
+			<column name="END_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" >
+				<comment> <![CDATA[End date of rule after this date rule will not be applied on an order.]]> </comment>
+			</column>
+			<column name="STATUS_FK" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[Status of Rule. nStatus can be "ACTIVE", "INACTIVE","DELETED"]]> </comment>
+			</column>
+			<column name="SOFT_DELETE" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>N</defo>
+			</column>
+			<column name="CREATED_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" >
+				<comment> <![CDATA[Date on which rule is created.]]> </comment>
+			</column>
+			<column name="CREATED_BY" type="VARCHAR2" length="40" jt="12" mandatory="y" >
+				<comment> <![CDATA[Person or userid who has created this rule]]> </comment>
+			</column>
+			<column name="LAST_MODIFIED_DATE" type="TIMESTAMP" decimal="6" jt="93" >
+				<comment> <![CDATA[Date on which rule was modified last]]> </comment>
+			</column>
+			<column name="LAST_MODIFIED_BY" type="VARCHAR2" length="40" jt="12" >
+				<comment> <![CDATA[Person or userid who has last modified this rule.]]> </comment>
+			</column>
+			<column name="VERSION" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[For Optimistic Concurrency]]> </comment>
+			</column>
+			<index name="IDX_BUS_RULE" unique="NORMAL" >
+				<column name="STATUS_FK" />
+			</index>
+			<index name="PK_BUS_RULES" unique="PRIMARY_KEY" >
+				<column name="BUS_RULE_PK" />
+			</index>
+			<fk name="FK_BUS_RULE" to_schema="CN_OMS_FRAUD_ENGINE" to_table="STATUS_LK" delete_action="CASCADE" update_action="CASCADE" >
+				<fk_column name="STATUS_FK" pk="STATUS_PK" />
+			</fk>
+		</table>
+		<table name="BUS_RULE_HIT" >
+			<column name="BUS_RULE_HIT_PK" type="NUMBER" jt="2" mandatory="y" />
+			<column name="BUS_RULE_FK" type="NUMBER" jt="2" mandatory="y" />
+			<column name="HIT_COUNT" type="NUMBER" jt="2" mandatory="y" />
+			<column name="SOFT_DELETE" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>N</defo>
+			</column>
+			<column name="CREATED_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" />
+			<column name="CREATED_BY" type="VARCHAR2" length="40" jt="12" mandatory="y" />
+			<column name="LAST_MODIFIED_DATE" type="TIMESTAMP" decimal="6" jt="93" />
+			<column name="LAST_MODIFIED_BY" type="VARCHAR2" length="40" jt="12" />
+			<column name="VERSION" type="NUMBER" jt="2" mandatory="y" />
+			<index name="IDX_BUS_RULE_HIT" unique="NORMAL" >
+				<column name="BUS_RULE_FK" />
+			</index>
+			<index name="PK_BUS_RULE_HIT" unique="PRIMARY_KEY" >
+				<column name="BUS_RULE_HIT_PK" />
+			</index>
+			<fk name="FK_BUS_RULE_HIT" to_schema="CN_OMS_FRAUD_ENGINE" to_table="BUS_RULE" delete_action="CASCADE" update_action="CASCADE" >
+				<fk_column name="BUS_RULE_FK" pk="BUS_RULE_PK" />
+			</fk>
+		</table>
+		<table name="BUS_RULE_PRIORITY" >
+			<column name="BUS_RULE_PRIORITY_PK" type="NUMBER" jt="2" mandatory="y" />
+			<column name="PRIORITY" type="NUMBER" length="10" jt="2" mandatory="y" />
+			<column name="BUS_RULE_FK" type="NUMBER" jt="2" mandatory="y" />
+			<column name="SOFT_DELETE" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>N</defo>
+			</column>
+			<column name="CREATED_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" />
+			<column name="CREATED_BY" type="VARCHAR2" length="40" jt="12" mandatory="y" />
+			<column name="LAST_MODIFIED_DATE" type="TIMESTAMP" decimal="6" jt="93" />
+			<column name="LAST_MODIFIED_BY" type="VARCHAR2" length="40" jt="12" />
+			<column name="VERSION" type="NUMBER" jt="2" mandatory="y" />
+			<index name="IDX_RULE_PRIORITY" unique="NORMAL" >
+				<column name="BUS_RULE_FK" />
+			</index>
+			<index name="PK_RULE_PRIORITY_" unique="PRIMARY_KEY" >
+				<column name="BUS_RULE_PRIORITY_PK" />
+			</index>
+			<fk name="FK_RULE_PRIORITY_BUS_RULE" to_schema="CN_OMS_FRAUD_ENGINE" to_table="BUS_RULE" delete_action="CASCADE" update_action="CASCADE" >
+				<fk_column name="BUS_RULE_FK" pk="BUS_RULE_PK" />
+			</fk>
+		</table>
+		<table name="BUS_RULE_PRIORITY_ARCHIVE" >
+			<column name="BUS_RULE_PRIORITY_ARCHIVE_PK" type="NUMBER" jt="2" mandatory="y" />
+			<column name="PRIORITY" type="NUMBER" length="10" jt="2" mandatory="y" />
+			<column name="BUS_RULE_FK" type="NUMBER" jt="2" mandatory="y" />
+			<column name="SOFT_DELETE" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>N</defo>
+			</column>
+			<column name="CREATED_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" />
+			<column name="CREATED_BY" type="VARCHAR2" length="40" jt="12" mandatory="y" />
+			<column name="LAST_MODIFIED_DATE" type="TIMESTAMP" decimal="6" jt="93" />
+			<column name="LAST_MODIFIED_BY" type="VARCHAR2" length="40" jt="12" />
+			<column name="VERSION" type="NUMBER" jt="2" mandatory="y" />
+			<column name="PRIORITY_START_DATE" type="DATE" jt="91" mandatory="y" />
+			<column name="PRIORITY_END_DATE" type="DATE" length="7" jt="91" mandatory="y" />
+			<index name="IDX_BUS_RULE_PRIORITY_ARCHIVE" unique="NORMAL" >
+				<column name="BUS_RULE_FK" />
+			</index>
+			<fk name="FK_BUS_RULE_PRIORITY_ARCHIVE" to_schema="CN_OMS_FRAUD_ENGINE" to_table="BUS_RULE" >
+				<fk_column name="BUS_RULE_FK" pk="BUS_RULE_PK" />
+			</fk>
+		</table>
+		<table name="BUS_RULE_PROPERTY" >
+			<comment>This table is used for setting business rule property </comment>
+			<column name="BUS_RULE_PROPERTY_PK" type="NUMBER" jt="2" mandatory="y" />
+			<column name="BUS_RULE_FK" type="NUMBER" jt="2" mandatory="y" />
+			<column name="PROPERTY_VALUE" type="NUMBER" jt="2" mandatory="y" />
+			<column name="SOFT_DELETE" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>N</defo>
+			</column>
+			<column name="CREATED_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" />
+			<column name="CREATED_BY" type="VARCHAR2" length="40" jt="12" mandatory="y" />
+			<column name="LAST_MODIFIED_DATE" type="TIMESTAMP" decimal="6" jt="93" />
+			<column name="LAST_MODIFIED_BY" type="VARCHAR2" length="40" jt="12" />
+			<column name="VERSION" type="NUMBER" jt="2" mandatory="y" />
+			<index name="PK_BUS_RULE_PROPERTY" unique="PRIMARY_KEY" >
+				<column name="BUS_RULE_PROPERTY_PK" />
+			</index>
+			<index name="IDX_BUS_RULE_PROPERTY" unique="NORMAL" >
+				<column name="BUS_RULE_FK" />
+			</index>
+			<fk name="FK_BUS_RULE_PROPERTY_BUS_RULE" to_schema="CN_OMS_FRAUD_ENGINE" to_table="BUS_RULE" delete_action="CASCADE" >
+				<fk_column name="BUS_RULE_FK" pk="BUS_RULE_PK" />
+			</fk>
+		</table>
+		<table name="FIELD_TYPE_LK" >
+			<comment>This table will hold field name and field description. This table will not hold any data for fields.</comment>
+			<column name="FIELD_TYPE_PK" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[Oracle sequence for field master table]]> </comment>
+			</column>
+			<column name="NAME" type="VARCHAR2" length="100" jt="12" mandatory="y" >
+				<comment> <![CDATA[Field name  like Customer Name, Email address, Account Name]]> </comment>
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR2" length="2000" jt="12" mandatory="y" >
+				<comment> <![CDATA[Description of the field and why it is required.]]> </comment>
+			</column>
+			<column name="SOFT_DELETE" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>&#039;N&#039;</defo>
+			</column>
+			<column name="CREATED_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" >
+				<comment> <![CDATA[Date on which field is created.]]> </comment>
+			</column>
+			<column name="CREATED_BY" type="VARCHAR2" length="40" jt="12" mandatory="y" >
+				<comment> <![CDATA[Created by user name or user id]]> </comment>
+			</column>
+			<column name="LAST_MODIFIED_DATE" type="TIMESTAMP" decimal="6" jt="93" >
+				<comment> <![CDATA[Last modified date]]> </comment>
+			</column>
+			<column name="LAST_MODIFIED_BY" type="VARCHAR2" length="40" jt="12" >
+				<comment> <![CDATA[Last modified user name or user id]]> </comment>
+			</column>
+			<column name="VERSION" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[For Optimistic Concurrency]]> </comment>
+			</column>
+			<index name="PK_FIELD_MASTER" unique="PRIMARY_KEY" >
+				<column name="FIELD_TYPE_PK" />
+			</index>
+		</table>
+		<table name="ORDER_ARCHIVE" >
+			<comment>This table will have some order information and status of order.</comment>
+			<column name="ORDER_ARCHIVE_PK" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[This is a sequence of order status table]]> </comment>
+			</column>
+			<column name="TRANSACTION_ID" type="VARCHAR2" length="1000" jt="12" mandatory="y" >
+				<comment> <![CDATA[This will be unique transaction id sent by OMS to fraud engine.]]> </comment>
+			</column>
+			<column name="NUMBER_OF_LINES" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[Number of item lines in an order.]]> </comment>
+			</column>
+			<column name="PAYMENT_TYPE" type="VARCHAR2" length="100" jt="12" mandatory="y" >
+				<comment> <![CDATA[Order payment type.]]> </comment>
+			</column>
+			<column name="ORDER_RECEIVED_DATE" type="DATE" length="7" jt="91" mandatory="y" >
+				<comment> <![CDATA[Date on which order is received by fraud engine.]]> </comment>
+			</column>
+			<column name="STATUS" type="VARCHAR2" length="40" jt="12" mandatory="y" >
+				<comment> <![CDATA[Status of order. This will have one of below values.n"ACCEPT","DENY","CHALLENGE","NOINFO","AWAIT_RESPONSE"]]> </comment>
+			</column>
+			<column name="ORDER_AMOUNT" type="NUMBER" length="10" jt="2" mandatory="y" >
+				<comment> <![CDATA[Amount of an order.]]> </comment>
+			</column>
+			<column name="ORDER_PRIORITY" type="NUMBER" jt="2" >
+				<comment> <![CDATA[This will determine order priority when scheduler runs for reprocessing an order.]]> </comment>
+			</column>
+			<column name="ORDER_RETRY_COUNT" type="NUMBER" jt="2" >
+				<comment> <![CDATA[How many time order was retried by scheduler. After specific number of retry order will be sent to Fraud Anyalyst as "CHALLENGE".]]> </comment>
+			</column>
+			<column name="ARCHIVE_DATE" type="DATE" length="7" jt="91" mandatory="y" />
+			<column name="STATUS_REASON" type="VARCHAR2" length="1000" jt="12" mandatory="y" />
+			<column name="CUSTOMER_ID" type="VARCHAR2" length="40" jt="12" mandatory="y" />
+			<column name="CUSTOMER_EMAIL" type="VARCHAR2" length="100" jt="12" />
+			<column name="IP_ADDRESS" type="VARCHAR2" length="40" jt="12" />
+			<column name="SOFT_DELETE" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>&#039;N&#039;</defo>
+			</column>
+			<column name="CREATED_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" >
+				<comment> <![CDATA[Created date from Order status details table.]]> </comment>
+			</column>
+			<column name="CREATED_BY" type="VARCHAR2" length="40" jt="12" mandatory="y" />
+			<column name="LAST_MODIFIED_DATE" type="TIMESTAMP" decimal="6" jt="93" />
+			<column name="LAST_MODIFIED_BY" type="VARCHAR2" length="40" jt="12" />
+			<column name="VERSION" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[For Optimistic Concurrency]]> </comment>
+			</column>
+			<column name="SHIPPING_ADDRESS" type="VARCHAR2" length="1000" jt="12" />
+			<column name="PRIMARY_PHONE" type="VARCHAR2" length="40" jt="12" />
+			<column name="OMS_ORDER_ID" type="VARCHAR2" length="1000" jt="12" mandatory="y" >
+				<comment> <![CDATA[Order number passed by OMS to Fraud Engine.]]> </comment>
+			</column>
+			<index name="PK_ORDER_STATUS_0" unique="PRIMARY_KEY" >
+				<column name="ORDER_ARCHIVE_PK" />
+			</index>
+		</table>
+		<table name="ORDER_DETAIL" >
+			<comment>This table will have some order information and status of order.</comment>
+			<column name="OMS_ORDER_ID" type="VARCHAR2" length="1000" jt="12" mandatory="y" >
+				<comment> <![CDATA[Order number passed by OMS to Fraud Engine.]]> </comment>
+			</column>
+			<column name="TRANSACTION_ID" type="VARCHAR2" length="100" jt="12" mandatory="y" >
+				<comment> <![CDATA[This will be unique transaction id sent by OMS to fraud engine.]]> </comment>
+			</column>
+			<column name="NUMBER_OF_LINES" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[Number of item lines in an order.]]> </comment>
+			</column>
+			<column name="PAYMENT_TYPE" type="VARCHAR2" length="20" jt="12" mandatory="y" >
+				<comment> <![CDATA[Order payment type.]]> </comment>
+			</column>
+			<column name="ORDER_RECEIVED_DATE" type="DATE" length="7" jt="91" mandatory="y" >
+				<comment> <![CDATA[Date on which order is received by fraud engine.]]> </comment>
+			</column>
+			<column name="ORDER_AMOUNT" type="NUMBER" length="10" jt="2" mandatory="y" >
+				<comment> <![CDATA[Amount of an order.]]> </comment>
+			</column>
+			<column name="ORDER_PRIORITY" type="NUMBER" jt="2" >
+				<comment> <![CDATA[This will determine order priority when scheduler runs for reprocessing an order.]]> </comment>
+			</column>
+			<column name="ORDER_RETRY_COUNT" type="NUMBER" jt="2" >
+				<comment> <![CDATA[How many time order was retried by scheduler. After specific number of retry order will be sent to Fraud Anyalyst as "CHALLENGE".]]> </comment>
+			</column>
+			<column name="CUSTOMER_ID" type="VARCHAR2" length="40" jt="12" mandatory="y" />
+			<column name="CUSTOMER_EMAIL" type="VARCHAR2" length="150" jt="12" />
+			<column name="IP_ADDRESS" type="VARCHAR2" length="40" jt="12" />
+			<column name="SOFT_DELETE" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>&#039;N&#039;</defo>
+			</column>
+			<column name="CREATED_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" />
+			<column name="CREATED_BY" type="VARCHAR2" length="40" jt="12" mandatory="y" />
+			<column name="LAST_MODIFIED_DATE" type="TIMESTAMP" decimal="6" jt="93" />
+			<column name="LAST_MODIFIED_BY" type="VARCHAR2" length="40" jt="12" />
+			<column name="VERSION" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[For Optimistic Concurrency]]> </comment>
+			</column>
+			<column name="ORDER_DETAIL_PK" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[This is a sequence of order status table]]> </comment>
+			</column>
+			<index name="IDX_ORDER_DETAIL" unique="NORMAL" >
+				<column name="PAYMENT_TYPE" />
+			</index>
+			<index name="PK_ORDER_STATUS" unique="PRIMARY_KEY" >
+				<column name="ORDER_DETAIL_PK" />
+			</index>
+		</table>
+		<table name="ORDER_STATUS" >
+			<comment>This table will have order status details for each order processed by Fraud Engine.</comment>
+			<column name="ORDER_STATUS_PK" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[Oracle Sequence ID ]]> </comment>
+			</column>
+			<column name="STATUS_REASON" type="VARCHAR2" length="1000" jt="12" mandatory="y" >
+				<comment> <![CDATA[Status Reason why order has this status. nWhen Fraud analyst Accept or Deny order then FA will provide reason for decison.nWe need to use ENUMn]]> </comment>
+			</column>
+			<column name="SOFT_DELETE" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>&#039;N&#039;</defo>
+			</column>
+			<column name="CREATED_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" >
+				<comment> <![CDATA[Date time stamp for status]]> </comment>
+			</column>
+			<column name="CREATED_BY" type="VARCHAR2" length="40" jt="12" mandatory="y" >
+				<comment> <![CDATA[User Name or user id who has created this row.nIf system generated then it will be "SYSTEM"]]> </comment>
+			</column>
+			<column name="LAST_MODIFIED_DATE" type="TIMESTAMP" decimal="6" jt="93" />
+			<column name="LAST_MODIFIED_BY" type="VARCHAR2" length="40" jt="12" />
+			<column name="VERSION" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[For Optimistic Concurrency]]> </comment>
+			</column>
+			<column name="ORDER_DETAIL_FK" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[Foregin key for ORDER_DETAILS table.]]> </comment>
+			</column>
+			<column name="STATUS_FK" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[Status of order. This will have one of below values.n"ACCEPT","DENY","CHALLENGE","NOINFO","AWAIT_RESPONSE","ERROR" which will be comming from STATUS_FK table.]]> </comment>
+			</column>
+			<column name="BUS_RULE_FK" type="NUMBER" jt="2" />
+			<column name="POS_NEG_LIST_FK" type="NUMBER" jt="2" >
+				<comment> <![CDATA[This field will have value as business rule code or positivie negative reason code.]]> </comment>
+			</column>
+			<index name="PK_ORDER_STATUS_DETAILS" unique="PRIMARY_KEY" >
+				<column name="ORDER_STATUS_PK" />
+			</index>
+			<index name="IDX_ORDER_STATUS" unique="NORMAL" >
+				<column name="STATUS_FK" />
+			</index>
+			<index name="IDX_ORDER_STATUS_0" unique="NORMAL" >
+				<column name="POS_NEG_LIST_FK" />
+			</index>
+			<fk name="FK_ORDER_STATUS_ORDER" to_schema="CN_OMS_FRAUD_ENGINE" to_table="ORDER_DETAIL" delete_action="RESTRICT" update_action="CASCADE" >
+				<fk_column name="ORDER_DETAIL_FK" pk="ORDER_DETAIL_PK" />
+			</fk>
+			<fk name="FK_ORDER_STATUS_STATUS_LK" to_schema="CN_OMS_FRAUD_ENGINE" to_table="STATUS_LK" delete_action="CASCADE" update_action="CASCADE" >
+				<fk_column name="STATUS_FK" pk="STATUS_PK" />
+			</fk>
+		</table>
+		<table name="POS_NEG_LIST" >
+			<comment>This table is used to store data for Positive negative list</comment>
+			<column name="POS_NEG_LIST_PK" type="NUMBER" jt="2" mandatory="y" />
+			<column name="FIELD_VALUE" type="VARCHAR2" length="2000" jt="12" mandatory="y" >
+				<comment> <![CDATA[This will be actual value of field which will part of positive or negative list.]]> </comment>
+			</column>
+			<column name="SOFT_DELETE" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>N</defo>
+			</column>
+			<column name="CREATED_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" >
+				<comment> <![CDATA[Date on which field value is added to the table.]]> </comment>
+			</column>
+			<column name="CREATED_BY" type="VARCHAR2" length="40" jt="12" mandatory="y" >
+				<comment> <![CDATA[Username or user id who has created this value]]> </comment>
+			</column>
+			<column name="LAST_MODIFIED_DATE" type="TIMESTAMP" decimal="6" jt="93" >
+				<comment> <![CDATA[Last modified date ]]> </comment>
+			</column>
+			<column name="LAST_MODIFIED_BY" type="VARCHAR2" length="40" jt="12" >
+				<comment> <![CDATA[person or user name who has last modified field value]]> </comment>
+			</column>
+			<column name="VERSION" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[For Optimistic Concurrency]]> </comment>
+			</column>
+			<column name="FIELD_TYPE_FK" type="NUMBER" jt="2" mandatory="y" />
+			<column name="FIELD_SHORT_DESC" type="VARCHAR2" length="2000" jt="12" mandatory="y" >
+				<comment> <![CDATA[Reason to add this field value to positive or negative list. ]]> </comment>
+			</column>
+			<column name="POS_NEG_REASON_FK" type="NUMBER" jt="2" >
+				<comment> <![CDATA[Reason code from REASON Table]]> </comment>
+			</column>
+			<column name="FIELD_LONG_DESC" type="VARCHAR2" length="2000" jt="12" />
+			<index name="PK_FIELD_DETAILS" unique="PRIMARY_KEY" >
+				<column name="POS_NEG_LIST_PK" />
+			</index>
+			<index name="IDX_POSITIVE_NEGATIVE_LIST" unique="NORMAL" >
+				<column name="POS_NEG_REASON_FK" />
+			</index>
+			<fk name="FK_FIELD_DETAILS_FIELD_TYPE" to_schema="CN_OMS_FRAUD_ENGINE" to_table="FIELD_TYPE_LK" delete_action="RESTRICT" update_action="CASCADE" >
+				<fk_column name="FIELD_TYPE_FK" pk="FIELD_TYPE_PK" />
+			</fk>
+			<fk name="FK_POSITIVE_NEGATIVE_LIST" to_schema="CN_OMS_FRAUD_ENGINE" to_table="POS_NEG_REASON_LK" delete_action="CASCADE" update_action="CASCADE" >
+				<fk_column name="POS_NEG_REASON_FK" pk="POS_NEG_REASON_PK" />
+			</fk>
+		</table>
+		<table name="POS_NEG_REASON_LK" >
+			<comment>This table will have information about number of reason to approve, challenge or deny a order.</comment>
+			<column name="POS_NEG_REASON_PK" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[Oracle sequence ]]> </comment>
+			</column>
+			<column name="REASON_CODE" type="VARCHAR2" length="10" jt="12" mandatory="y" >
+				<comment> <![CDATA[This will be identifer for a Reason]]> </comment>
+			</column>
+			<column name="REASON_SHORT_DESC" type="VARCHAR2" length="200" jt="12" mandatory="y" >
+				<comment> <![CDATA[Reason information]]> </comment>
+			</column>
+			<column name="REASON_LONG_DESC" type="VARCHAR2" length="2000" jt="12" mandatory="y" >
+				<comment> <![CDATA[Detailed description about reason.]]> </comment>
+			</column>
+			<column name="STATUS_FK" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[Reason status can be ACCEPT, DENY, CHALLENGE]]> </comment>
+			</column>
+			<column name="SOFT_DELETE" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>N</defo>
+			</column>
+			<column name="CREATED_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" >
+				<comment> <![CDATA[Date on which reason is created]]> </comment>
+			</column>
+			<column name="CREATED_BY" type="VARCHAR2" length="40" jt="12" mandatory="y" >
+				<comment> <![CDATA[User name or user id who has created this reason.]]> </comment>
+			</column>
+			<column name="LAST_MODIFIED_DATE" type="TIMESTAMP" decimal="6" jt="93" />
+			<column name="LAST_MODIFIED_BY" type="VARCHAR2" length="40" jt="12" />
+			<column name="VERSION" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[For Optimistic Concurrency]]> </comment>
+			</column>
+			<index name="IDX_POS_NEG_REASON_LK" unique="NORMAL" >
+				<column name="STATUS_FK" />
+			</index>
+			<index name="PK_REASON_DETAILS" unique="PRIMARY_KEY" >
+				<column name="POS_NEG_REASON_PK" />
+			</index>
+			<fk name="FK_POS_NEG_REASON_LK_STATUS_LK" to_schema="CN_OMS_FRAUD_ENGINE" to_table="STATUS_LK" delete_action="CASCADE" update_action="CASCADE" >
+				<fk_column name="STATUS_FK" pk="STATUS_PK" />
+			</fk>
+		</table>
+		<table name="SCHEDULER_DETAIL" >
+			<comment>Details of each scheduler run</comment>
+			<column name="SCHEDULER_DETAIL_PK" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[Oracle sequence id]]> </comment>
+			</column>
+			<column name="SCHEDULER_MASTER_FK" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[Foregin key for SCHEDULER_MASTER table.]]> </comment>
+			</column>
+			<column name="TRANSACTION_ID" type="VARCHAR2" length="100" jt="12" mandatory="y" >
+				<comment> <![CDATA[Transaction id from order details table]]> </comment>
+			</column>
+			<column name="TRANSACTION_SENT_TO" type="VARCHAR2" length="20" jt="12" >
+				<comment> <![CDATA[This will have information about transaction is sent to which systemn"OMS","CSC-FA","THIRD_PARTY"]]> </comment>
+			</column>
+			<column name="SOFT_DELETE" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>&#039;N&#039;</defo>
+			</column>
+			<column name="CREATED_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" />
+			<column name="CREATED_BY" type="VARCHAR2" length="40" jt="12" mandatory="y" />
+			<column name="LAST_MODIFIED_DATE" type="TIMESTAMP" decimal="6" jt="93" />
+			<column name="LAST_MODIFIED_BY" type="VARCHAR2" length="40" jt="12" />
+			<column name="VERSION" type="NUMBER" jt="2" mandatory="y" />
+			<column name="OMS_ORDER_ID" type="VARCHAR2" length="100" jt="12" mandatory="y" >
+				<comment> <![CDATA[Order number from order details]]> </comment>
+			</column>
+			<index name="IDX_SCHEDULER_DETAILS" unique="NORMAL" >
+				<column name="SCHEDULER_MASTER_FK" />
+			</index>
+			<index name="PK_SCHEDULER_DETAILS" unique="PRIMARY_KEY" >
+				<column name="SCHEDULER_DETAIL_PK" />
+			</index>
+			<fk name="FK_SCHEDULER_DETAILS" to_schema="CN_OMS_FRAUD_ENGINE" to_table="SCHEDULER_MASTER" delete_action="CASCADE" update_action="CASCADE" >
+				<fk_column name="SCHEDULER_MASTER_FK" pk="SCHEDULER_MASTER_PK" />
+			</fk>
+		</table>
+		<table name="SCHEDULER_MASTER" >
+			<comment>This table will have information about scheduler</comment>
+			<column name="SCHEDULER_NAME" type="VARCHAR2" length="100" jt="12" mandatory="y" >
+				<comment> <![CDATA[Name of scheduler]]> </comment>
+			</column>
+			<column name="FREQUENCY" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[Frequency in minutes]]> </comment>
+			</column>
+			<column name="LAST_RUN_DATE_TIME" type="DATE" length="7" jt="91" >
+				<defo>systimestamp</defo>
+				<comment> <![CDATA[last time when this scheduler ran]]> </comment>
+			</column>
+			<column name="STATUS" type="VARCHAR2" length="20" jt="12" mandatory="y" >
+				<comment> <![CDATA[Scheduler status as "ACTIVE","INACTIVE","DELETE"]]> </comment>
+			</column>
+			<column name="START_DATE" type="DATE" length="7" jt="91" mandatory="y" >
+				<comment> <![CDATA[Scheduler Start date]]> </comment>
+			</column>
+			<column name="END_DATE" type="DATE" length="7" jt="91" >
+				<comment> <![CDATA[Scheduler end date]]> </comment>
+			</column>
+			<column name="SOFT_DELETE" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>N</defo>
+			</column>
+			<column name="CREATED_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" />
+			<column name="CREATED_BY" type="VARCHAR2" length="40" jt="12" mandatory="y" />
+			<column name="LAST_MODIFIED_DATE" type="TIMESTAMP" decimal="6" jt="93" />
+			<column name="LAST_MODIFIED_BY" type="VARCHAR2" length="40" jt="12" />
+			<column name="VERSION" type="NUMBER" jt="2" mandatory="y" />
+			<column name="SCHEDULER_MASTER_PK" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[Oracle sequence id.]]> </comment>
+			</column>
+			<index name="PK_SCHEDULER_MASTER" unique="PRIMARY_KEY" >
+				<column name="SCHEDULER_MASTER_PK" />
+			</index>
+		</table>
+		<table name="STATUS_LK" >
+			<column name="STATUS_PK" type="NUMBER" jt="2" mandatory="y" />
+			<column name="NAME" type="VARCHAR2" length="30" jt="12" mandatory="y" />
+			<column name="DESCRIPTION" type="VARCHAR2" length="200" jt="12" mandatory="y" />
+			<column name="SOFT_DELETE" type="CHAR" length="1" jt="1" mandatory="y" >
+				<defo>&#039;N&#039;</defo>
+			</column>
+			<column name="CREATED_DATE" type="TIMESTAMP" decimal="6" jt="93" mandatory="y" />
+			<column name="CREATED_BY" type="VARCHAR2" length="40" jt="12" mandatory="y" />
+			<column name="LAST_MODIFIED_DATE" type="TIMESTAMP" decimal="6" jt="93" />
+			<column name="LAST_MODIFIED_BY" type="VARCHAR2" length="40" jt="12" />
+			<column name="VERSION" type="NUMBER" jt="2" mandatory="y" >
+				<comment> <![CDATA[For Optimistic Concurrency]]> </comment>
+			</column>
+			<index name="PK_FRAUD_ENGINE_STATUS" unique="PRIMARY_KEY" >
+				<column name="STATUS_PK" />
+			</index>
+		</table>
+		<view name="POS_NEG_LIST_VIEW" >
+			<view_script> <![CDATA[SELECT PNL.POS_NEG_LIST_PK,
+    FTL.NAME,
+    PNL.FIELD_VALUE,
+    PNL.FIELD_SHORT_DESC,
+    PNGRL.REASON_CODE,
+    PNGRL.REASON_SHORT_DESC,
+    SL.NAME AS STATUS
+  FROM POS_NEG_LIST PNL,
+    FIELD_TYPE_LK FTL,
+    POS_NEG_REASON_LK PNGRL,
+    STATUS_LK SL
+  WHERE PNL.FIELD_TYPE_FK  =FTL.FIELD_TYPE_PK
+  AND PNL.POS_NEG_REASON_FK=PNGRL.POS_NEG_REASON_PK
+  AND PNGRL.STATUS_FK      =SL.STATUS_PK
+  AND SL.NAME              ='ACCEPT'
+  UNION
+    SELECT PNL.POS_NEG_LIST_PK,
+    FTL.NAME,
+    PNL.FIELD_VALUE,
+    PNL.FIELD_SHORT_DESC,
+    PNGRL.REASON_CODE,
+    PNGRL.REASON_SHORT_DESC,
+    SL.NAME AS STATUS
+  FROM POS_NEG_LIST PNL,
+    FIELD_TYPE_LK FTL,
+    POS_NEG_REASON_LK PNGRL,
+    STATUS_LK SL
+  WHERE PNL.FIELD_TYPE_FK  =FTL.FIELD_TYPE_PK
+  AND PNL.POS_NEG_REASON_FK=PNGRL.POS_NEG_REASON_PK
+  AND PNGRL.STATUS_FK      =SL.STATUS_PK
+ AND SL.NAME               ='CHALLENGE'
+
+UNIon
+ SELECT PNL.POS_NEG_LIST_PK,
+    FTL.NAME,
+    PNL.FIELD_VALUE,
+    PNL.FIELD_SHORT_DESC,
+    PNGRL.REASON_CODE,
+    PNGRL.REASON_SHORT_DESC,
+    SL.NAME AS STATUS
+  FROM POS_NEG_LIST PNL,
+    FIELD_TYPE_LK FTL,
+    POS_NEG_REASON_LK PNGRL,
+    STATUS_LK SL
+  WHERE PNL.FIELD_TYPE_FK  =FTL.FIELD_TYPE_PK
+  AND PNL.POS_NEG_REASON_FK=PNGRL.POS_NEG_REASON_PK
+  AND PNGRL.STATUS_FK      =SL.STATUS_PK
+  AND  SL.NAME               ='DENY'
+  ORDER BY STATUS
+]]> </view_script>
+		</view>
+		<sequence name="ADDRESS_DETAIL_SEQ" start="1" />
+		<sequence name="BUS_RULE_HIT_SEQ" start="1" />
+		<sequence name="BUS_RULE_PRIRITY_SEQ" start="1" />
+		<sequence name="BUS_RULE_SEQ" start="1" />
+		<sequence name="FIELD_TYPE_LK_SEQ" start="1" />
+		<sequence name="ORDER_DETAIL_SEQ" start="1" />
+		<sequence name="ORDER_STATUS_SEQ" start="1" />
+		<sequence name="POS_NEG_LIST_SEQ" start="1" />
+		<sequence name="POS_NEG_RERSONE_LK_SEQ" start="1" />
+		<sequence name="SCHEDULE_DETAIL_SEQ" start="1" />
+		<sequence name="SCHEDULE_MASTER_SEQ" start="1" />
+		<sequence name="SEQ_PK" start="1" />
+		<sequence name="STATUS_LK_SEQ" start="1" />
+		<function name="DBS_ERROR" >
+			<string> <![CDATA[CREATE OR REPLACE function dbs_error (query IN varchar2) return number authid current_user is      l_theCursor     integer default dbms_sql.open_cursor;      l_status        integer; begin          begin          dbms_sql.parse(  l_theCursor, query, dbms_sql.native );          exception                  when others then l_status := dbms_sql.last_error_position;          end;          dbms_sql.close_cursor( l_theCursor );          return l_status; end;]]> </string>
+			<comment> <![CDATA[Standalone procedure or function]]> </comment>
+		</function>
+	</schema>
+	<connector name="Oracle @ cnyanfra" online="y" database="Oracle" driver_class="oracle.jdbc.OracleDriver" driver_jar="ojdbc5-11.2.0.1.jar" host="172.28.92.215" port="1521" instance="cnyanfra" user="CN_OMS_FRAUD_ENGINE" passwd="ZnJhdWQ=" />
+	<layout name="CN_OMS_FRAUD_ENGINE" >
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="ADDRESS_DETAIL" x="418" y="506" />
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="BUS_RULE" x="33" y="440" />
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="BUS_RULE_HIT" x="209" y="440" />
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="BUS_RULE_PRIORITY" x="33" y="638" />
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="BUS_RULE_PRIORITY_ARCHIVE" x="198" y="605" />
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="BUS_RULE_PROPERTY" x="759" y="396" />
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="FIELD_TYPE_LK" x="363" y="44" />
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="ORDER_ARCHIVE" x="605" y="33" />
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="ORDER_DETAIL" x="407" y="253" />
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="ORDER_STATUS" x="209" y="253" />
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="POS_NEG_LIST" x="198" y="33" />
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="POS_NEG_LIST_VIEW" x="880" y="748" />
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="POS_NEG_REASON_LK" x="33" y="33" />
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="SCHEDULER_DETAIL" x="583" y="550" />
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="SCHEDULER_MASTER" x="759" y="539" />
+		<entity schema="CN_OMS_FRAUD_ENGINE" name="STATUS_LK" x="33" y="253" />
+		<group name="POS_NEG_REASON_LK" color="ffffcc" >
+			<entity schema="CN_OMS_FRAUD_ENGINE" name="FIELD_TYPE_LK" />
+			<entity schema="CN_OMS_FRAUD_ENGINE" name="POS_NEG_LIST" />
+			<entity schema="CN_OMS_FRAUD_ENGINE" name="POS_NEG_REASON_LK" />
+		</group>
+		<group name="SCHEDULER_MASTER" color="fff8d6" >
+			<entity schema="CN_OMS_FRAUD_ENGINE" name="SCHEDULER_DETAIL" />
+			<entity schema="CN_OMS_FRAUD_ENGINE" name="SCHEDULER_MASTER" />
+		</group>
+		<group name="STATUS_LK" color="dbe1fe" >
+			<entity schema="CN_OMS_FRAUD_ENGINE" name="BUS_RULE_HIT" />
+			<entity schema="CN_OMS_FRAUD_ENGINE" name="BUS_RULE_PRIORITY" />
+			<entity schema="CN_OMS_FRAUD_ENGINE" name="ADDRESS_DETAIL" />
+			<entity schema="CN_OMS_FRAUD_ENGINE" name="ORDER_DETAIL" />
+			<entity schema="CN_OMS_FRAUD_ENGINE" name="STATUS_LK" />
+			<entity schema="CN_OMS_FRAUD_ENGINE" name="BUS_RULE_PRIORITY_ARCHIVE" />
+			<entity schema="CN_OMS_FRAUD_ENGINE" name="ORDER_STATUS" />
+			<entity schema="CN_OMS_FRAUD_ENGINE" name="BUS_RULE" />
+		</group>
+		<group name="Unreferenced" color="e8e8ff" >
+			<entity schema="CN_OMS_FRAUD_ENGINE" name="ORDER_ARCHIVE" />
+		</group>
+		<query name="Sql_000" >
+			<string> <![CDATA[
+
+]]> </string>
+		</query>
+		<query name="Sql_001" >
+			<string> <![CDATA[select * from POS_NEG_List_View]]> </string>
+		</query>
+		<query name="Sql_002" >
+			<string> <![CDATA[CREATE USER CN_OMS_FRAUD_ENGINE IDENTIFIED BY CN_OMS_FRAUD_ENGINE;
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.BUS_RULE_PROPERTY ( 
+	BUS_RULE_PROPERTY_PK NUMBER NOT NULL,
+	BUS_RULE_FK NUMBER NULL,
+	PROPERTY_VALUE NUMBER NOT NULL,
+CONSTRAINT PK_BUS_RULE_PROPERTY PRIMARY KEY ( BUS_RULE_PROPERTY_PK ) 
+ );
+
+CREATE INDEX IDX_BUS_RULE_PROPERTY ON CN_OMS_FRAUD_ENGINE.BUS_RULE_PROPERTY ( BUS_RULE_FK );
+
+COMMENT ON TABLE CN_OMS_FRAUD_ENGINE.BUS_RULE_PROPERTY IS 'This table will be used for storing business rule properties.';
+
+CREATE VIEW CN_OMS_FRAUD_ENGINE.POS_NEG_LIST_VIEW AS SELECT PNL.POS_NEG_LIST_PK,
+    FTL.NAME,
+    PNL.FIELD_VALUE,
+    PNL.FIELD_SHORT_DESC,
+    PNGRL.REASON_CODE,
+    PNGRL.REASON_SHORT_DESC,
+    SL.NAME AS STATUS
+  FROM POS_NEG_LIST PNL,
+    FIELD_TYPE_LK FTL,
+    POS_NEG_REASON_LK PNGRL,
+    STATUS_LK SL
+  WHERE PNL.FIELD_TYPE_FK  =FTL.FIELD_TYPE_PK
+  AND PNL.POS_NEG_REASON_FK=PNGRL.POS_NEG_REASON_PK
+  AND PNGRL.STATUS_FK      =SL.STATUS_PK
+  AND SL.NAME              ='ACCEPT'
+  UNION
+    SELECT PNL.POS_NEG_LIST_PK,
+    FTL.NAME,
+    PNL.FIELD_VALUE,
+    PNL.FIELD_SHORT_DESC,
+    PNGRL.REASON_CODE,
+    PNGRL.REASON_SHORT_DESC,
+    SL.NAME AS STATUS
+  FROM POS_NEG_LIST PNL,
+    FIELD_TYPE_LK FTL,
+    POS_NEG_REASON_LK PNGRL,
+    STATUS_LK SL
+  WHERE PNL.FIELD_TYPE_FK  =FTL.FIELD_TYPE_PK
+  AND PNL.POS_NEG_REASON_FK=PNGRL.POS_NEG_REASON_PK
+  AND PNGRL.STATUS_FK      =SL.STATUS_PK
+ AND SL.NAME               ='CHALLENGE'
+
+UNIon
+ SELECT PNL.POS_NEG_LIST_PK,
+    FTL.NAME,
+    PNL.FIELD_VALUE,
+    PNL.FIELD_SHORT_DESC,
+    PNGRL.REASON_CODE,
+    PNGRL.REASON_SHORT_DESC,
+    SL.NAME AS STATUS
+  FROM POS_NEG_LIST PNL,
+    FIELD_TYPE_LK FTL,
+    POS_NEG_REASON_LK PNGRL,
+    STATUS_LK SL
+  WHERE PNL.FIELD_TYPE_FK  =FTL.FIELD_TYPE_PK
+  AND PNL.POS_NEG_REASON_FK=PNGRL.POS_NEG_REASON_PK
+  AND PNGRL.STATUS_FK      =SL.STATUS_PK
+  AND  SL.NAME               ='DENY'
+  ORDER BY STATUS;
+
+CREATE SEQUENCE ADDRESS_DETAIL_SEQ START WITH 1;
+
+CREATE SEQUENCE BUS_RULE_HIT_SEQ START WITH 1;
+
+CREATE SEQUENCE BUS_RULE_PRIRITY_SEQ START WITH 1;
+
+CREATE SEQUENCE BUS_RULE_SEQ START WITH 1;
+
+CREATE SEQUENCE FIELD_TYPE_LK_SEQ START WITH 1;
+
+CREATE SEQUENCE ORDER_DETAIL_SEQ START WITH 1;
+
+CREATE SEQUENCE ORDER_STATUS_SEQ START WITH 1;
+
+CREATE SEQUENCE POS_NEG_LIST_SEQ START WITH 1;
+
+CREATE SEQUENCE POS_NEG_RERSONE_LK_SEQ START WITH 1;
+
+CREATE SEQUENCE SCHEDULE_DETAIL_SEQ START WITH 1;
+
+CREATE SEQUENCE SCHEDULE_MASTER_SEQ START WITH 1;
+
+CREATE SEQUENCE SEQ_PK START WITH 1;
+
+CREATE SEQUENCE STATUS_LK_SEQ START WITH 1;
+
+ALTER TABLE CN_OMS_FRAUD_ENGINE.BUS_RULE_PROPERTY ADD CONSTRAINT FK_BUS_RULE_PROPERTY_BUS_RULE FOREIGN KEY ( BUS_RULE_FK ) REFERENCES CN_OMS_FRAUD_ENGINE.BUS_RULE( BUS_RULE_PK ) ON DELETE CASCADE;
+
+]]> </string>
+		</query>
+		<query name="Sql_003" >
+			<string> <![CDATA[CREATE USER CN_OMS_FRAUD_ENGINE IDENTIFIED BY CN_OMS_FRAUD_ENGINE;
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.ADDRESS_DETAIL ( 
+	ADDRESS_DETAIL_PK NUMBER NOT NULL,
+	ADDRESS_LINE_1 VARCHAR2( 70 ) NULL,
+	ADDRESS_LINE_2 VARCHAR2( 70 ) NULL,
+	ADDRESS_LINE_3 VARCHAR2( 70 ) NULL,
+	ADDRESS_LINE_4 VARCHAR2( 70 ) NULL,
+	ADDRESS_LINE_5 VARCHAR2( 70 ) NULL,
+	CITY VARCHAR2( 40 ) NULL,
+	COUNTRY VARCHAR2( 40 ) NULL,
+	ADDRESS_TYPE VARCHAR2( 20 ) DEFAULT 'SHIPPING' NOT NULL,
+	SOFT_DELETE CHAR( 1 ) DEFAULT 'N' NOT NULL,
+	CREATED_DATE TIMESTAMP NOT NULL,
+	CREATED_BY VARCHAR2( 40 ) NOT NULL,
+	LAST_MODIFIED_DATE TIMESTAMP NULL,
+	LAST_MODIFIED_BY VARCHAR2( 40 ) NULL,
+	VERSION NUMBER NOT NULL,
+	WORK_PHONE VARCHAR2( 40 ) NULL,
+	HOME_PHONE VARCHAR2( 40 ) NULL,
+	CELL_PHONE VARCHAR2( 40 ) NULL,
+	PROVINCE VARCHAR2( 40 ) NULL,
+	DISTRICT VARCHAR2( 40 ) NULL,
+CONSTRAINT PK_ADDRESS_DETAIL PRIMARY KEY ( ADDRESS_DETAIL_PK ) 
+ );
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ADDRESS_DETAIL.ADDRESS_TYPE IS 'Address type will either SHIPPING or BILLING address for an Order.';
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.BUS_RULE ( 
+	BUS_RULE_PK NUMBER NOT NULL,
+	RULE_FILE_NAME VARCHAR2( 100 ) NOT NULL,
+	RULE CLOB NOT NULL,
+	RULE_DESCRIPTION VARCHAR2( 1000 ) NOT NULL,
+	START_DATE TIMESTAMP NOT NULL,
+	END_DATE TIMESTAMP NOT NULL,
+	STATUS_FK NUMBER NOT NULL,
+	SOFT_DELETE CHAR( 1 ) DEFAULT N NOT NULL,
+	CREATED_DATE TIMESTAMP NOT NULL,
+	CREATED_BY VARCHAR2( 40 ) NOT NULL,
+	LAST_MODIFIED_DATE TIMESTAMP NULL,
+	LAST_MODIFIED_BY VARCHAR2( 40 ) NULL,
+	VERSION NUMBER NOT NULL,
+CONSTRAINT PK_BUS_RULES PRIMARY KEY ( BUS_RULE_PK ) 
+ );
+
+CREATE INDEX IDX_BUS_RULE ON CN_OMS_FRAUD_ENGINE.BUS_RULE ( STATUS_FK );
+
+COMMENT ON TABLE CN_OMS_FRAUD_ENGINE.BUS_RULE IS 'This table will hold number of business rules which will be used by fraud engine.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.BUS_RULE.BUS_RULE_PK IS 'This will be a sequence from oracle';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.BUS_RULE.RULE_FILE_NAME IS 'This field give information about which rule file is used for Rule';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.BUS_RULE.RULE IS 'This field will have actual rule file stored as Clob';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.BUS_RULE.RULE_DESCRIPTION IS 'This will describe rule in details';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.BUS_RULE.START_DATE IS 'Start date of rule';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.BUS_RULE.END_DATE IS 'End date of rule after this date rule will not be applied on an order.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.BUS_RULE.STATUS_FK IS 'Status of Rule. nStatus can be "ACTIVE", "INACTIVE","DELETED"';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.BUS_RULE.CREATED_DATE IS 'Date on which rule is created.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.BUS_RULE.CREATED_BY IS 'Person or userid who has created this rule';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.BUS_RULE.LAST_MODIFIED_DATE IS 'Date on which rule was modified last';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.BUS_RULE.LAST_MODIFIED_BY IS 'Person or userid who has last modified this rule.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.BUS_RULE.VERSION IS 'For Optimistic Concurrency';
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.BUS_RULE_HIT ( 
+	BUS_RULE_HIT_PK NUMBER NOT NULL,
+	BUS_RULE_FK NUMBER NOT NULL,
+	HIT_COUNT NUMBER NOT NULL,
+	SOFT_DELETE CHAR( 1 ) DEFAULT N NOT NULL,
+	CREATED_DATE TIMESTAMP NOT NULL,
+	CREATED_BY VARCHAR2( 40 ) NOT NULL,
+	LAST_MODIFIED_DATE TIMESTAMP NULL,
+	LAST_MODIFIED_BY VARCHAR2( 40 ) NULL,
+	VERSION NUMBER NOT NULL,
+CONSTRAINT PK_BUS_RULE_HIT PRIMARY KEY ( BUS_RULE_HIT_PK ) 
+ );
+
+CREATE INDEX IDX_BUS_RULE_HIT ON CN_OMS_FRAUD_ENGINE.BUS_RULE_HIT ( BUS_RULE_FK );
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.BUS_RULE_PRIORITY ( 
+	BUS_RULE_PRIORITY_PK NUMBER NOT NULL,
+	PRIORITY NUMBER( 10 ) NOT NULL,
+	BUS_RULE_FK NUMBER NOT NULL,
+	SOFT_DELETE CHAR( 1 ) DEFAULT N NOT NULL,
+	CREATED_DATE TIMESTAMP NOT NULL,
+	CREATED_BY VARCHAR2( 40 ) NOT NULL,
+	LAST_MODIFIED_DATE TIMESTAMP NULL,
+	LAST_MODIFIED_BY VARCHAR2( 40 ) NULL,
+	VERSION NUMBER NOT NULL,
+CONSTRAINT PK_RULE_PRIORITY_ PRIMARY KEY ( BUS_RULE_PRIORITY_PK ) 
+ );
+
+CREATE INDEX IDX_RULE_PRIORITY ON CN_OMS_FRAUD_ENGINE.BUS_RULE_PRIORITY ( BUS_RULE_FK );
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.BUS_RULE_PRIORITY_ARCHIVE ( 
+	BUS_RULE_PRIORITY_ARCHIVE_PK NUMBER NOT NULL,
+	PRIORITY NUMBER( 10 ) NOT NULL,
+	BUS_RULE_FK NUMBER NOT NULL,
+	SOFT_DELETE CHAR( 1 ) DEFAULT N NOT NULL,
+	CREATED_DATE TIMESTAMP NOT NULL,
+	CREATED_BY VARCHAR2( 40 ) NOT NULL,
+	LAST_MODIFIED_DATE TIMESTAMP NULL,
+	LAST_MODIFIED_BY VARCHAR2( 40 ) NULL,
+	VERSION NUMBER NOT NULL,
+	PRIORITY_START_DATE DATE NOT NULL,
+	PRIORITY_END_DATE DATE NOT NULL
+ );
+
+CREATE INDEX IDX_BUS_RULE_PRIORITY_ARCHIVE ON CN_OMS_FRAUD_ENGINE.BUS_RULE_PRIORITY_ARCHIVE ( BUS_RULE_FK );
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.BUS_RULE_PROPERTY ( 
+	BUS_RULE_PROPERTY_PK NUMBER NOT NULL,
+	BUS_RULE_FK NUMBER NULL,
+	PROPERTY_VALUE NUMBER NOT NULL,
+CONSTRAINT PK_BUS_RULE_PROPERTY PRIMARY KEY ( BUS_RULE_PROPERTY_PK ) 
+ );
+
+CREATE INDEX IDX_BUS_RULE_PROPERTY ON CN_OMS_FRAUD_ENGINE.BUS_RULE_PROPERTY ( BUS_RULE_FK );
+
+COMMENT ON TABLE CN_OMS_FRAUD_ENGINE.BUS_RULE_PROPERTY IS 'This table will be used for storing business rule properties.';
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.FIELD_TYPE_LK ( 
+	FIELD_TYPE_PK NUMBER NOT NULL,
+	NAME VARCHAR2( 100 ) NOT NULL,
+	DESCRIPTION VARCHAR2( 2000 ) NOT NULL,
+	SOFT_DELETE CHAR( 1 ) DEFAULT 'N' NOT NULL,
+	CREATED_DATE TIMESTAMP NOT NULL,
+	CREATED_BY VARCHAR2( 40 ) NOT NULL,
+	LAST_MODIFIED_DATE TIMESTAMP NULL,
+	LAST_MODIFIED_BY VARCHAR2( 40 ) NULL,
+	VERSION NUMBER NOT NULL,
+CONSTRAINT PK_FIELD_MASTER PRIMARY KEY ( FIELD_TYPE_PK ) 
+ );
+
+COMMENT ON TABLE CN_OMS_FRAUD_ENGINE.FIELD_TYPE_LK IS 'This table will hold field name and field description. This table will not hold any data for fields.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.FIELD_TYPE_LK.FIELD_TYPE_PK IS 'Oracle sequence for field master table';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.FIELD_TYPE_LK.NAME IS 'Field name  like Customer Name, Email address, Account Name';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.FIELD_TYPE_LK.DESCRIPTION IS 'Description of the field and why it is required.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.FIELD_TYPE_LK.CREATED_DATE IS 'Date on which field is created.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.FIELD_TYPE_LK.CREATED_BY IS 'Created by user name or user id';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.FIELD_TYPE_LK.LAST_MODIFIED_DATE IS 'Last modified date';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.FIELD_TYPE_LK.LAST_MODIFIED_BY IS 'Last modified user name or user id';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.FIELD_TYPE_LK.VERSION IS 'For Optimistic Concurrency';
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.ORDER_ARCHIVE ( 
+	ORDER_ARCHIVE_PK NUMBER NOT NULL,
+	TRANSACTION_ID VARCHAR2( 1000 ) NOT NULL,
+	NUMBER_OF_LINES NUMBER NOT NULL,
+	PAYMENT_TYPE VARCHAR2( 100 ) NOT NULL,
+	ORDER_RECEIVED_DATE DATE NOT NULL,
+	STATUS VARCHAR2( 40 ) NOT NULL,
+	ORDER_AMOUNT NUMBER( 10 ) NOT NULL,
+	ORDER_PRIORITY NUMBER NULL,
+	ORDER_RETRY_COUNT NUMBER NULL,
+	ARCHIVE_DATE DATE NOT NULL,
+	STATUS_REASON VARCHAR2( 1000 ) NOT NULL,
+	CUSTOMER_ID VARCHAR2( 40 ) NOT NULL,
+	CUSTOMER_EMAIL VARCHAR2( 100 ) NULL,
+	IP_ADDRESS VARCHAR2( 40 ) NULL,
+	SOFT_DELETE CHAR( 1 ) DEFAULT 'N' NOT NULL,
+	CREATED_DATE TIMESTAMP NOT NULL,
+	CREATED_BY VARCHAR2( 40 ) NOT NULL,
+	LAST_MODIFIED_DATE TIMESTAMP NULL,
+	LAST_MODIFIED_BY VARCHAR2( 40 ) NULL,
+	VERSION NUMBER NOT NULL,
+	SHIPPING_ADDRESS VARCHAR2( 1000 ) NULL,
+	PRIMARY_PHONE VARCHAR2( 40 ) NULL,
+	OMS_ORDER_ID VARCHAR2( 1000 ) NOT NULL,
+CONSTRAINT PK_ORDER_STATUS_0 PRIMARY KEY ( ORDER_ARCHIVE_PK ) 
+ );
+
+COMMENT ON TABLE CN_OMS_FRAUD_ENGINE.ORDER_ARCHIVE IS 'This table will have some order information and status of order.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_ARCHIVE.ORDER_ARCHIVE_PK IS 'This is a sequence of order status table';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_ARCHIVE.TRANSACTION_ID IS 'This will be unique transaction id sent by OMS to fraud engine.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_ARCHIVE.NUMBER_OF_LINES IS 'Number of item lines in an order.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_ARCHIVE.PAYMENT_TYPE IS 'Order payment type.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_ARCHIVE.ORDER_RECEIVED_DATE IS 'Date on which order is received by fraud engine.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_ARCHIVE.STATUS IS 'Status of order. This will have one of below values.n"ACCEPT","DENY","CHALLENGE","NOINFO","AWAIT_RESPONSE"';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_ARCHIVE.ORDER_AMOUNT IS 'Amount of an order.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_ARCHIVE.ORDER_PRIORITY IS 'This will determine order priority when scheduler runs for reprocessing an order.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_ARCHIVE.ORDER_RETRY_COUNT IS 'How many time order was retried by scheduler. After specific number of retry order will be sent to Fraud Anyalyst as "CHALLENGE".';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_ARCHIVE.CREATED_DATE IS 'Created date from Order status details table.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_ARCHIVE.VERSION IS 'For Optimistic Concurrency';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_ARCHIVE.OMS_ORDER_ID IS 'Order number passed by OMS to Fraud Engine.';
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.ORDER_DETAIL ( 
+	OMS_ORDER_ID VARCHAR2( 1000 ) NOT NULL,
+	TRANSACTION_ID VARCHAR2( 100 ) NOT NULL,
+	NUMBER_OF_LINES NUMBER NOT NULL,
+	PAYMENT_TYPE VARCHAR2( 20 ) NOT NULL,
+	ORDER_RECEIVED_DATE DATE NOT NULL,
+	ORDER_AMOUNT NUMBER( 10 ) NOT NULL,
+	ORDER_PRIORITY NUMBER NULL,
+	ORDER_RETRY_COUNT NUMBER NULL,
+	CUSTOMER_ID VARCHAR2( 40 ) NOT NULL,
+	CUSTOMER_EMAIL VARCHAR2( 150 ) NULL,
+	IP_ADDRESS VARCHAR2( 40 ) NULL,
+	SOFT_DELETE CHAR( 1 ) DEFAULT 'N' NOT NULL,
+	CREATED_DATE TIMESTAMP NOT NULL,
+	CREATED_BY VARCHAR2( 40 ) NOT NULL,
+	LAST_MODIFIED_DATE TIMESTAMP NULL,
+	LAST_MODIFIED_BY VARCHAR2( 40 ) NULL,
+	VERSION NUMBER NOT NULL,
+	ORDER_DETAIL_PK NUMBER NOT NULL,
+CONSTRAINT PK_ORDER_STATUS PRIMARY KEY ( ORDER_DETAIL_PK ) 
+ );
+
+CREATE INDEX IDX_ORDER_DETAIL ON CN_OMS_FRAUD_ENGINE.ORDER_DETAIL ( PAYMENT_TYPE );
+
+COMMENT ON TABLE CN_OMS_FRAUD_ENGINE.ORDER_DETAIL IS 'This table will have some order information and status of order.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_DETAIL.OMS_ORDER_ID IS 'Order number passed by OMS to Fraud Engine.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_DETAIL.TRANSACTION_ID IS 'This will be unique transaction id sent by OMS to fraud engine.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_DETAIL.NUMBER_OF_LINES IS 'Number of item lines in an order.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_DETAIL.PAYMENT_TYPE IS 'Order payment type.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_DETAIL.ORDER_RECEIVED_DATE IS 'Date on which order is received by fraud engine.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_DETAIL.ORDER_AMOUNT IS 'Amount of an order.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_DETAIL.ORDER_PRIORITY IS 'This will determine order priority when scheduler runs for reprocessing an order.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_DETAIL.ORDER_RETRY_COUNT IS 'How many time order was retried by scheduler. After specific number of retry order will be sent to Fraud Anyalyst as "CHALLENGE".';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_DETAIL.VERSION IS 'For Optimistic Concurrency';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_DETAIL.ORDER_DETAIL_PK IS 'This is a sequence of order status table';
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.ORDER_STATUS ( 
+	ORDER_STATUS_PK NUMBER NOT NULL,
+	STATUS_REASON VARCHAR2( 1000 ) NOT NULL,
+	SOFT_DELETE CHAR( 1 ) DEFAULT 'N' NOT NULL,
+	CREATED_DATE TIMESTAMP NOT NULL,
+	CREATED_BY VARCHAR2( 40 ) NOT NULL,
+	LAST_MODIFIED_DATE TIMESTAMP NULL,
+	LAST_MODIFIED_BY VARCHAR2( 40 ) NULL,
+	VERSION NUMBER NOT NULL,
+	ORDER_DETAIL_FK NUMBER NOT NULL,
+	STATUS_FK NUMBER NOT NULL,
+	BUS_RULE_FK NUMBER NULL,
+	POS_NEG_LIST_FK NUMBER NULL,
+CONSTRAINT PK_ORDER_STATUS_DETAILS PRIMARY KEY ( ORDER_STATUS_PK ) 
+ );
+
+CREATE INDEX IDX_ORDER_STATUS ON CN_OMS_FRAUD_ENGINE.ORDER_STATUS ( STATUS_FK );
+
+CREATE INDEX IDX_ORDER_STATUS_0 ON CN_OMS_FRAUD_ENGINE.ORDER_STATUS ( POS_NEG_LIST_FK );
+
+COMMENT ON TABLE CN_OMS_FRAUD_ENGINE.ORDER_STATUS IS 'This table will have order status details for each order processed by Fraud Engine.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_STATUS.ORDER_STATUS_PK IS 'Oracle Sequence ID ';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_STATUS.STATUS_REASON IS 'Status Reason why order has this status. nWhen Fraud analyst Accept or Deny order then FA will provide reason for decison.nWe need to use ENUMn';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_STATUS.CREATED_DATE IS 'Date time stamp for status';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_STATUS.CREATED_BY IS 'User Name or user id who has created this row.nIf system generated then it will be "SYSTEM"';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_STATUS.VERSION IS 'For Optimistic Concurrency';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_STATUS.ORDER_DETAIL_FK IS 'Foregin key for ORDER_DETAILS table.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_STATUS.STATUS_FK IS 'Status of order. This will have one of below values.n"ACCEPT","DENY","CHALLENGE","NOINFO","AWAIT_RESPONSE","ERROR" which will be comming from STATUS_FK table.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.ORDER_STATUS.POS_NEG_LIST_FK IS 'This field will have value as business rule code or positivie negative reason code.';
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.POS_NEG_LIST ( 
+	POS_NEG_LIST_PK NUMBER NOT NULL,
+	FIELD_VALUE VARCHAR2( 2000 ) NOT NULL,
+	SOFT_DELETE CHAR( 1 ) DEFAULT N NOT NULL,
+	CREATED_DATE TIMESTAMP NOT NULL,
+	CREATED_BY VARCHAR2( 40 ) NOT NULL,
+	LAST_MODIFIED_DATE TIMESTAMP NULL,
+	LAST_MODIFIED_BY VARCHAR2( 40 ) NULL,
+	VERSION NUMBER NOT NULL,
+	FIELD_TYPE_FK NUMBER NOT NULL,
+	FIELD_SHORT_DESC VARCHAR2( 2000 ) NOT NULL,
+	POS_NEG_REASON_FK NUMBER NULL,
+	FIELD_LONG_DESC VARCHAR2( 2000 ) NULL,
+CONSTRAINT PK_FIELD_DETAILS PRIMARY KEY ( POS_NEG_LIST_PK ) 
+ );
+
+CREATE INDEX IDX_POSITIVE_NEGATIVE_LIST ON CN_OMS_FRAUD_ENGINE.POS_NEG_LIST ( POS_NEG_REASON_FK );
+
+COMMENT ON TABLE CN_OMS_FRAUD_ENGINE.POS_NEG_LIST IS 'This table is used to store data for Positive negative list';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_LIST.FIELD_VALUE IS 'This will be actual value of field which will part of positive or negative list.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_LIST.CREATED_DATE IS 'Date on which field value is added to the table.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_LIST.CREATED_BY IS 'Username or user id who has created this value';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_LIST.LAST_MODIFIED_DATE IS 'Last modified date ';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_LIST.LAST_MODIFIED_BY IS 'person or user name who has last modified field value';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_LIST.VERSION IS 'For Optimistic Concurrency';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_LIST.FIELD_SHORT_DESC IS 'Reason to add this field value to positive or negative list. ';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_LIST.POS_NEG_REASON_FK IS 'Reason code from REASON Table';
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.POS_NEG_REASON_LK ( 
+	POS_NEG_REASON_PK NUMBER NOT NULL,
+	REASON_CODE VARCHAR2( 10 ) NOT NULL,
+	REASON_SHORT_DESC VARCHAR2( 200 ) NOT NULL,
+	REASON_LONG_DESC VARCHAR2( 2000 ) NOT NULL,
+	STATUS_FK NUMBER NOT NULL,
+	SOFT_DELETE CHAR( 1 ) DEFAULT N NOT NULL,
+	CREATED_DATE TIMESTAMP NOT NULL,
+	CREATED_BY VARCHAR2( 40 ) NOT NULL,
+	LAST_MODIFIED_DATE TIMESTAMP NULL,
+	LAST_MODIFIED_BY VARCHAR2( 40 ) NULL,
+	VERSION NUMBER NOT NULL,
+CONSTRAINT PK_REASON_DETAILS PRIMARY KEY ( POS_NEG_REASON_PK ) 
+ );
+
+CREATE INDEX IDX_POS_NEG_REASON_LK ON CN_OMS_FRAUD_ENGINE.POS_NEG_REASON_LK ( STATUS_FK );
+
+COMMENT ON TABLE CN_OMS_FRAUD_ENGINE.POS_NEG_REASON_LK IS 'This table will have information about number of reason to approve, challenge or deny a order.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_REASON_LK.POS_NEG_REASON_PK IS 'Oracle sequence ';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_REASON_LK.REASON_CODE IS 'This will be identifer for a Reason';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_REASON_LK.REASON_SHORT_DESC IS 'Reason information';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_REASON_LK.REASON_LONG_DESC IS 'Detailed description about reason.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_REASON_LK.STATUS_FK IS 'Reason status can be ACCEPT, DENY, CHALLENGE';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_REASON_LK.CREATED_DATE IS 'Date on which reason is created';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_REASON_LK.CREATED_BY IS 'User name or user id who has created this reason.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.POS_NEG_REASON_LK.VERSION IS 'For Optimistic Concurrency';
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.SCHEDULER_DETAIL ( 
+	SCHEDULER_DETAIL_PK NUMBER NOT NULL,
+	SCHEDULER_MASTER_FK NUMBER NOT NULL,
+	TRANSACTION_ID VARCHAR2( 100 ) NOT NULL,
+	TRANSACTION_SENT_TO VARCHAR2( 20 ) NULL,
+	SOFT_DELETE CHAR( 1 ) DEFAULT 'N' NOT NULL,
+	CREATED_DATE TIMESTAMP NOT NULL,
+	CREATED_BY VARCHAR2( 40 ) NOT NULL,
+	LAST_MODIFIED_DATE TIMESTAMP NULL,
+	LAST_MODIFIED_BY VARCHAR2( 40 ) NULL,
+	VERSION NUMBER NOT NULL,
+	OMS_ORDER_ID VARCHAR2( 100 ) NOT NULL,
+CONSTRAINT PK_SCHEDULER_DETAILS PRIMARY KEY ( SCHEDULER_DETAIL_PK ) 
+ );
+
+CREATE INDEX IDX_SCHEDULER_DETAILS ON CN_OMS_FRAUD_ENGINE.SCHEDULER_DETAIL ( SCHEDULER_MASTER_FK );
+
+COMMENT ON TABLE CN_OMS_FRAUD_ENGINE.SCHEDULER_DETAIL IS 'Details of each scheduler run';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.SCHEDULER_DETAIL.SCHEDULER_DETAIL_PK IS 'Oracle sequence id';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.SCHEDULER_DETAIL.SCHEDULER_MASTER_FK IS 'Foregin key for SCHEDULER_MASTER table.';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.SCHEDULER_DETAIL.TRANSACTION_ID IS 'Transaction id from order details table';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.SCHEDULER_DETAIL.TRANSACTION_SENT_TO IS 'This will have information about transaction is sent to which systemn"OMS","CSC-FA","THIRD_PARTY"';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.SCHEDULER_DETAIL.OMS_ORDER_ID IS 'Order number from order details';
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.SCHEDULER_MASTER ( 
+	SCHEDULER_NAME VARCHAR2( 100 ) NOT NULL,
+	FREQUENCY NUMBER NOT NULL,
+	LAST_RUN_DATE_TIME DATE DEFAULT systimestamp NULL,
+	STATUS VARCHAR2( 20 ) NOT NULL,
+	START_DATE DATE NOT NULL,
+	END_DATE DATE NULL,
+	SOFT_DELETE CHAR( 1 ) DEFAULT N NOT NULL,
+	CREATED_DATE TIMESTAMP NOT NULL,
+	CREATED_BY VARCHAR2( 40 ) NOT NULL,
+	LAST_MODIFIED_DATE TIMESTAMP NULL,
+	LAST_MODIFIED_BY VARCHAR2( 40 ) NULL,
+	VERSION NUMBER NOT NULL,
+	SCHEDULER_MASTER_PK NUMBER NOT NULL,
+CONSTRAINT PK_SCHEDULER_MASTER PRIMARY KEY ( SCHEDULER_MASTER_PK ) 
+ );
+
+COMMENT ON TABLE CN_OMS_FRAUD_ENGINE.SCHEDULER_MASTER IS 'This table will have information about scheduler';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.SCHEDULER_MASTER.SCHEDULER_NAME IS 'Name of scheduler';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.SCHEDULER_MASTER.FREQUENCY IS 'Frequency in minutes';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.SCHEDULER_MASTER.LAST_RUN_DATE_TIME IS 'last time when this scheduler ran';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.SCHEDULER_MASTER.STATUS IS 'Scheduler status as "ACTIVE","INACTIVE","DELETE"';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.SCHEDULER_MASTER.START_DATE IS 'Scheduler Start date';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.SCHEDULER_MASTER.END_DATE IS 'Scheduler end date';
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.SCHEDULER_MASTER.SCHEDULER_MASTER_PK IS 'Oracle sequence id.';
+
+CREATE TABLE CN_OMS_FRAUD_ENGINE.STATUS_LK ( 
+	STATUS_PK NUMBER NOT NULL,
+	NAME VARCHAR2( 30 ) NOT NULL,
+	DESCRIPTION VARCHAR2( 200 ) NOT NULL,
+	SOFT_DELETE CHAR( 1 ) DEFAULT 'N' NOT NULL,
+	CREATED_DATE TIMESTAMP NOT NULL,
+	CREATED_BY VARCHAR2( 40 ) NOT NULL,
+	LAST_MODIFIED_DATE TIMESTAMP NULL,
+	LAST_MODIFIED_BY VARCHAR2( 40 ) NULL,
+	VERSION NUMBER NOT NULL,
+CONSTRAINT PK_FRAUD_ENGINE_STATUS PRIMARY KEY ( STATUS_PK ) 
+ );
+
+COMMENT ON COLUMN CN_OMS_FRAUD_ENGINE.STATUS_LK.VERSION IS 'For Optimistic Concurrency';
+
+CREATE VIEW CN_OMS_FRAUD_ENGINE.POS_NEG_LIST_VIEW AS SELECT PNL.POS_NEG_LIST_PK,
+    FTL.NAME,
+    PNL.FIELD_VALUE,
+    PNL.FIELD_SHORT_DESC,
+    PNGRL.REASON_CODE,
+    PNGRL.REASON_SHORT_DESC,
+    SL.NAME AS STATUS
+  FROM POS_NEG_LIST PNL,
+    FIELD_TYPE_LK FTL,
+    POS_NEG_REASON_LK PNGRL,
+    STATUS_LK SL
+  WHERE PNL.FIELD_TYPE_FK  =FTL.FIELD_TYPE_PK
+  AND PNL.POS_NEG_REASON_FK=PNGRL.POS_NEG_REASON_PK
+  AND PNGRL.STATUS_FK      =SL.STATUS_PK
+  AND SL.NAME              ='ACCEPT'
+  UNION
+    SELECT PNL.POS_NEG_LIST_PK,
+    FTL.NAME,
+    PNL.FIELD_VALUE,
+    PNL.FIELD_SHORT_DESC,
+    PNGRL.REASON_CODE,
+    PNGRL.REASON_SHORT_DESC,
+    SL.NAME AS STATUS
+  FROM POS_NEG_LIST PNL,
+    FIELD_TYPE_LK FTL,
+    POS_NEG_REASON_LK PNGRL,
+    STATUS_LK SL
+  WHERE PNL.FIELD_TYPE_FK  =FTL.FIELD_TYPE_PK
+  AND PNL.POS_NEG_REASON_FK=PNGRL.POS_NEG_REASON_PK
+  AND PNGRL.STATUS_FK      =SL.STATUS_PK
+ AND SL.NAME               ='CHALLENGE'
+
+UNIon
+ SELECT PNL.POS_NEG_LIST_PK,
+    FTL.NAME,
+    PNL.FIELD_VALUE,
+    PNL.FIELD_SHORT_DESC,
+    PNGRL.REASON_CODE,
+    PNGRL.REASON_SHORT_DESC,
+    SL.NAME AS STATUS
+  FROM POS_NEG_LIST PNL,
+    FIELD_TYPE_LK FTL,
+    POS_NEG_REASON_LK PNGRL,
+    STATUS_LK SL
+  WHERE PNL.FIELD_TYPE_FK  =FTL.FIELD_TYPE_PK
+  AND PNL.POS_NEG_REASON_FK=PNGRL.POS_NEG_REASON_PK
+  AND PNGRL.STATUS_FK      =SL.STATUS_PK
+  AND  SL.NAME               ='DENY'
+  ORDER BY STATUS;
+
+CREATE SEQUENCE ADDRESS_DETAIL_SEQ START WITH 1;
+
+CREATE SEQUENCE BUS_RULE_HIT_SEQ START WITH 1;
+
+CREATE SEQUENCE BUS_RULE_PRIRITY_SEQ START WITH 1;
+
+CREATE SEQUENCE BUS_RULE_SEQ START WITH 1;
+
+CREATE SEQUENCE FIELD_TYPE_LK_SEQ START WITH 1;
+
+CREATE SEQUENCE ORDER_DETAIL_SEQ START WITH 1;
+
+CREATE SEQUENCE ORDER_STATUS_SEQ START WITH 1;
+
+CREATE SEQUENCE POS_NEG_LIST_SEQ START WITH 1;
+
+CREATE SEQUENCE POS_NEG_RERSONE_LK_SEQ START WITH 1;
+
+CREATE SEQUENCE SCHEDULE_DETAIL_SEQ START WITH 1;
+
+CREATE SEQUENCE SCHEDULE_MASTER_SEQ START WITH 1;
+
+CREATE SEQUENCE SEQ_PK START WITH 1;
+
+CREATE SEQUENCE STATUS_LK_SEQ START WITH 1;
+
+ALTER TABLE CN_OMS_FRAUD_ENGINE.BUS_RULE ADD CONSTRAINT FK_BUS_RULE FOREIGN KEY ( STATUS_FK ) REFERENCES CN_OMS_FRAUD_ENGINE.STATUS_LK( STATUS_PK ) ON DELETE CASCADE;
+
+ALTER TABLE CN_OMS_FRAUD_ENGINE.BUS_RULE_HIT ADD CONSTRAINT FK_BUS_RULE_HIT FOREIGN KEY ( BUS_RULE_FK ) REFERENCES CN_OMS_FRAUD_ENGINE.BUS_RULE( BUS_RULE_PK ) ON DELETE CASCADE;
+
+ALTER TABLE CN_OMS_FRAUD_ENGINE.BUS_RULE_PRIORITY ADD CONSTRAINT FK_RULE_PRIORITY_BUS_RULE FOREIGN KEY ( BUS_RULE_FK ) REFERENCES CN_OMS_FRAUD_ENGINE.BUS_RULE( BUS_RULE_PK ) ON DELETE CASCADE;
+
+ALTER TABLE CN_OMS_FRAUD_ENGINE.BUS_RULE_PRIORITY_ARCHIVE ADD CONSTRAINT FK_BUS_RULE_PRIORITY_ARCHIVE FOREIGN KEY ( BUS_RULE_FK ) REFERENCES CN_OMS_FRAUD_ENGINE.BUS_RULE( BUS_RULE_PK );
+
+ALTER TABLE CN_OMS_FRAUD_ENGINE.BUS_RULE_PROPERTY ADD CONSTRAINT FK_BUS_RULE_PROPERTY_BUS_RULE FOREIGN KEY ( BUS_RULE_FK ) REFERENCES CN_OMS_FRAUD_ENGINE.BUS_RULE( BUS_RULE_PK ) ON DELETE CASCADE;
+
+ALTER TABLE CN_OMS_FRAUD_ENGINE.ORDER_STATUS ADD CONSTRAINT FK_ORDER_STATUS_ORDER FOREIGN KEY ( ORDER_DETAIL_FK ) REFERENCES CN_OMS_FRAUD_ENGINE.ORDER_DETAIL( ORDER_DETAIL_PK );
+
+ALTER TABLE CN_OMS_FRAUD_ENGINE.ORDER_STATUS ADD CONSTRAINT FK_ORDER_STATUS_STATUS_LK FOREIGN KEY ( STATUS_FK ) REFERENCES CN_OMS_FRAUD_ENGINE.STATUS_LK( STATUS_PK ) ON DELETE CASCADE;
+
+ALTER TABLE CN_OMS_FRAUD_ENGINE.POS_NEG_LIST ADD CONSTRAINT FK_FIELD_DETAILS_FIELD_TYPE FOREIGN KEY ( FIELD_TYPE_FK ) REFERENCES CN_OMS_FRAUD_ENGINE.FIELD_TYPE_LK( FIELD_TYPE_PK );
+
+ALTER TABLE CN_OMS_FRAUD_ENGINE.POS_NEG_LIST ADD CONSTRAINT FK_POSITIVE_NEGATIVE_LIST FOREIGN KEY ( POS_NEG_REASON_FK ) REFERENCES CN_OMS_FRAUD_ENGINE.POS_NEG_REASON_LK( POS_NEG_REASON_PK ) ON DELETE CASCADE;
+
+ALTER TABLE CN_OMS_FRAUD_ENGINE.POS_NEG_REASON_LK ADD CONSTRAINT FK_POS_NEG_REASON_LK_STATUS_LK FOREIGN KEY ( STATUS_FK ) REFERENCES CN_OMS_FRAUD_ENGINE.STATUS_LK( STATUS_PK ) ON DELETE CASCADE;
+
+ALTER TABLE CN_OMS_FRAUD_ENGINE.SCHEDULER_DETAIL ADD CONSTRAINT FK_SCHEDULER_DETAILS FOREIGN KEY ( SCHEDULER_MASTER_FK ) REFERENCES CN_OMS_FRAUD_ENGINE.SCHEDULER_MASTER( SCHEDULER_MASTER_PK ) ON DELETE CASCADE;
+
+]]> </string>
+		</query>
+	</layout>
+</project>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classloading-domain xmlns="urn:jboss:classloading-domain:1.0" name="your-domain-name">
+   <parent-policy>
+     <before-filter>
+   <javabean xmlns="urn:jboss:javabean:2.0" class="org.jboss.classloader.plugins.filter.JavaOnlyClassFilter" />
+   <javabean xmlns="urn:jboss:javabean:2.0" class="org.jboss.classloader.plugins.filter.NegatingClassFilter">
+    <constructor>
+     <parameter>
+      <javabean xmlns="urn:jboss:javabean:2.0" class="org.jboss.classloader.spi.filter.RecursivePackageClassFilter">
+       <constructor>
+        <parameter>org.hibernate</parameter>
+       </constructor>
+      </javabean>
+     </parameter>
+    </constructor>
+   </javabean>
+  </before-filter>
+   </parent-policy>
+</classloading-domain>

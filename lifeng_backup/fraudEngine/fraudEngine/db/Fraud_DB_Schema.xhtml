@@ -1,0 +1,1538 @@
+<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN' 'http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' >
+<head>
+<title>Database documentation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF8"/>
+<style type='text/css'>
+	 #dbs {font-family:Tahoma,Dialog,Sans-Serif;font-size:11px;background:#fff;width:80%;border-collapse:collapse;text-align:left;margin:20px;}
+	 #dbs thead{background:#e6ecf9;}
+	 #dbs th{font-size:12px;font-weight:bold;color:#039;border-bottom:2px solid #6678b1;padding:7px 8px;}
+	 #dbs td{border-bottom:1px solid #ccc;color:#336;padding:3px 8px;white-space: pre;}
+	 td.subpart{font-weight:bold;background:#e6ecf9}
+	 td.name{background:#f2f5fb}
+	 #dbs tbody tr:hover td{color:#000;background:#fffcea;}
+</style>
+</head>
+
+<body>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'   width='1034' height='934' viewbox='0 0 1034 934' >
+<style type='text/css'>
+  text                { text-rendering: optimizeLegibility; fill:#444444; font-family: Tahoma,Trebuchet MS,Dialog,Arial; font-size:10px; }
+  text.coltype        { fill:#a9bdc6; font-size:10px; }
+  path                { stroke:#776c57; stroke-width:1.5; fill: none; }
+  rect.grp            { opacity:0.5; stroke:#c2ab83; stroke-width:1; }
+  rect.table          { fill:white; stroke:none; }
+  rect.tableborder    { shape-rendering:crispEdges;fill:none;stroke:#82a3bb; stroke-width:1; }
+  line.tableborder    { shape-rendering:crispEdges;stroke:#82a3bb; stroke-width:1; }
+  rect.callout        { shape-rendering:crispEdges;fill:#f7fbf7; stroke:none; }
+  rect.calloutborder  { shape-rendering:crispEdges;fill:none;stroke:#8d9380; stroke-width:1; }
+</style>
+<defs>
+  <linearGradient id='grTableHeader' x1='0' x2='0' y1='0' y2='1'>
+    <stop offset='0%' stop-color='#c0d6f1' />
+    <stop offset='50%' stop-color='#ebf4fb' />
+    <stop offset='51%' stop-color='#c7e2f9' />
+    <stop offset='100%' stop-color='#f9fcff' />
+  </linearGradient>
+
+  <linearGradient id='imageBackground' gradientUnits='objectBoundingBox' gradientTransform='rotate(90)'>
+    <stop offset='0%' stop-color='white'/>
+    <stop offset='100%' stop-color='#c8e1f3'/>
+  </linearGradient>
+  <filter id='dropShadow' filterUnits='objectBoundingBox' x='-1.2' y='-1.2' width='6' height='6'>
+    <feGaussianBlur in='SourceAlpha' stdDeviation='2' />
+    <feComponentTransfer result='shadow'>
+      <feFuncA type='linear' slope='.7' intercept='0' />
+      </feComponentTransfer>
+    <feComposite in2='shadow' in='SourceGraphic'/>
+  </filter>
+  <radialGradient id='legendGradient' fx='5%' fy='5%' r='75%' spreadMethod='pad'>
+          <stop offset='0%' stop-color='#6985ff' stop-opacity='1'/> 
+          <stop offset='100%' stop-color='#1e2a5f' stop-opacity='1' /> 
+   </radialGradient>
+
+  <pattern id='hintPointerSV' patternUnits='userSpaceOnUse' x='0' y='0' width='11' height='11' viewBox='0 0 11 11' >
+      <path d='M 0,0 Q 7,7,0,13 Q 13,7,13,0' style='fill:#f7fbf7;stroke:#8d9380;' />
+  </pattern>
+
+  <pattern id='hintPointerSE' patternUnits='userSpaceOnUse' x='0' y='0' width='11' height='11' viewBox='0 0 11 11' >
+      <path d='M 0,0 Q 3,7,13,13 Q 7,7,13,0' style='fill:#f7fbf7;stroke:#8d9380;' />
+  </pattern>
+
+  <pattern id='hintPointerNV' patternUnits='userSpaceOnUse' x='0' y='0' width='11' height='11' viewBox='0 0 11 11' >
+      <path d='M 0,13 Q 7,7,0,0 Q 13,7,13,13' style='fill:#f7fbf7;stroke:#8d9380;' />
+  </pattern>
+
+  <pattern id='hintPointerNE' patternUnits='userSpaceOnUse' x='0' y='0' width='11' height='11' viewBox='0 0 11 11' >
+      <path d='M 0,13 Q 3,7,13,0 Q 7,7,13,13' style='fill:#f7fbf7;stroke:#8d9380;' />
+  </pattern>
+
+  <symbol id='pk' overflow='visible' >
+      <path d='M 5 6 A 3 3 0 1 1 7 6 L 8 7 L 7 8 L 8 9 L 7,10 L 6 11 L 5,10 L 5,6 z' style='fill:#f2e421;stroke-width:0.7;stroke:#5f3312;stroke-linejoin:round;' />
+  </symbol>
+
+  <symbol id='idx' overflow='visible' >
+      <path d='M 4,3 L 9,6 L 4,9 z' style='fill:#f2e421;stroke-width:0.7;stroke:#5f3312;stroke-linejoin:round;' />
+  </symbol>
+
+  <marker id='arrow' viewBox='0 0 5 5' refX='0' refY='2' markerUnits='strokeWidth' markerWidth='5' markerHeight='5' orient='auto'>
+    <path d='M 0,0 L 5, 2 L 0,5 z' style='fill:#666666; stroke-width:0px;' />
+  </marker>
+
+  <marker id='foot' viewBox='0 0 5 5' refX='5' refY='2' markerUnits='strokeWidth' markerWidth='5' markerHeight='5' orient='auto'>
+    <path d='M 0,2 L 11, 2 z' />
+  </marker>
+
+</defs>
+
+<script type='text/javascript'>
+  <![CDATA[
+    function hgText(evt){evt.target.setAttribute('style','text-decoration:underline;fill:blue;'); }
+    function uhgText(evt){evt.target.setAttribute('style','text-decoration:none;fill:black;'); }
+    function hgPath(evt){evt.target.setAttribute('style','stroke:blue;stroke-width:3;');}
+    function uhgPath(evt){evt.target.setAttribute('style','stroke:#776c57;stroke-width:1.5;');}
+  ]]>
+</script>
+
+<!-- ############### Desktop ############# -->
+<rect x='1' y='1' width='1032' height='932' rx='5' ry='5' style='fill:url(#imageBackground); stroke:#82a3bb; stroke-width:1;' />
+
+<!-- ############### Group 'POS_NEG_REASON_LK' ############# -->
+<rect class='grp' style='fill:#ffffcc;' x='21' y='13' width='497' height='205' rx='7' ry='7'/>
+<text x='32' y='24'>POS_NEG_REASON_LK</text>
+
+<!-- ############### Group 'SCHEDULER_MASTER' ############# -->
+<rect class='grp' style='fill:#fff8d6;' x='571' y='519' width='354' height='216' rx='7' ry='7'/>
+<text x='582' y='530'>SCHEDULER_MASTER</text>
+
+<!-- ############### Group 'STATUS_LK' ############# -->
+<rect class='grp' style='fill:#dbe1fe;' x='21' y='233' width='552' height='557' rx='7' ry='7'/>
+<text x='32' y='244'>STATUS_LK</text>
+
+<!-- ############### Group 'Unreferenced' ############# -->
+<rect class='grp' style='fill:#e8e8ff;' x='593' y='13' width='178' height='326' rx='7' ry='7'/>
+<text x='604' y='24'>Unreferenced</text>
+
+<!-- ############### Table 'ADDRESS_DETAIL' ############# -->
+<rect class='table' x='418' y='501' width='143' height='253' rx='5' ry='5' />
+<path d='M 419 518 L 419 507 Q 419 502 424 502 L 555 502 Q 560 502 560 507 L 560 518 L419 518 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#ADDRESS_DETAIL' title='ADDRESS_DETAIL' ><text x='444' y='513' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ADDRESS_DETAIL</text></a>
+  <use id='pk' x='418' y='525' xlink:href='#pk'/><a xlink:href='#ADDRESS_DETAIL_PK' title='ADDRESS_DETAIL_PK number'><text x='429' y='533' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ADDRESS_DETAIL_PK</text></a>
+  <a xlink:href='#ADDRESS_LINE_1' title='ADDRESS_LINE_1 varchar2(70)'><text x='429' y='544' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ADDRESS_LINE_1</text></a>
+  <a xlink:href='#ADDRESS_LINE_2' title='ADDRESS_LINE_2 varchar2(70)'><text x='429' y='555' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ADDRESS_LINE_2</text></a>
+  <a xlink:href='#ADDRESS_LINE_3' title='ADDRESS_LINE_3 varchar2(70)'><text x='429' y='566' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ADDRESS_LINE_3</text></a>
+  <a xlink:href='#ADDRESS_LINE_4' title='ADDRESS_LINE_4 varchar2(70)'><text x='429' y='577' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ADDRESS_LINE_4</text></a>
+  <a xlink:href='#ADDRESS_LINE_5' title='ADDRESS_LINE_5 varchar2(70)'><text x='429' y='588' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ADDRESS_LINE_5</text></a>
+  <a xlink:href='#CITY' title='CITY varchar2(40)'><text x='429' y='599' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CITY</text></a>
+  <a xlink:href='#COUNTRY' title='COUNTRY varchar2(40)'><text x='429' y='610' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>COUNTRY</text></a>
+  <a xlink:href='#ADDRESS_TYPE' title='ADDRESS_TYPE varchar2(20) Address type will either SHIPPING or BILLING address for an Order.'><text x='429' y='621' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ADDRESS_TYPE</text></a>
+  <a xlink:href='#SOFT_DELETE' title='SOFT_DELETE char(1)'><text x='429' y='632' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SOFT_DELETE</text></a>
+  <a xlink:href='#CREATED_DATE' title='CREATED_DATE timestamp'><text x='429' y='643' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_DATE</text></a>
+  <a xlink:href='#CREATED_BY' title='CREATED_BY varchar2(40)'><text x='429' y='654' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_BY</text></a>
+  <a xlink:href='#LAST_MODIFIED_DATE' title='LAST_MODIFIED_DATE timestamp'><text x='429' y='665' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_DATE</text></a>
+  <a xlink:href='#LAST_MODIFIED_BY' title='LAST_MODIFIED_BY varchar2(40)'><text x='429' y='676' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_BY</text></a>
+  <a xlink:href='#VERSION' title='VERSION number'><text x='429' y='687' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>VERSION</text></a>
+  <a xlink:href='#WORK_PHONE' title='WORK_PHONE varchar2(40)'><text x='429' y='698' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>WORK_PHONE</text></a>
+  <a xlink:href='#HOME_PHONE' title='HOME_PHONE varchar2(40)'><text x='429' y='709' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>HOME_PHONE</text></a>
+  <a xlink:href='#CELL_PHONE' title='CELL_PHONE varchar2(40)'><text x='429' y='720' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CELL_PHONE</text></a>
+  <a xlink:href='#PROVINCE' title='PROVINCE varchar2(40)'><text x='429' y='731' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>PROVINCE</text></a>
+  <a xlink:href='#DISTRICT' title='DISTRICT varchar2(40)'><text x='429' y='742' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>DISTRICT</text></a>
+
+
+<rect class='tableborder' x='418' y='501' width='143' height='253' rx='5' ry='5' />
+<path transform='translate(5,0)' marker-start='url(#foot)' marker-end='url(#arrow)'  title='FK_BUS_RULE' d='M 44 429 L 44,385'  onmouseover='hgPath(evt);' onmouseout='uhgPath(evt);'  />
+
+<!-- ############### Table 'BUS_RULE' ############# -->
+<rect class='table' x='33' y='435' width='143' height='176' rx='5' ry='5' />
+<path d='M 34 452 L 34 441 Q 34 436 39 436 L 170 436 Q 175 436 175 441 L 175 452 L34 452 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#BUS_RULE' title='This table will hold number of business rules which will be used by fraud engine.' ><text x='78' y='447' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>BUS_RULE</text></a>
+  <use id='pk' x='33' y='459' xlink:href='#pk'/><a xlink:href='#BUS_RULE_PK' title='BUS_RULE_PK number This will be a sequence from oracle'><text x='44' y='467' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>BUS_RULE_PK</text></a>
+  <a xlink:href='#RULE_FILE_NAME' title='RULE_FILE_NAME varchar2(100) This field give information about which rule file is used for Rule'><text x='44' y='478' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>RULE_FILE_NAME</text></a>
+  <a xlink:href='#RULE' title='RULE clob This field will have actual rule file stored as Clob'><text x='44' y='489' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>RULE</text></a>
+  <a xlink:href='#RULE_DESCRIPTION' title='RULE_DESCRIPTION varchar2(1000) This will describe rule in details'><text x='44' y='500' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>RULE_DESCRIPTION</text></a>
+  <a xlink:href='#START_DATE' title='START_DATE timestamp Start date of rule'><text x='44' y='511' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>START_DATE</text></a>
+  <a xlink:href='#END_DATE' title='END_DATE timestamp End date of rule after this date rule will not be applied on an order.'><text x='44' y='522' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>END_DATE</text></a>
+  <use id='idx' x='33' y='525' xlink:href='#idx'/><a xlink:href='#STATUS_FK' title='STATUS_FK number Status of Rule. nStatus can be  ACTIVE ,  INACTIVE , DELETED '><text x='44' y='533' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>STATUS_FK</text></a>
+  <a xlink:href='#SOFT_DELETE' title='SOFT_DELETE char(1)'><text x='44' y='544' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SOFT_DELETE</text></a>
+  <a xlink:href='#CREATED_DATE' title='CREATED_DATE timestamp Date on which rule is created.'><text x='44' y='555' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_DATE</text></a>
+  <a xlink:href='#CREATED_BY' title='CREATED_BY varchar2(40) Person or userid who has created this rule'><text x='44' y='566' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_BY</text></a>
+  <a xlink:href='#LAST_MODIFIED_DATE' title='LAST_MODIFIED_DATE timestamp Date on which rule was modified last'><text x='44' y='577' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_DATE</text></a>
+  <a xlink:href='#LAST_MODIFIED_BY' title='LAST_MODIFIED_BY varchar2(40) Person or userid who has last modified this rule.'><text x='44' y='588' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_BY</text></a>
+  <a xlink:href='#VERSION' title='VERSION number For Optimistic Concurrency'><text x='44' y='599' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>VERSION</text></a>
+
+
+<rect class='tableborder' x='33' y='435' width='143' height='176' rx='5' ry='5' />
+<path transform='translate(5,0)' marker-start='url(#foot)' marker-end='url(#arrow)'  title='FK_BUS_RULE_HIT' d='M 198 451 L 176,451'  onmouseover='hgPath(evt);' onmouseout='uhgPath(evt);'  />
+
+<!-- ############### Table 'BUS_RULE_HIT' ############# -->
+<rect class='table' x='209' y='435' width='143' height='132' rx='5' ry='5' />
+<path d='M 210 452 L 210 441 Q 210 436 215 436 L 346 436 Q 351 436 351 441 L 351 452 L210 452 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#BUS_RULE_HIT' title='BUS_RULE_HIT' ><text x='243' y='447' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>BUS_RULE_HIT</text></a>
+  <use id='pk' x='209' y='459' xlink:href='#pk'/><a xlink:href='#BUS_RULE_HIT_PK' title='BUS_RULE_HIT_PK number'><text x='220' y='467' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>BUS_RULE_HIT_PK</text></a>
+  <use id='idx' x='209' y='470' xlink:href='#idx'/><a xlink:href='#BUS_RULE_FK' title='BUS_RULE_FK number'><text x='220' y='478' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>BUS_RULE_FK</text></a>
+  <a xlink:href='#HIT_COUNT' title='HIT_COUNT number'><text x='220' y='489' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>HIT_COUNT</text></a>
+  <a xlink:href='#SOFT_DELETE' title='SOFT_DELETE char(1)'><text x='220' y='500' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SOFT_DELETE</text></a>
+  <a xlink:href='#CREATED_DATE' title='CREATED_DATE timestamp'><text x='220' y='511' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_DATE</text></a>
+  <a xlink:href='#CREATED_BY' title='CREATED_BY varchar2(40)'><text x='220' y='522' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_BY</text></a>
+  <a xlink:href='#LAST_MODIFIED_DATE' title='LAST_MODIFIED_DATE timestamp'><text x='220' y='533' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_DATE</text></a>
+  <a xlink:href='#LAST_MODIFIED_BY' title='LAST_MODIFIED_BY varchar2(40)'><text x='220' y='544' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_BY</text></a>
+  <a xlink:href='#VERSION' title='VERSION number'><text x='220' y='555' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>VERSION</text></a>
+
+
+<rect class='tableborder' x='209' y='435' width='143' height='132' rx='5' ry='5' />
+<path transform='translate(5,0)' marker-start='url(#foot)' marker-end='url(#arrow)'  title='FK_RULE_PRIORITY_BUS_RULE' d='M 44 627 L 44,616'  onmouseover='hgPath(evt);' onmouseout='uhgPath(evt);'  />
+
+<!-- ############### Table 'BUS_RULE_PRIORITY' ############# -->
+<rect class='table' x='33' y='633' width='154' height='132' rx='5' ry='5' />
+<path d='M 34 650 L 34 639 Q 34 634 39 634 L 181 634 Q 186 634 186 639 L 186 650 L34 650 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#BUS_RULE_PRIORITY' title='BUS_RULE_PRIORITY' ><text x='57' y='645' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>BUS_RULE_PRIORITY</text></a>
+  <use id='pk' x='33' y='657' xlink:href='#pk'/><a xlink:href='#BUS_RULE_PRIORITY_PK' title='BUS_RULE_PRIORITY_PK number'><text x='44' y='665' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>BUS_RULE_PRIORITY_PK</text></a>
+  <a xlink:href='#PRIORITY' title='PRIORITY number(10)'><text x='44' y='676' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>PRIORITY</text></a>
+  <use id='idx' x='33' y='679' xlink:href='#idx'/><a xlink:href='#BUS_RULE_FK' title='BUS_RULE_FK number'><text x='44' y='687' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>BUS_RULE_FK</text></a>
+  <a xlink:href='#SOFT_DELETE' title='SOFT_DELETE char(1)'><text x='44' y='698' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SOFT_DELETE</text></a>
+  <a xlink:href='#CREATED_DATE' title='CREATED_DATE timestamp'><text x='44' y='709' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_DATE</text></a>
+  <a xlink:href='#CREATED_BY' title='CREATED_BY varchar2(40)'><text x='44' y='720' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_BY</text></a>
+  <a xlink:href='#LAST_MODIFIED_DATE' title='LAST_MODIFIED_DATE timestamp'><text x='44' y='731' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_DATE</text></a>
+  <a xlink:href='#LAST_MODIFIED_BY' title='LAST_MODIFIED_BY varchar2(40)'><text x='44' y='742' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_BY</text></a>
+  <a xlink:href='#VERSION' title='VERSION number'><text x='44' y='753' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>VERSION</text></a>
+
+
+<rect class='tableborder' x='33' y='633' width='154' height='132' rx='5' ry='5' />
+<path transform='translate(5,0)' marker-start='url(#foot)' marker-end='url(#arrow)'  title='FK_BUS_RULE_PRIORITY_ARCHIVE' d='M 187 605 L 176,605'  onmouseover='hgPath(evt);' onmouseout='uhgPath(evt);'  />
+
+<!-- ############### Table 'BUS_RULE_PRIORITY_ARCHIVE' ############# -->
+<rect class='table' x='198' y='600' width='209' height='154' rx='5' ry='5' />
+<path d='M 199 617 L 199 606 Q 199 601 204 601 L 401 601 Q 406 601 406 606 L 406 617 L199 617 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#BUS_RULE_PRIORITY_ARCHIVE' title='BUS_RULE_PRIORITY_ARCHIVE' ><text x='224' y='612' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>BUS_RULE_PRIORITY_ARCHIVE</text></a>
+  <a xlink:href='#BUS_RULE_PRIORITY_ARCHIVE_PK' title='BUS_RULE_PRIORITY_ARCHIVE_PK number'><text x='209' y='632' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>BUS_RULE_PRIORITY_ARCHIVE_PK</text></a>
+  <a xlink:href='#PRIORITY' title='PRIORITY number(10)'><text x='209' y='643' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>PRIORITY</text></a>
+  <use id='idx' x='198' y='646' xlink:href='#idx'/><a xlink:href='#BUS_RULE_FK' title='BUS_RULE_FK number'><text x='209' y='654' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>BUS_RULE_FK</text></a>
+  <a xlink:href='#SOFT_DELETE' title='SOFT_DELETE char(1)'><text x='209' y='665' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SOFT_DELETE</text></a>
+  <a xlink:href='#CREATED_DATE' title='CREATED_DATE timestamp'><text x='209' y='676' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_DATE</text></a>
+  <a xlink:href='#CREATED_BY' title='CREATED_BY varchar2(40)'><text x='209' y='687' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_BY</text></a>
+  <a xlink:href='#LAST_MODIFIED_DATE' title='LAST_MODIFIED_DATE timestamp'><text x='209' y='698' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_DATE</text></a>
+  <a xlink:href='#LAST_MODIFIED_BY' title='LAST_MODIFIED_BY varchar2(40)'><text x='209' y='709' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_BY</text></a>
+  <a xlink:href='#VERSION' title='VERSION number'><text x='209' y='720' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>VERSION</text></a>
+  <a xlink:href='#PRIORITY_START_DATE' title='PRIORITY_START_DATE date'><text x='209' y='731' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>PRIORITY_START_DATE</text></a>
+  <a xlink:href='#PRIORITY_END_DATE' title='PRIORITY_END_DATE date'><text x='209' y='742' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>PRIORITY_END_DATE</text></a>
+
+
+<rect class='tableborder' x='198' y='600' width='209' height='154' rx='5' ry='5' />
+<!-- ############### Table 'BUS_RULE_PROPERTY' ############# -->
+<rect class='table' x='759' y='391' width='165' height='132' rx='5' ry='5' />
+<path d='M 760 408 L 760 397 Q 760 392 765 392 L 918 392 Q 923 392 923 397 L 923 408 L760 408 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#BUS_RULE_PROPERTY' title='BUS_RULE_PROPERTY' ><text x='785' y='403' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>BUS_RULE_PROPERTY</text></a>
+  <use id='pk' x='759' y='415' xlink:href='#pk'/><a xlink:href='#BUS_RULE_PROPERTY_PK' title='BUS_RULE_PROPERTY_PK number'><text x='770' y='423' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>BUS_RULE_PROPERTY_PK</text></a>
+  <use id='idx' x='759' y='426' xlink:href='#idx'/><a xlink:href='#BUS_RULE_FK' title='BUS_RULE_FK number'><text x='770' y='434' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>BUS_RULE_FK</text></a>
+  <a xlink:href='#PROPERTY_VALUE' title='PROPERTY_VALUE number'><text x='770' y='445' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>PROPERTY_VALUE</text></a>
+  <a xlink:href='#SOFT_DELETE' title='SOFT_DELETE char(1)'><text x='770' y='456' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SOFT_DELETE</text></a>
+  <a xlink:href='#CREATED_DATE' title='CREATED_DATE timestamp'><text x='770' y='467' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_DATE</text></a>
+  <a xlink:href='#CREATED_BY' title='CREATED_BY varchar2(40)'><text x='770' y='478' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_BY</text></a>
+  <a xlink:href='#LAST_MODIFIED_DATE' title='LAST_MODIFIED_DATE timestamp'><text x='770' y='489' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_DATE</text></a>
+  <a xlink:href='#LAST_MODIFIED_BY' title='LAST_MODIFIED_BY varchar2(40)'><text x='770' y='500' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_BY</text></a>
+  <a xlink:href='#VERSION' title='VERSION number'><text x='770' y='511' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>VERSION</text></a>
+
+
+<rect class='tableborder' x='759' y='391' width='165' height='132' rx='5' ry='5' />
+<!-- ############### Table 'FIELD_TYPE_LK' ############# -->
+<rect class='table' x='363' y='39' width='143' height='132' rx='5' ry='5' />
+<path d='M 364 56 L 364 45 Q 364 40 369 40 L 500 40 Q 505 40 505 45 L 505 56 L364 56 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#FIELD_TYPE_LK' title='This table will hold field name and field description. This table will not hold any data for fields.' ><text x='395' y='51' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>FIELD_TYPE_LK</text></a>
+  <use id='pk' x='363' y='63' xlink:href='#pk'/><a xlink:href='#FIELD_TYPE_PK' title='FIELD_TYPE_PK number Oracle sequence for field master table'><text x='374' y='71' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>FIELD_TYPE_PK</text></a>
+  <a xlink:href='#NAME' title='NAME varchar2(100) Field name  like Customer Name, Email address, Account Name'><text x='374' y='82' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>NAME</text></a>
+  <a xlink:href='#DESCRIPTION' title='DESCRIPTION varchar2(2000) Description of the field and why it is required.'><text x='374' y='93' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>DESCRIPTION</text></a>
+  <a xlink:href='#SOFT_DELETE' title='SOFT_DELETE char(1)'><text x='374' y='104' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SOFT_DELETE</text></a>
+  <a xlink:href='#CREATED_DATE' title='CREATED_DATE timestamp Date on which field is created.'><text x='374' y='115' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_DATE</text></a>
+  <a xlink:href='#CREATED_BY' title='CREATED_BY varchar2(40) Created by user name or user id'><text x='374' y='126' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_BY</text></a>
+  <a xlink:href='#LAST_MODIFIED_DATE' title='LAST_MODIFIED_DATE timestamp Last modified date'><text x='374' y='137' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_DATE</text></a>
+  <a xlink:href='#LAST_MODIFIED_BY' title='LAST_MODIFIED_BY varchar2(40) Last modified user name or user id'><text x='374' y='148' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_BY</text></a>
+  <a xlink:href='#VERSION' title='VERSION number For Optimistic Concurrency'><text x='374' y='159' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>VERSION</text></a>
+
+
+<rect class='tableborder' x='363' y='39' width='143' height='132' rx='5' ry='5' />
+<!-- ############### Table 'ORDER_ARCHIVE' ############# -->
+<rect class='table' x='605' y='28' width='154' height='286' rx='5' ry='5' />
+<path d='M 606 45 L 606 34 Q 606 29 611 29 L 753 29 Q 758 29 758 34 L 758 45 L606 45 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#ORDER_ARCHIVE' title='This table will have some order information and status of order.' ><text x='639' y='40' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ORDER_ARCHIVE</text></a>
+  <use id='pk' x='605' y='52' xlink:href='#pk'/><a xlink:href='#ORDER_ARCHIVE_PK' title='ORDER_ARCHIVE_PK number This is a sequence of order status table'><text x='616' y='60' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ORDER_ARCHIVE_PK</text></a>
+  <a xlink:href='#TRANSACTION_ID' title='TRANSACTION_ID varchar2(1000) This will be unique transaction id sent by OMS to fraud engine.'><text x='616' y='71' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>TRANSACTION_ID</text></a>
+  <a xlink:href='#NUMBER_OF_LINES' title='NUMBER_OF_LINES number Number of item lines in an order.'><text x='616' y='82' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>NUMBER_OF_LINES</text></a>
+  <a xlink:href='#PAYMENT_TYPE' title='PAYMENT_TYPE varchar2(100) Order payment type.'><text x='616' y='93' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>PAYMENT_TYPE</text></a>
+  <a xlink:href='#ORDER_RECEIVED_DATE' title='ORDER_RECEIVED_DATE date Date on which order is received by fraud engine.'><text x='616' y='104' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ORDER_RECEIVED_DATE</text></a>
+  <a xlink:href='#STATUS' title='STATUS varchar2(40) Status of order. This will have one of below values.n ACCEPT , DENY , CHALLENGE , NOINFO , AWAIT_RESPONSE '><text x='616' y='115' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>STATUS</text></a>
+  <a xlink:href='#ORDER_AMOUNT' title='ORDER_AMOUNT number(10) Amount of an order.'><text x='616' y='126' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ORDER_AMOUNT</text></a>
+  <a xlink:href='#ORDER_PRIORITY' title='ORDER_PRIORITY number This will determine order priority when scheduler runs for reprocessing an order.'><text x='616' y='137' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ORDER_PRIORITY</text></a>
+  <a xlink:href='#ORDER_RETRY_COUNT' title='ORDER_RETRY_COUNT number How many time order was retried by scheduler. After specific number of retry order will be sent to Fraud Anyalyst as  CHALLENGE .'><text x='616' y='148' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ORDER_RETRY_COUNT</text></a>
+  <a xlink:href='#ARCHIVE_DATE' title='ARCHIVE_DATE date'><text x='616' y='159' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ARCHIVE_DATE</text></a>
+  <a xlink:href='#STATUS_REASON' title='STATUS_REASON varchar2(1000)'><text x='616' y='170' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>STATUS_REASON</text></a>
+  <a xlink:href='#CUSTOMER_ID' title='CUSTOMER_ID varchar2(40)'><text x='616' y='181' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CUSTOMER_ID</text></a>
+  <a xlink:href='#CUSTOMER_EMAIL' title='CUSTOMER_EMAIL varchar2(100)'><text x='616' y='192' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CUSTOMER_EMAIL</text></a>
+  <a xlink:href='#IP_ADDRESS' title='IP_ADDRESS varchar2(40)'><text x='616' y='203' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>IP_ADDRESS</text></a>
+  <a xlink:href='#SOFT_DELETE' title='SOFT_DELETE char(1)'><text x='616' y='214' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SOFT_DELETE</text></a>
+  <a xlink:href='#CREATED_DATE' title='CREATED_DATE timestamp Created date from Order status details table.'><text x='616' y='225' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_DATE</text></a>
+  <a xlink:href='#CREATED_BY' title='CREATED_BY varchar2(40)'><text x='616' y='236' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_BY</text></a>
+  <a xlink:href='#LAST_MODIFIED_DATE' title='LAST_MODIFIED_DATE timestamp'><text x='616' y='247' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_DATE</text></a>
+  <a xlink:href='#LAST_MODIFIED_BY' title='LAST_MODIFIED_BY varchar2(40)'><text x='616' y='258' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_BY</text></a>
+  <a xlink:href='#VERSION' title='VERSION number For Optimistic Concurrency'><text x='616' y='269' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>VERSION</text></a>
+  <a xlink:href='#SHIPPING_ADDRESS' title='SHIPPING_ADDRESS varchar2(1000)'><text x='616' y='280' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SHIPPING_ADDRESS</text></a>
+  <a xlink:href='#PRIMARY_PHONE' title='PRIMARY_PHONE varchar2(40)'><text x='616' y='291' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>PRIMARY_PHONE</text></a>
+  <a xlink:href='#OMS_ORDER_ID' title='OMS_ORDER_ID varchar2(1000) Order number passed by OMS to Fraud Engine.'><text x='616' y='302' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>OMS_ORDER_ID</text></a>
+
+
+<rect class='tableborder' x='605' y='28' width='154' height='286' rx='5' ry='5' />
+<!-- ############### Table 'ORDER_DETAIL' ############# -->
+<rect class='table' x='407' y='248' width='154' height='231' rx='5' ry='5' />
+<path d='M 408 265 L 408 254 Q 408 249 413 249 L 555 249 Q 560 249 560 254 L 560 265 L408 265 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#ORDER_DETAIL' title='This table will have some order information and status of order.' ><text x='446' y='260' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ORDER_DETAIL</text></a>
+  <a xlink:href='#OMS_ORDER_ID' title='OMS_ORDER_ID varchar2(1000) Order number passed by OMS to Fraud Engine.'><text x='418' y='280' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>OMS_ORDER_ID</text></a>
+  <a xlink:href='#TRANSACTION_ID' title='TRANSACTION_ID varchar2(100) This will be unique transaction id sent by OMS to fraud engine.'><text x='418' y='291' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>TRANSACTION_ID</text></a>
+  <a xlink:href='#NUMBER_OF_LINES' title='NUMBER_OF_LINES number Number of item lines in an order.'><text x='418' y='302' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>NUMBER_OF_LINES</text></a>
+  <use id='idx' x='407' y='305' xlink:href='#idx'/><a xlink:href='#PAYMENT_TYPE' title='PAYMENT_TYPE varchar2(20) Order payment type.'><text x='418' y='313' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>PAYMENT_TYPE</text></a>
+  <a xlink:href='#ORDER_RECEIVED_DATE' title='ORDER_RECEIVED_DATE date Date on which order is received by fraud engine.'><text x='418' y='324' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ORDER_RECEIVED_DATE</text></a>
+  <a xlink:href='#ORDER_AMOUNT' title='ORDER_AMOUNT number(10) Amount of an order.'><text x='418' y='335' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ORDER_AMOUNT</text></a>
+  <a xlink:href='#ORDER_PRIORITY' title='ORDER_PRIORITY number This will determine order priority when scheduler runs for reprocessing an order.'><text x='418' y='346' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ORDER_PRIORITY</text></a>
+  <a xlink:href='#ORDER_RETRY_COUNT' title='ORDER_RETRY_COUNT number How many time order was retried by scheduler. After specific number of retry order will be sent to Fraud Anyalyst as  CHALLENGE .'><text x='418' y='357' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ORDER_RETRY_COUNT</text></a>
+  <a xlink:href='#CUSTOMER_ID' title='CUSTOMER_ID varchar2(40)'><text x='418' y='368' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CUSTOMER_ID</text></a>
+  <a xlink:href='#CUSTOMER_EMAIL' title='CUSTOMER_EMAIL varchar2(150)'><text x='418' y='379' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CUSTOMER_EMAIL</text></a>
+  <a xlink:href='#IP_ADDRESS' title='IP_ADDRESS varchar2(40)'><text x='418' y='390' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>IP_ADDRESS</text></a>
+  <a xlink:href='#SOFT_DELETE' title='SOFT_DELETE char(1)'><text x='418' y='401' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SOFT_DELETE</text></a>
+  <a xlink:href='#CREATED_DATE' title='CREATED_DATE timestamp'><text x='418' y='412' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_DATE</text></a>
+  <a xlink:href='#CREATED_BY' title='CREATED_BY varchar2(40)'><text x='418' y='423' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_BY</text></a>
+  <a xlink:href='#LAST_MODIFIED_DATE' title='LAST_MODIFIED_DATE timestamp'><text x='418' y='434' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_DATE</text></a>
+  <a xlink:href='#LAST_MODIFIED_BY' title='LAST_MODIFIED_BY varchar2(40)'><text x='418' y='445' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_BY</text></a>
+  <a xlink:href='#VERSION' title='VERSION number For Optimistic Concurrency'><text x='418' y='456' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>VERSION</text></a>
+  <use id='pk' x='407' y='459' xlink:href='#pk'/><a xlink:href='#ORDER_DETAIL_PK' title='ORDER_DETAIL_PK number This is a sequence of order status table'><text x='418' y='467' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ORDER_DETAIL_PK</text></a>
+
+
+<rect class='tableborder' x='407' y='248' width='154' height='231' rx='5' ry='5' />
+<path transform='translate(5,0)' marker-start='url(#foot)' marker-end='url(#arrow)'  title='FK_ORDER_STATUS_ORDER' d='M 352 264 L 396,264'  onmouseover='hgPath(evt);' onmouseout='uhgPath(evt);'  />
+
+<path transform='translate(5,0)' marker-start='url(#foot)' marker-end='url(#arrow)'  title='FK_ORDER_STATUS_STATUS_LK' d='M 198 264 L 176,264'  onmouseover='hgPath(evt);' onmouseout='uhgPath(evt);'  />
+
+<!-- ############### Table 'ORDER_STATUS' ############# -->
+<rect class='table' x='209' y='248' width='143' height='165' rx='5' ry='5' />
+<path d='M 210 265 L 210 254 Q 210 249 215 249 L 346 249 Q 351 249 351 254 L 351 265 L210 265 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#ORDER_STATUS' title='This table will have order status details for each order processed by Fraud Engine.' ><text x='239' y='260' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ORDER_STATUS</text></a>
+  <use id='pk' x='209' y='272' xlink:href='#pk'/><a xlink:href='#ORDER_STATUS_PK' title='ORDER_STATUS_PK number Oracle Sequence ID '><text x='220' y='280' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ORDER_STATUS_PK</text></a>
+  <a xlink:href='#STATUS_REASON' title='STATUS_REASON varchar2(1000) Status Reason why order has this status. nWhen Fraud analyst Accept or Deny order then FA will provide reason for decison.nWe need to use ENUMn'><text x='220' y='291' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>STATUS_REASON</text></a>
+  <a xlink:href='#SOFT_DELETE' title='SOFT_DELETE char(1)'><text x='220' y='302' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SOFT_DELETE</text></a>
+  <a xlink:href='#CREATED_DATE' title='CREATED_DATE timestamp Date time stamp for status'><text x='220' y='313' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_DATE</text></a>
+  <a xlink:href='#CREATED_BY' title='CREATED_BY varchar2(40) User Name or user id who has created this row.nIf system generated then it will be  SYSTEM '><text x='220' y='324' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_BY</text></a>
+  <a xlink:href='#LAST_MODIFIED_DATE' title='LAST_MODIFIED_DATE timestamp'><text x='220' y='335' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_DATE</text></a>
+  <a xlink:href='#LAST_MODIFIED_BY' title='LAST_MODIFIED_BY varchar2(40)'><text x='220' y='346' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_BY</text></a>
+  <a xlink:href='#VERSION' title='VERSION number For Optimistic Concurrency'><text x='220' y='357' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>VERSION</text></a>
+  <a xlink:href='#ORDER_DETAIL_FK' title='ORDER_DETAIL_FK number Foregin key for ORDER_DETAILS table.'><text x='220' y='368' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>ORDER_DETAIL_FK</text></a>
+  <use id='idx' x='209' y='371' xlink:href='#idx'/><a xlink:href='#STATUS_FK' title='STATUS_FK number Status of order. This will have one of below values.n ACCEPT , DENY , CHALLENGE , NOINFO , AWAIT_RESPONSE , ERROR  which will be comming from STATUS_FK table.'><text x='220' y='379' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>STATUS_FK</text></a>
+  <a xlink:href='#BUS_RULE_FK' title='BUS_RULE_FK number'><text x='220' y='390' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>BUS_RULE_FK</text></a>
+  <use id='idx' x='209' y='393' xlink:href='#idx'/><a xlink:href='#POS_NEG_LIST_FK' title='POS_NEG_LIST_FK number This field will have value as business rule code or positivie negative reason code.'><text x='220' y='401' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>POS_NEG_LIST_FK</text></a>
+
+
+<rect class='tableborder' x='209' y='248' width='143' height='165' rx='5' ry='5' />
+<path transform='translate(5,0)' marker-start='url(#foot)' marker-end='url(#arrow)'  title='FK_FIELD_DETAILS_FIELD_TYPE' d='M 341 44 L 352,44'  onmouseover='hgPath(evt);' onmouseout='uhgPath(evt);'  />
+
+<path transform='translate(5,0)' marker-start='url(#foot)' marker-end='url(#arrow)'  title='FK_POSITIVE_NEGATIVE_LIST' d='M 187 44 L 176,44'  onmouseover='hgPath(evt);' onmouseout='uhgPath(evt);'  />
+
+<!-- ############### Table 'POS_NEG_LIST' ############# -->
+<rect class='table' x='198' y='28' width='143' height='165' rx='5' ry='5' />
+<path d='M 199 45 L 199 34 Q 199 29 204 29 L 335 29 Q 340 29 340 34 L 340 45 L199 45 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#POS_NEG_LIST' title='This table is used to store data for Positive negative list' ><text x='232' y='40' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>POS_NEG_LIST</text></a>
+  <use id='pk' x='198' y='52' xlink:href='#pk'/><a xlink:href='#POS_NEG_LIST_PK' title='POS_NEG_LIST_PK number'><text x='209' y='60' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>POS_NEG_LIST_PK</text></a>
+  <a xlink:href='#FIELD_VALUE' title='FIELD_VALUE varchar2(2000) This will be actual value of field which will part of positive or negative list.'><text x='209' y='71' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>FIELD_VALUE</text></a>
+  <a xlink:href='#SOFT_DELETE' title='SOFT_DELETE char(1)'><text x='209' y='82' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SOFT_DELETE</text></a>
+  <a xlink:href='#CREATED_DATE' title='CREATED_DATE timestamp Date on which field value is added to the table.'><text x='209' y='93' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_DATE</text></a>
+  <a xlink:href='#CREATED_BY' title='CREATED_BY varchar2(40) Username or user id who has created this value'><text x='209' y='104' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_BY</text></a>
+  <a xlink:href='#LAST_MODIFIED_DATE' title='LAST_MODIFIED_DATE timestamp Last modified date '><text x='209' y='115' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_DATE</text></a>
+  <a xlink:href='#LAST_MODIFIED_BY' title='LAST_MODIFIED_BY varchar2(40) person or user name who has last modified field value'><text x='209' y='126' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_BY</text></a>
+  <a xlink:href='#VERSION' title='VERSION number For Optimistic Concurrency'><text x='209' y='137' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>VERSION</text></a>
+  <a xlink:href='#FIELD_TYPE_FK' title='FIELD_TYPE_FK number'><text x='209' y='148' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>FIELD_TYPE_FK</text></a>
+  <a xlink:href='#FIELD_SHORT_DESC' title='FIELD_SHORT_DESC varchar2(2000) Reason to add this field value to positive or negative list. '><text x='209' y='159' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>FIELD_SHORT_DESC</text></a>
+  <use id='idx' x='198' y='162' xlink:href='#idx'/><a xlink:href='#POS_NEG_REASON_FK' title='POS_NEG_REASON_FK number Reason code from REASON Table'><text x='209' y='170' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>POS_NEG_REASON_FK</text></a>
+  <a xlink:href='#FIELD_LONG_DESC' title='FIELD_LONG_DESC varchar2(2000)'><text x='209' y='181' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>FIELD_LONG_DESC</text></a>
+
+
+<rect class='tableborder' x='198' y='28' width='143' height='165' rx='5' ry='5' />
+<!-- ############### Table 'POS_NEG_LIST_VIEW' ############# -->
+<rect class='table' x='880' y='743' width='121' height='33' rx='5' ry='5' />
+<path d='M 881 760 L 881 749 Q 881 744 886 744 L 995 744 Q 1000 744 1000 749 L 1000 760 L881 760 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#POS_NEG_LIST_VIEW' title='POS_NEG_LIST_VIEW' ><text x='887' y='755' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>POS_NEG_LIST_VIEW</text></a>
+
+
+<rect class='tableborder' x='880' y='743' width='121' height='33' rx='5' ry='5' />
+<path transform='translate(5,0)' marker-start='url(#foot)' marker-end='url(#arrow)'  title='FK_POS_NEG_REASON_LK_STATUS_LK' d='M 44 187 L 44,242'  onmouseover='hgPath(evt);' onmouseout='uhgPath(evt);'  />
+
+<!-- ############### Table 'POS_NEG_REASON_LK' ############# -->
+<rect class='table' x='33' y='28' width='143' height='154' rx='5' ry='5' />
+<path d='M 34 45 L 34 34 Q 34 29 39 29 L 170 29 Q 175 29 175 34 L 175 45 L34 45 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#POS_NEG_REASON_LK' title='This table will have information about number of reason to approve, challenge or deny a order.' ><text x='46' y='40' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>POS_NEG_REASON_LK</text></a>
+  <use id='pk' x='33' y='52' xlink:href='#pk'/><a xlink:href='#POS_NEG_REASON_PK' title='POS_NEG_REASON_PK number Oracle sequence '><text x='44' y='60' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>POS_NEG_REASON_PK</text></a>
+  <a xlink:href='#REASON_CODE' title='REASON_CODE varchar2(10) This will be identifer for a Reason'><text x='44' y='71' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>REASON_CODE</text></a>
+  <a xlink:href='#REASON_SHORT_DESC' title='REASON_SHORT_DESC varchar2(200) Reason information'><text x='44' y='82' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>REASON_SHORT_DESC</text></a>
+  <a xlink:href='#REASON_LONG_DESC' title='REASON_LONG_DESC varchar2(2000) Detailed description about reason.'><text x='44' y='93' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>REASON_LONG_DESC</text></a>
+  <use id='idx' x='33' y='96' xlink:href='#idx'/><a xlink:href='#STATUS_FK' title='STATUS_FK number Reason status can be ACCEPT, DENY, CHALLENGE'><text x='44' y='104' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>STATUS_FK</text></a>
+  <a xlink:href='#SOFT_DELETE' title='SOFT_DELETE char(1)'><text x='44' y='115' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SOFT_DELETE</text></a>
+  <a xlink:href='#CREATED_DATE' title='CREATED_DATE timestamp Date on which reason is created'><text x='44' y='126' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_DATE</text></a>
+  <a xlink:href='#CREATED_BY' title='CREATED_BY varchar2(40) User name or user id who has created this reason.'><text x='44' y='137' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_BY</text></a>
+  <a xlink:href='#LAST_MODIFIED_DATE' title='LAST_MODIFIED_DATE timestamp'><text x='44' y='148' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_DATE</text></a>
+  <a xlink:href='#LAST_MODIFIED_BY' title='LAST_MODIFIED_BY varchar2(40)'><text x='44' y='159' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_BY</text></a>
+  <a xlink:href='#VERSION' title='VERSION number For Optimistic Concurrency'><text x='44' y='170' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>VERSION</text></a>
+
+
+<rect class='tableborder' x='33' y='28' width='143' height='154' rx='5' ry='5' />
+<path transform='translate(5,0)' marker-start='url(#foot)' marker-end='url(#arrow)'  title='FK_SCHEDULER_DETAILS' d='M 737 561 L 748,561'  onmouseover='hgPath(evt);' onmouseout='uhgPath(evt);'  />
+
+<!-- ############### Table 'SCHEDULER_DETAIL' ############# -->
+<rect class='table' x='583' y='545' width='154' height='154' rx='5' ry='5' />
+<path d='M 584 562 L 584 551 Q 584 546 589 546 L 731 546 Q 736 546 736 551 L 736 562 L584 562 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#SCHEDULER_DETAIL' title='Details of each scheduler run' ><text x='609' y='557' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SCHEDULER_DETAIL</text></a>
+  <use id='pk' x='583' y='569' xlink:href='#pk'/><a xlink:href='#SCHEDULER_DETAIL_PK' title='SCHEDULER_DETAIL_PK number Oracle sequence id'><text x='594' y='577' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SCHEDULER_DETAIL_PK</text></a>
+  <use id='idx' x='583' y='580' xlink:href='#idx'/><a xlink:href='#SCHEDULER_MASTER_FK' title='SCHEDULER_MASTER_FK number Foregin key for SCHEDULER_MASTER table.'><text x='594' y='588' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SCHEDULER_MASTER_FK</text></a>
+  <a xlink:href='#TRANSACTION_ID' title='TRANSACTION_ID varchar2(100) Transaction id from order details table'><text x='594' y='599' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>TRANSACTION_ID</text></a>
+  <a xlink:href='#TRANSACTION_SENT_TO' title='TRANSACTION_SENT_TO varchar2(20) This will have information about transaction is sent to which systemn OMS , CSC-FA , THIRD_PARTY '><text x='594' y='610' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>TRANSACTION_SENT_TO</text></a>
+  <a xlink:href='#SOFT_DELETE' title='SOFT_DELETE char(1)'><text x='594' y='621' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SOFT_DELETE</text></a>
+  <a xlink:href='#CREATED_DATE' title='CREATED_DATE timestamp'><text x='594' y='632' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_DATE</text></a>
+  <a xlink:href='#CREATED_BY' title='CREATED_BY varchar2(40)'><text x='594' y='643' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_BY</text></a>
+  <a xlink:href='#LAST_MODIFIED_DATE' title='LAST_MODIFIED_DATE timestamp'><text x='594' y='654' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_DATE</text></a>
+  <a xlink:href='#LAST_MODIFIED_BY' title='LAST_MODIFIED_BY varchar2(40)'><text x='594' y='665' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_BY</text></a>
+  <a xlink:href='#VERSION' title='VERSION number'><text x='594' y='676' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>VERSION</text></a>
+  <a xlink:href='#OMS_ORDER_ID' title='OMS_ORDER_ID varchar2(100) Order number from order details'><text x='594' y='687' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>OMS_ORDER_ID</text></a>
+
+
+<rect class='tableborder' x='583' y='545' width='154' height='154' rx='5' ry='5' />
+<!-- ############### Table 'SCHEDULER_MASTER' ############# -->
+<rect class='table' x='759' y='534' width='154' height='176' rx='5' ry='5' />
+<path d='M 760 551 L 760 540 Q 760 535 765 535 L 907 535 Q 912 535 912 540 L 912 551 L760 551 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#SCHEDULER_MASTER' title='This table will have information about scheduler' ><text x='782' y='546' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SCHEDULER_MASTER</text></a>
+  <a xlink:href='#SCHEDULER_NAME' title='SCHEDULER_NAME varchar2(100) Name of scheduler'><text x='770' y='566' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SCHEDULER_NAME</text></a>
+  <a xlink:href='#FREQUENCY' title='FREQUENCY number Frequency in minutes'><text x='770' y='577' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>FREQUENCY</text></a>
+  <a xlink:href='#LAST_RUN_DATE_TIME' title='LAST_RUN_DATE_TIME date last time when this scheduler ran'><text x='770' y='588' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_RUN_DATE_TIME</text></a>
+  <a xlink:href='#STATUS' title='STATUS varchar2(20) Scheduler status as  ACTIVE , INACTIVE , DELETE '><text x='770' y='599' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>STATUS</text></a>
+  <a xlink:href='#START_DATE' title='START_DATE date Scheduler Start date'><text x='770' y='610' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>START_DATE</text></a>
+  <a xlink:href='#END_DATE' title='END_DATE date Scheduler end date'><text x='770' y='621' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>END_DATE</text></a>
+  <a xlink:href='#SOFT_DELETE' title='SOFT_DELETE char(1)'><text x='770' y='632' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SOFT_DELETE</text></a>
+  <a xlink:href='#CREATED_DATE' title='CREATED_DATE timestamp'><text x='770' y='643' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_DATE</text></a>
+  <a xlink:href='#CREATED_BY' title='CREATED_BY varchar2(40)'><text x='770' y='654' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_BY</text></a>
+  <a xlink:href='#LAST_MODIFIED_DATE' title='LAST_MODIFIED_DATE timestamp'><text x='770' y='665' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_DATE</text></a>
+  <a xlink:href='#LAST_MODIFIED_BY' title='LAST_MODIFIED_BY varchar2(40)'><text x='770' y='676' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_BY</text></a>
+  <a xlink:href='#VERSION' title='VERSION number'><text x='770' y='687' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>VERSION</text></a>
+  <use id='pk' x='759' y='690' xlink:href='#pk'/><a xlink:href='#SCHEDULER_MASTER_PK' title='SCHEDULER_MASTER_PK number Oracle sequence id.'><text x='770' y='698' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SCHEDULER_MASTER_PK</text></a>
+
+
+<rect class='tableborder' x='759' y='534' width='154' height='176' rx='5' ry='5' />
+<!-- ############### Table 'STATUS_LK' ############# -->
+<rect class='table' x='33' y='248' width='143' height='132' rx='5' ry='5' />
+<path d='M 34 265 L 34 254 Q 34 249 39 249 L 170 249 Q 175 249 175 254 L 175 265 L34 265 ' style='fill:url(#grTableHeader); stroke:none;' />
+<a xlink:href='#STATUS_LK' title='STATUS_LK' ><text x='74' y='260' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>STATUS_LK</text></a>
+  <use id='pk' x='33' y='272' xlink:href='#pk'/><a xlink:href='#STATUS_PK' title='STATUS_PK number'><text x='44' y='280' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>STATUS_PK</text></a>
+  <a xlink:href='#NAME' title='NAME varchar2(30)'><text x='44' y='291' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>NAME</text></a>
+  <a xlink:href='#DESCRIPTION' title='DESCRIPTION varchar2(200)'><text x='44' y='302' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>DESCRIPTION</text></a>
+  <a xlink:href='#SOFT_DELETE' title='SOFT_DELETE char(1)'><text x='44' y='313' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>SOFT_DELETE</text></a>
+  <a xlink:href='#CREATED_DATE' title='CREATED_DATE timestamp'><text x='44' y='324' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_DATE</text></a>
+  <a xlink:href='#CREATED_BY' title='CREATED_BY varchar2(40)'><text x='44' y='335' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>CREATED_BY</text></a>
+  <a xlink:href='#LAST_MODIFIED_DATE' title='LAST_MODIFIED_DATE timestamp'><text x='44' y='346' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_DATE</text></a>
+  <a xlink:href='#LAST_MODIFIED_BY' title='LAST_MODIFIED_BY varchar2(40)'><text x='44' y='357' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>LAST_MODIFIED_BY</text></a>
+  <a xlink:href='#VERSION' title='VERSION number For Optimistic Concurrency'><text x='44' y='368' onmouseover='hgText(evt);' onmouseout='uhgText(evt);'>VERSION</text></a>
+
+
+<rect class='tableborder' x='33' y='248' width='143' height='132' rx='5' ry='5' />
+<g transform='translate(754,814)'>  <rect x='10' y='10' width='240' height='45' rx='6' ry='6' style='fill:url(#legendGradient);' />
+  <text x='25' y='22' style='fill:white;' >Project Fraud_Engine_DBS</text>
+  <text x='25' y='36' style='fill:white;' >Layout CN_OMS_FRAUD_ENGINE</text>
+  <a xlink:href='http://www.dbschema.com'>
+    <text x='100' y='50' style='fill:white;' >build using DbSchema</text>
+  </a>
+</g>
+
+</svg>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='ADDRESS_DETAIL'>Table ADDRESS_DETAIL</a> <br/> </th></tr>
+</thead>
+<tbody>
+<tr><td class='name'><a name='ADDRESS_DETAIL_PK'>ADDRESS_DETAIL_PK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='ADDRESS_LINE_1'>ADDRESS_LINE_1</a></td>
+<td> VARCHAR2( 70 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='ADDRESS_LINE_2'>ADDRESS_LINE_2</a></td>
+<td> VARCHAR2( 70 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='ADDRESS_LINE_3'>ADDRESS_LINE_3</a></td>
+<td> VARCHAR2( 70 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='ADDRESS_LINE_4'>ADDRESS_LINE_4</a></td>
+<td> VARCHAR2( 70 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='ADDRESS_LINE_5'>ADDRESS_LINE_5</a></td>
+<td> VARCHAR2( 70 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CITY'>CITY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='COUNTRY'>COUNTRY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='ADDRESS_TYPE'>ADDRESS_TYPE</a></td>
+<td> VARCHAR2( 20 )    NOT NULL    DEFO 'SHIPPING' </td>
+<td> Address type will either SHIPPING or BILLING address for an Order. </td>
+</tr>
+<tr><td class='name'><a name='SOFT_DELETE'>SOFT_DELETE</a></td>
+<td> CHAR( 1 )    NOT NULL    DEFO 'N' </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_DATE'>CREATED_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_BY'>CREATED_BY</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_DATE'>LAST_MODIFIED_DATE</a></td>
+<td> TIMESTAMP     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_BY'>LAST_MODIFIED_BY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='VERSION'>VERSION</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='WORK_PHONE'>WORK_PHONE</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='HOME_PHONE'>HOME_PHONE</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CELL_PHONE'>CELL_PHONE</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='PROVINCE'>PROVINCE</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='DISTRICT'>DISTRICT</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+<tr><td class='name'>PK_ADDRESS_DETAIL primary key</td>
+<td> ( ADDRESS_DETAIL_PK) </td><td>  </td>
+</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='BUS_RULE'>Table BUS_RULE</a> <br/>This table will hold number of business rules which will be used by fraud engine. </th></tr>
+</thead>
+<tbody>
+<tr><td class='name'><a name='BUS_RULE_PK'>BUS_RULE_PK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> This will be a sequence from oracle </td>
+</tr>
+<tr><td class='name'><a name='RULE_FILE_NAME'>RULE_FILE_NAME</a></td>
+<td> VARCHAR2( 100 )    NOT NULL   </td>
+<td> This field give information about which rule file is used for Rule </td>
+</tr>
+<tr><td class='name'><a name='RULE'>RULE</a></td>
+<td> CLOB    NOT NULL   </td>
+<td> This field will have actual rule file stored as Clob </td>
+</tr>
+<tr><td class='name'><a name='RULE_DESCRIPTION'>RULE_DESCRIPTION</a></td>
+<td> VARCHAR2( 1000 )    NOT NULL   </td>
+<td> This will describe rule in details </td>
+</tr>
+<tr><td class='name'><a name='START_DATE'>START_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td> Start date of rule </td>
+</tr>
+<tr><td class='name'><a name='END_DATE'>END_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td> End date of rule after this date rule will not be applied on an order. </td>
+</tr>
+<tr><td class='name'><a name='STATUS_FK'>STATUS_FK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> Status of Rule. nStatus can be "ACTIVE", "INACTIVE","DELETED" </td>
+</tr>
+<tr><td class='name'><a name='SOFT_DELETE'>SOFT_DELETE</a></td>
+<td> CHAR( 1 )    NOT NULL    DEFO N </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_DATE'>CREATED_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td> Date on which rule is created. </td>
+</tr>
+<tr><td class='name'><a name='CREATED_BY'>CREATED_BY</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td> Person or userid who has created this rule </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_DATE'>LAST_MODIFIED_DATE</a></td>
+<td> TIMESTAMP     </td>
+<td> Date on which rule was modified last </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_BY'>LAST_MODIFIED_BY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td> Person or userid who has last modified this rule. </td>
+</tr>
+<tr><td class='name'><a name='VERSION'>VERSION</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> For Optimistic Concurrency </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+<tr><td class='name'>IDX_BUS_RULE </td>
+<td> ( STATUS_FK) </td><td>  </td>
+</tr>
+<tr><td class='name'>PK_BUS_RULES primary key</td>
+<td> ( BUS_RULE_PK) </td><td>  </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Foreign Keys</b></td></tr>
+<tr>
+<td class='name'>FK_BUS_RULE</td><td > (  STATUS_FK  ) ref <a href='#STATUS_LK'>STATUS_LK</a> ( STATUS_PK ) </td>
+<td>  </td>
+</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='BUS_RULE_HIT'>Table BUS_RULE_HIT</a> <br/> </th></tr>
+</thead>
+<tbody>
+<tr><td class='name'><a name='BUS_RULE_HIT_PK'>BUS_RULE_HIT_PK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='BUS_RULE_FK'>BUS_RULE_FK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='HIT_COUNT'>HIT_COUNT</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='SOFT_DELETE'>SOFT_DELETE</a></td>
+<td> CHAR( 1 )    NOT NULL    DEFO N </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_DATE'>CREATED_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_BY'>CREATED_BY</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_DATE'>LAST_MODIFIED_DATE</a></td>
+<td> TIMESTAMP     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_BY'>LAST_MODIFIED_BY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='VERSION'>VERSION</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+<tr><td class='name'>IDX_BUS_RULE_HIT </td>
+<td> ( BUS_RULE_FK) </td><td>  </td>
+</tr>
+<tr><td class='name'>PK_BUS_RULE_HIT primary key</td>
+<td> ( BUS_RULE_HIT_PK) </td><td>  </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Foreign Keys</b></td></tr>
+<tr>
+<td class='name'>FK_BUS_RULE_HIT</td><td > (  BUS_RULE_FK  ) ref <a href='#BUS_RULE'>BUS_RULE</a> ( BUS_RULE_PK ) </td>
+<td>  </td>
+</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='BUS_RULE_PRIORITY'>Table BUS_RULE_PRIORITY</a> <br/> </th></tr>
+</thead>
+<tbody>
+<tr><td class='name'><a name='BUS_RULE_PRIORITY_PK'>BUS_RULE_PRIORITY_PK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='PRIORITY'>PRIORITY</a></td>
+<td> NUMBER( 10 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='BUS_RULE_FK'>BUS_RULE_FK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='SOFT_DELETE'>SOFT_DELETE</a></td>
+<td> CHAR( 1 )    NOT NULL    DEFO N </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_DATE'>CREATED_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_BY'>CREATED_BY</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_DATE'>LAST_MODIFIED_DATE</a></td>
+<td> TIMESTAMP     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_BY'>LAST_MODIFIED_BY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='VERSION'>VERSION</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+<tr><td class='name'>IDX_RULE_PRIORITY </td>
+<td> ( BUS_RULE_FK) </td><td>  </td>
+</tr>
+<tr><td class='name'>PK_RULE_PRIORITY_ primary key</td>
+<td> ( BUS_RULE_PRIORITY_PK) </td><td>  </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Foreign Keys</b></td></tr>
+<tr>
+<td class='name'>FK_RULE_PRIORITY_BUS_RULE</td><td > (  BUS_RULE_FK  ) ref <a href='#BUS_RULE'>BUS_RULE</a> ( BUS_RULE_PK ) </td>
+<td>  </td>
+</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='BUS_RULE_PRIORITY_ARCHIVE'>Table BUS_RULE_PRIORITY_ARCHIVE</a> <br/> </th></tr>
+</thead>
+<tbody>
+<tr><td class='name'><a name='BUS_RULE_PRIORITY_ARCHIVE_PK'>BUS_RULE_PRIORITY_ARCHIVE_PK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='PRIORITY'>PRIORITY</a></td>
+<td> NUMBER( 10 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='BUS_RULE_FK'>BUS_RULE_FK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='SOFT_DELETE'>SOFT_DELETE</a></td>
+<td> CHAR( 1 )    NOT NULL    DEFO N </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_DATE'>CREATED_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_BY'>CREATED_BY</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_DATE'>LAST_MODIFIED_DATE</a></td>
+<td> TIMESTAMP     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_BY'>LAST_MODIFIED_BY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='VERSION'>VERSION</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='PRIORITY_START_DATE'>PRIORITY_START_DATE</a></td>
+<td> DATE    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='PRIORITY_END_DATE'>PRIORITY_END_DATE</a></td>
+<td> DATE    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+<tr><td class='name'>IDX_BUS_RULE_PRIORITY_ARCHIVE </td>
+<td> ( BUS_RULE_FK) </td><td>  </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Foreign Keys</b></td></tr>
+<tr>
+<td class='name'>FK_BUS_RULE_PRIORITY_ARCHIVE</td><td > (  BUS_RULE_FK  ) ref <a href='#BUS_RULE'>BUS_RULE</a> ( BUS_RULE_PK ) </td>
+<td>  </td>
+</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='BUS_RULE_PROPERTY'>Table BUS_RULE_PROPERTY</a> <br/> </th></tr>
+</thead>
+<tbody>
+<tr><td class='name'><a name='BUS_RULE_PROPERTY_PK'>BUS_RULE_PROPERTY_PK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='BUS_RULE_FK'>BUS_RULE_FK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='PROPERTY_VALUE'>PROPERTY_VALUE</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='SOFT_DELETE'>SOFT_DELETE</a></td>
+<td> CHAR( 1 )    NOT NULL    DEFO N </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_DATE'>CREATED_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_BY'>CREATED_BY</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_DATE'>LAST_MODIFIED_DATE</a></td>
+<td> TIMESTAMP     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_BY'>LAST_MODIFIED_BY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='VERSION'>VERSION</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+<tr><td class='name'>PK_BUS_RULE_PROPERTY primary key</td>
+<td> ( BUS_RULE_PROPERTY_PK) </td><td>  </td>
+</tr>
+<tr><td class='name'>IDX_BUS_RULE_PROPERTY </td>
+<td> ( BUS_RULE_FK) </td><td>  </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Foreign Keys</b></td></tr>
+<tr>
+<td class='name'>FK_BUS_RULE_PROPERTY_BUS_RULE</td><td > (  BUS_RULE_FK  ) ref <a href='#BUS_RULE'>BUS_RULE</a> ( BUS_RULE_PK ) </td>
+<td>  </td>
+</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='FIELD_TYPE_LK'>Table FIELD_TYPE_LK</a> <br/>This table will hold field name and field description. This table will not hold any data for fields. </th></tr>
+</thead>
+<tbody>
+<tr><td class='name'><a name='FIELD_TYPE_PK'>FIELD_TYPE_PK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> Oracle sequence for field master table </td>
+</tr>
+<tr><td class='name'><a name='NAME'>NAME</a></td>
+<td> VARCHAR2( 100 )    NOT NULL   </td>
+<td> Field name  like Customer Name, Email address, Account Name </td>
+</tr>
+<tr><td class='name'><a name='DESCRIPTION'>DESCRIPTION</a></td>
+<td> VARCHAR2( 2000 )    NOT NULL   </td>
+<td> Description of the field and why it is required. </td>
+</tr>
+<tr><td class='name'><a name='SOFT_DELETE'>SOFT_DELETE</a></td>
+<td> CHAR( 1 )    NOT NULL    DEFO 'N' </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_DATE'>CREATED_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td> Date on which field is created. </td>
+</tr>
+<tr><td class='name'><a name='CREATED_BY'>CREATED_BY</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td> Created by user name or user id </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_DATE'>LAST_MODIFIED_DATE</a></td>
+<td> TIMESTAMP     </td>
+<td> Last modified date </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_BY'>LAST_MODIFIED_BY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td> Last modified user name or user id </td>
+</tr>
+<tr><td class='name'><a name='VERSION'>VERSION</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> For Optimistic Concurrency </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+<tr><td class='name'>PK_FIELD_MASTER primary key</td>
+<td> ( FIELD_TYPE_PK) </td><td>  </td>
+</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='ORDER_ARCHIVE'>Table ORDER_ARCHIVE</a> <br/>This table will have some order information and status of order. </th></tr>
+</thead>
+<tbody>
+<tr><td class='name'><a name='ORDER_ARCHIVE_PK'>ORDER_ARCHIVE_PK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> This is a sequence of order status table </td>
+</tr>
+<tr><td class='name'><a name='TRANSACTION_ID'>TRANSACTION_ID</a></td>
+<td> VARCHAR2( 1000 )    NOT NULL   </td>
+<td> This will be unique transaction id sent by OMS to fraud engine. </td>
+</tr>
+<tr><td class='name'><a name='NUMBER_OF_LINES'>NUMBER_OF_LINES</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> Number of item lines in an order. </td>
+</tr>
+<tr><td class='name'><a name='PAYMENT_TYPE'>PAYMENT_TYPE</a></td>
+<td> VARCHAR2( 100 )    NOT NULL   </td>
+<td> Order payment type. </td>
+</tr>
+<tr><td class='name'><a name='ORDER_RECEIVED_DATE'>ORDER_RECEIVED_DATE</a></td>
+<td> DATE    NOT NULL   </td>
+<td> Date on which order is received by fraud engine. </td>
+</tr>
+<tr><td class='name'><a name='STATUS'>STATUS</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td> Status of order. This will have one of below values.n"ACCEPT","DENY","CHALLENGE","NOINFO","AWAIT_RESPONSE" </td>
+</tr>
+<tr><td class='name'><a name='ORDER_AMOUNT'>ORDER_AMOUNT</a></td>
+<td> NUMBER( 10 )    NOT NULL   </td>
+<td> Amount of an order. </td>
+</tr>
+<tr><td class='name'><a name='ORDER_PRIORITY'>ORDER_PRIORITY</a></td>
+<td> NUMBER     </td>
+<td> This will determine order priority when scheduler runs for reprocessing an order. </td>
+</tr>
+<tr><td class='name'><a name='ORDER_RETRY_COUNT'>ORDER_RETRY_COUNT</a></td>
+<td> NUMBER     </td>
+<td> How many time order was retried by scheduler. After specific number of retry order will be sent to Fraud Anyalyst as "CHALLENGE". </td>
+</tr>
+<tr><td class='name'><a name='ARCHIVE_DATE'>ARCHIVE_DATE</a></td>
+<td> DATE    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='STATUS_REASON'>STATUS_REASON</a></td>
+<td> VARCHAR2( 1000 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CUSTOMER_ID'>CUSTOMER_ID</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CUSTOMER_EMAIL'>CUSTOMER_EMAIL</a></td>
+<td> VARCHAR2( 100 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='IP_ADDRESS'>IP_ADDRESS</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='SOFT_DELETE'>SOFT_DELETE</a></td>
+<td> CHAR( 1 )    NOT NULL    DEFO 'N' </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_DATE'>CREATED_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td> Created date from Order status details table. </td>
+</tr>
+<tr><td class='name'><a name='CREATED_BY'>CREATED_BY</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_DATE'>LAST_MODIFIED_DATE</a></td>
+<td> TIMESTAMP     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_BY'>LAST_MODIFIED_BY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='VERSION'>VERSION</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> For Optimistic Concurrency </td>
+</tr>
+<tr><td class='name'><a name='SHIPPING_ADDRESS'>SHIPPING_ADDRESS</a></td>
+<td> VARCHAR2( 1000 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='PRIMARY_PHONE'>PRIMARY_PHONE</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='OMS_ORDER_ID'>OMS_ORDER_ID</a></td>
+<td> VARCHAR2( 1000 )    NOT NULL   </td>
+<td> Order number passed by OMS to Fraud Engine. </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+<tr><td class='name'>PK_ORDER_STATUS_0 primary key</td>
+<td> ( ORDER_ARCHIVE_PK) </td><td>  </td>
+</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='ORDER_DETAIL'>Table ORDER_DETAIL</a> <br/>This table will have some order information and status of order. </th></tr>
+</thead>
+<tbody>
+<tr><td class='name'><a name='OMS_ORDER_ID'>OMS_ORDER_ID</a></td>
+<td> VARCHAR2( 1000 )    NOT NULL   </td>
+<td> Order number passed by OMS to Fraud Engine. </td>
+</tr>
+<tr><td class='name'><a name='TRANSACTION_ID'>TRANSACTION_ID</a></td>
+<td> VARCHAR2( 100 )    NOT NULL   </td>
+<td> This will be unique transaction id sent by OMS to fraud engine. </td>
+</tr>
+<tr><td class='name'><a name='NUMBER_OF_LINES'>NUMBER_OF_LINES</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> Number of item lines in an order. </td>
+</tr>
+<tr><td class='name'><a name='PAYMENT_TYPE'>PAYMENT_TYPE</a></td>
+<td> VARCHAR2( 20 )    NOT NULL   </td>
+<td> Order payment type. </td>
+</tr>
+<tr><td class='name'><a name='ORDER_RECEIVED_DATE'>ORDER_RECEIVED_DATE</a></td>
+<td> DATE    NOT NULL   </td>
+<td> Date on which order is received by fraud engine. </td>
+</tr>
+<tr><td class='name'><a name='ORDER_AMOUNT'>ORDER_AMOUNT</a></td>
+<td> NUMBER( 10 )    NOT NULL   </td>
+<td> Amount of an order. </td>
+</tr>
+<tr><td class='name'><a name='ORDER_PRIORITY'>ORDER_PRIORITY</a></td>
+<td> NUMBER     </td>
+<td> This will determine order priority when scheduler runs for reprocessing an order. </td>
+</tr>
+<tr><td class='name'><a name='ORDER_RETRY_COUNT'>ORDER_RETRY_COUNT</a></td>
+<td> NUMBER     </td>
+<td> How many time order was retried by scheduler. After specific number of retry order will be sent to Fraud Anyalyst as "CHALLENGE". </td>
+</tr>
+<tr><td class='name'><a name='CUSTOMER_ID'>CUSTOMER_ID</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CUSTOMER_EMAIL'>CUSTOMER_EMAIL</a></td>
+<td> VARCHAR2( 150 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='IP_ADDRESS'>IP_ADDRESS</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='SOFT_DELETE'>SOFT_DELETE</a></td>
+<td> CHAR( 1 )    NOT NULL    DEFO 'N' </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_DATE'>CREATED_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_BY'>CREATED_BY</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_DATE'>LAST_MODIFIED_DATE</a></td>
+<td> TIMESTAMP     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_BY'>LAST_MODIFIED_BY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='VERSION'>VERSION</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> For Optimistic Concurrency </td>
+</tr>
+<tr><td class='name'><a name='ORDER_DETAIL_PK'>ORDER_DETAIL_PK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> This is a sequence of order status table </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+<tr><td class='name'>IDX_ORDER_DETAIL </td>
+<td> ( PAYMENT_TYPE) </td><td>  </td>
+</tr>
+<tr><td class='name'>PK_ORDER_STATUS primary key</td>
+<td> ( ORDER_DETAIL_PK) </td><td>  </td>
+</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='ORDER_STATUS'>Table ORDER_STATUS</a> <br/>This table will have order status details for each order processed by Fraud Engine. </th></tr>
+</thead>
+<tbody>
+<tr><td class='name'><a name='ORDER_STATUS_PK'>ORDER_STATUS_PK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> Oracle Sequence ID  </td>
+</tr>
+<tr><td class='name'><a name='STATUS_REASON'>STATUS_REASON</a></td>
+<td> VARCHAR2( 1000 )    NOT NULL   </td>
+<td> Status Reason why order has this status. nWhen Fraud analyst Accept or Deny order then FA will provide reason for decison.nWe need to use ENUMn </td>
+</tr>
+<tr><td class='name'><a name='SOFT_DELETE'>SOFT_DELETE</a></td>
+<td> CHAR( 1 )    NOT NULL    DEFO 'N' </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_DATE'>CREATED_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td> Date time stamp for status </td>
+</tr>
+<tr><td class='name'><a name='CREATED_BY'>CREATED_BY</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td> User Name or user id who has created this row.nIf system generated then it will be "SYSTEM" </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_DATE'>LAST_MODIFIED_DATE</a></td>
+<td> TIMESTAMP     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_BY'>LAST_MODIFIED_BY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='VERSION'>VERSION</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> For Optimistic Concurrency </td>
+</tr>
+<tr><td class='name'><a name='ORDER_DETAIL_FK'>ORDER_DETAIL_FK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> Foregin key for ORDER_DETAILS table. </td>
+</tr>
+<tr><td class='name'><a name='STATUS_FK'>STATUS_FK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> Status of order. This will have one of below values.n"ACCEPT","DENY","CHALLENGE","NOINFO","AWAIT_RESPONSE","ERROR" which will be comming from STATUS_FK table. </td>
+</tr>
+<tr><td class='name'><a name='BUS_RULE_FK'>BUS_RULE_FK</a></td>
+<td> NUMBER     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='POS_NEG_LIST_FK'>POS_NEG_LIST_FK</a></td>
+<td> NUMBER     </td>
+<td> This field will have value as business rule code or positivie negative reason code. </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+<tr><td class='name'>PK_ORDER_STATUS_DETAILS primary key</td>
+<td> ( ORDER_STATUS_PK) </td><td>  </td>
+</tr>
+<tr><td class='name'>IDX_ORDER_STATUS </td>
+<td> ( STATUS_FK) </td><td>  </td>
+</tr>
+<tr><td class='name'>IDX_ORDER_STATUS_0 </td>
+<td> ( POS_NEG_LIST_FK) </td><td>  </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Foreign Keys</b></td></tr>
+<tr>
+<td class='name'>FK_ORDER_STATUS_ORDER</td><td > (  ORDER_DETAIL_FK  ) ref <a href='#ORDER_DETAIL'>ORDER_DETAIL</a> ( ORDER_DETAIL_PK ) </td>
+<td>  </td>
+</tr>
+<tr>
+<td class='name'>FK_ORDER_STATUS_STATUS_LK</td><td > (  STATUS_FK  ) ref <a href='#STATUS_LK'>STATUS_LK</a> ( STATUS_PK ) </td>
+<td>  </td>
+</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='POS_NEG_LIST'>Table POS_NEG_LIST</a> <br/>This table is used to store data for Positive negative list </th></tr>
+</thead>
+<tbody>
+<tr><td class='name'><a name='POS_NEG_LIST_PK'>POS_NEG_LIST_PK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='FIELD_VALUE'>FIELD_VALUE</a></td>
+<td> VARCHAR2( 2000 )    NOT NULL   </td>
+<td> This will be actual value of field which will part of positive or negative list. </td>
+</tr>
+<tr><td class='name'><a name='SOFT_DELETE'>SOFT_DELETE</a></td>
+<td> CHAR( 1 )    NOT NULL    DEFO N </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_DATE'>CREATED_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td> Date on which field value is added to the table. </td>
+</tr>
+<tr><td class='name'><a name='CREATED_BY'>CREATED_BY</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td> Username or user id who has created this value </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_DATE'>LAST_MODIFIED_DATE</a></td>
+<td> TIMESTAMP     </td>
+<td> Last modified date  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_BY'>LAST_MODIFIED_BY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td> person or user name who has last modified field value </td>
+</tr>
+<tr><td class='name'><a name='VERSION'>VERSION</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> For Optimistic Concurrency </td>
+</tr>
+<tr><td class='name'><a name='FIELD_TYPE_FK'>FIELD_TYPE_FK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='FIELD_SHORT_DESC'>FIELD_SHORT_DESC</a></td>
+<td> VARCHAR2( 2000 )    NOT NULL   </td>
+<td> Reason to add this field value to positive or negative list.  </td>
+</tr>
+<tr><td class='name'><a name='POS_NEG_REASON_FK'>POS_NEG_REASON_FK</a></td>
+<td> NUMBER     </td>
+<td> Reason code from REASON Table </td>
+</tr>
+<tr><td class='name'><a name='FIELD_LONG_DESC'>FIELD_LONG_DESC</a></td>
+<td> VARCHAR2( 2000 )     </td>
+<td>  </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+<tr><td class='name'>PK_FIELD_DETAILS primary key</td>
+<td> ( POS_NEG_LIST_PK) </td><td>  </td>
+</tr>
+<tr><td class='name'>IDX_POSITIVE_NEGATIVE_LIST </td>
+<td> ( POS_NEG_REASON_FK) </td><td>  </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Foreign Keys</b></td></tr>
+<tr>
+<td class='name'>FK_FIELD_DETAILS_FIELD_TYPE</td><td > (  FIELD_TYPE_FK  ) ref <a href='#FIELD_TYPE_LK'>FIELD_TYPE_LK</a> ( FIELD_TYPE_PK ) </td>
+<td>  </td>
+</tr>
+<tr>
+<td class='name'>FK_POSITIVE_NEGATIVE_LIST</td><td > (  POS_NEG_REASON_FK  ) ref <a href='#POS_NEG_REASON_LK'>POS_NEG_REASON_LK</a> ( POS_NEG_REASON_PK ) </td>
+<td>  </td>
+</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='POS_NEG_REASON_LK'>Table POS_NEG_REASON_LK</a> <br/>This table will have information about number of reason to approve, challenge or deny a order. </th></tr>
+</thead>
+<tbody>
+<tr><td class='name'><a name='POS_NEG_REASON_PK'>POS_NEG_REASON_PK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> Oracle sequence  </td>
+</tr>
+<tr><td class='name'><a name='REASON_CODE'>REASON_CODE</a></td>
+<td> VARCHAR2( 10 )    NOT NULL   </td>
+<td> This will be identifer for a Reason </td>
+</tr>
+<tr><td class='name'><a name='REASON_SHORT_DESC'>REASON_SHORT_DESC</a></td>
+<td> VARCHAR2( 200 )    NOT NULL   </td>
+<td> Reason information </td>
+</tr>
+<tr><td class='name'><a name='REASON_LONG_DESC'>REASON_LONG_DESC</a></td>
+<td> VARCHAR2( 2000 )    NOT NULL   </td>
+<td> Detailed description about reason. </td>
+</tr>
+<tr><td class='name'><a name='STATUS_FK'>STATUS_FK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> Reason status can be ACCEPT, DENY, CHALLENGE </td>
+</tr>
+<tr><td class='name'><a name='SOFT_DELETE'>SOFT_DELETE</a></td>
+<td> CHAR( 1 )    NOT NULL    DEFO N </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_DATE'>CREATED_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td> Date on which reason is created </td>
+</tr>
+<tr><td class='name'><a name='CREATED_BY'>CREATED_BY</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td> User name or user id who has created this reason. </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_DATE'>LAST_MODIFIED_DATE</a></td>
+<td> TIMESTAMP     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_BY'>LAST_MODIFIED_BY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='VERSION'>VERSION</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> For Optimistic Concurrency </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+<tr><td class='name'>IDX_POS_NEG_REASON_LK </td>
+<td> ( STATUS_FK) </td><td>  </td>
+</tr>
+<tr><td class='name'>PK_REASON_DETAILS primary key</td>
+<td> ( POS_NEG_REASON_PK) </td><td>  </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Foreign Keys</b></td></tr>
+<tr>
+<td class='name'>FK_POS_NEG_REASON_LK_STATUS_LK</td><td > (  STATUS_FK  ) ref <a href='#STATUS_LK'>STATUS_LK</a> ( STATUS_PK ) </td>
+<td>  </td>
+</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='SCHEDULER_DETAIL'>Table SCHEDULER_DETAIL</a> <br/>Details of each scheduler run </th></tr>
+</thead>
+<tbody>
+<tr><td class='name'><a name='SCHEDULER_DETAIL_PK'>SCHEDULER_DETAIL_PK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> Oracle sequence id </td>
+</tr>
+<tr><td class='name'><a name='SCHEDULER_MASTER_FK'>SCHEDULER_MASTER_FK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> Foregin key for SCHEDULER_MASTER table. </td>
+</tr>
+<tr><td class='name'><a name='TRANSACTION_ID'>TRANSACTION_ID</a></td>
+<td> VARCHAR2( 100 )    NOT NULL   </td>
+<td> Transaction id from order details table </td>
+</tr>
+<tr><td class='name'><a name='TRANSACTION_SENT_TO'>TRANSACTION_SENT_TO</a></td>
+<td> VARCHAR2( 20 )     </td>
+<td> This will have information about transaction is sent to which systemn"OMS","CSC-FA","THIRD_PARTY" </td>
+</tr>
+<tr><td class='name'><a name='SOFT_DELETE'>SOFT_DELETE</a></td>
+<td> CHAR( 1 )    NOT NULL    DEFO 'N' </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_DATE'>CREATED_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_BY'>CREATED_BY</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_DATE'>LAST_MODIFIED_DATE</a></td>
+<td> TIMESTAMP     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_BY'>LAST_MODIFIED_BY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='VERSION'>VERSION</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='OMS_ORDER_ID'>OMS_ORDER_ID</a></td>
+<td> VARCHAR2( 100 )    NOT NULL   </td>
+<td> Order number from order details </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+<tr><td class='name'>IDX_SCHEDULER_DETAILS </td>
+<td> ( SCHEDULER_MASTER_FK) </td><td>  </td>
+</tr>
+<tr><td class='name'>PK_SCHEDULER_DETAILS primary key</td>
+<td> ( SCHEDULER_DETAIL_PK) </td><td>  </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Foreign Keys</b></td></tr>
+<tr>
+<td class='name'>FK_SCHEDULER_DETAILS</td><td > (  SCHEDULER_MASTER_FK  ) ref <a href='#SCHEDULER_MASTER'>SCHEDULER_MASTER</a> ( SCHEDULER_MASTER_PK ) </td>
+<td>  </td>
+</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='SCHEDULER_MASTER'>Table SCHEDULER_MASTER</a> <br/>This table will have information about scheduler </th></tr>
+</thead>
+<tbody>
+<tr><td class='name'><a name='SCHEDULER_NAME'>SCHEDULER_NAME</a></td>
+<td> VARCHAR2( 100 )    NOT NULL   </td>
+<td> Name of scheduler </td>
+</tr>
+<tr><td class='name'><a name='FREQUENCY'>FREQUENCY</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> Frequency in minutes </td>
+</tr>
+<tr><td class='name'><a name='LAST_RUN_DATE_TIME'>LAST_RUN_DATE_TIME</a></td>
+<td> DATE      DEFO systimestamp </td>
+<td> last time when this scheduler ran </td>
+</tr>
+<tr><td class='name'><a name='STATUS'>STATUS</a></td>
+<td> VARCHAR2( 20 )    NOT NULL   </td>
+<td> Scheduler status as "ACTIVE","INACTIVE","DELETE" </td>
+</tr>
+<tr><td class='name'><a name='START_DATE'>START_DATE</a></td>
+<td> DATE    NOT NULL   </td>
+<td> Scheduler Start date </td>
+</tr>
+<tr><td class='name'><a name='END_DATE'>END_DATE</a></td>
+<td> DATE     </td>
+<td> Scheduler end date </td>
+</tr>
+<tr><td class='name'><a name='SOFT_DELETE'>SOFT_DELETE</a></td>
+<td> CHAR( 1 )    NOT NULL    DEFO N </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_DATE'>CREATED_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_BY'>CREATED_BY</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_DATE'>LAST_MODIFIED_DATE</a></td>
+<td> TIMESTAMP     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_BY'>LAST_MODIFIED_BY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='VERSION'>VERSION</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='SCHEDULER_MASTER_PK'>SCHEDULER_MASTER_PK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> Oracle sequence id. </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+<tr><td class='name'>PK_SCHEDULER_MASTER primary key</td>
+<td> ( SCHEDULER_MASTER_PK) </td><td>  </td>
+</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs' >
+<thead>
+<tr><th colspan='3'><a name='STATUS_LK'>Table STATUS_LK</a> <br/> </th></tr>
+</thead>
+<tbody>
+<tr><td class='name'><a name='STATUS_PK'>STATUS_PK</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='NAME'>NAME</a></td>
+<td> VARCHAR2( 30 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='DESCRIPTION'>DESCRIPTION</a></td>
+<td> VARCHAR2( 200 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='SOFT_DELETE'>SOFT_DELETE</a></td>
+<td> CHAR( 1 )    NOT NULL    DEFO 'N' </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_DATE'>CREATED_DATE</a></td>
+<td> TIMESTAMP    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='CREATED_BY'>CREATED_BY</a></td>
+<td> VARCHAR2( 40 )    NOT NULL   </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_DATE'>LAST_MODIFIED_DATE</a></td>
+<td> TIMESTAMP     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='LAST_MODIFIED_BY'>LAST_MODIFIED_BY</a></td>
+<td> VARCHAR2( 40 )     </td>
+<td>  </td>
+</tr>
+<tr><td class='name'><a name='VERSION'>VERSION</a></td>
+<td> NUMBER    NOT NULL   </td>
+<td> For Optimistic Concurrency </td>
+</tr>
+<tr><td colspan='3' class='subpart'><b>Indexes</b></td></tr>
+<tr><td class='name'>PK_FRAUD_ENGINE_STATUS primary key</td>
+<td> ( STATUS_PK) </td><td>  </td>
+</tr>
+</tbody>
+</table>
+
+<br/><br/>
+<table id='dbs'  >
+<tr>
+<th><a name='POS_NEG_LIST_VIEW'>View POS_NEG_LIST_VIEW</a> <br/> </th>
+<td>SELECT PNL.POS_NEG_LIST_PK,
+    FTL.NAME,
+    PNL.FIELD_VALUE,
+    PNL.FIELD_SHORT_DESC,
+    PNGRL.REASON_CODE,
+    PNGRL.REASON_SHORT_DESC,
+    SL.NAME AS STATUS
+  FROM POS_NEG_LIST PNL,
+    FIELD_TYPE_LK FTL,
+    POS_NEG_REASON_LK PNGRL,
+    STATUS_LK SL
+  WHERE PNL.FIELD_TYPE_FK  =FTL.FIELD_TYPE_PK
+  AND PNL.POS_NEG_REASON_FK=PNGRL.POS_NEG_REASON_PK
+  AND PNGRL.STATUS_FK      =SL.STATUS_PK
+  AND SL.NAME              ='ACCEPT'
+  UNION
+    SELECT PNL.POS_NEG_LIST_PK,
+    FTL.NAME,
+    PNL.FIELD_VALUE,
+    PNL.FIELD_SHORT_DESC,
+    PNGRL.REASON_CODE,
+    PNGRL.REASON_SHORT_DESC,
+    SL.NAME AS STATUS
+  FROM POS_NEG_LIST PNL,
+    FIELD_TYPE_LK FTL,
+    POS_NEG_REASON_LK PNGRL,
+    STATUS_LK SL
+  WHERE PNL.FIELD_TYPE_FK  =FTL.FIELD_TYPE_PK
+  AND PNL.POS_NEG_REASON_FK=PNGRL.POS_NEG_REASON_PK
+  AND PNGRL.STATUS_FK      =SL.STATUS_PK
+ AND SL.NAME               ='CHALLENGE'
+
+UNIon
+ SELECT PNL.POS_NEG_LIST_PK,
+    FTL.NAME,
+    PNL.FIELD_VALUE,
+    PNL.FIELD_SHORT_DESC,
+    PNGRL.REASON_CODE,
+    PNGRL.REASON_SHORT_DESC,
+    SL.NAME AS STATUS
+  FROM POS_NEG_LIST PNL,
+    FIELD_TYPE_LK FTL,
+    POS_NEG_REASON_LK PNGRL,
+    STATUS_LK SL
+  WHERE PNL.FIELD_TYPE_FK  =FTL.FIELD_TYPE_PK
+  AND PNL.POS_NEG_REASON_FK=PNGRL.POS_NEG_REASON_PK
+  AND PNGRL.STATUS_FK      =SL.STATUS_PK
+  AND  SL.NAME               ='DENY'
+  ORDER BY STATUS
+</td>
+</tr>
+</table>
+</body></html>

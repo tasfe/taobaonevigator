@@ -1,0 +1,20 @@
+package com.walmart.fraudengine.rules.resources.drl;
+
+import com.walmart.fraudengine.jaxb.oms.request.Order;
+import com.walmart.fraudengine.rules.RuleEngineOrder;
+import com.walmart.fraudengine.util.FraudCheckConst;
+import com.walmart.fraudengine.util.DroolsUtil;
+import com.walmart.fraudengine.rules.RuleOrderStatus;
+
+global RuleOrderStatus orderStatus;
+
+rule "challenge_category_has_ELECTRONICS_line_charge_greater_than_500"
+	salience 99
+	when
+		$order: Order()
+		$ruleOrder: RuleEngineOrder(originalOrder == $order && hitSomeRule == false)
+		eval(DroolsUtil.getAmountByCategory($order, "Electronics") > 500)
+	then
+		orderStatus.setOrderScore(FraudCheckConst.CHALLENGE_STATUS);
+		orderStatus.setReasonDesc("challenge_category_has_ELECTRONICS_line_charge_greater_than_500");
+end

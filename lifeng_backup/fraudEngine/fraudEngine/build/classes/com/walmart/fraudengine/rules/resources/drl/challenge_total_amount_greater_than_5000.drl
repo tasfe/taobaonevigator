@@ -1,0 +1,17 @@
+package com.walmart.fraudengine.rules.resources.drl;
+
+import com.walmart.fraudengine.rules.RuleEngineOrder;
+import com.walmart.fraudengine.util.FraudCheckConst;
+import com.walmart.fraudengine.rules.RuleOrderStatus;
+
+global RuleOrderStatus orderStatus;
+
+rule "challenge_total_amount_greater_than_5000"
+	salience 99
+	when
+		$order: RuleEngineOrder(hitSomeRule == false && calculateAmountSubtotal > 5000)
+	then
+		$order.setHitsRule(true);
+		orderStatus.setOrderScore(FraudCheckConst.CHALLENGE_STATUS);
+		orderStatus.setReasonDesc("challenge_total_amount_greater_than_5000");
+end
