@@ -1,0 +1,1 @@
+This is a small web application designed for stores in taobao whose content could not be indexed by non-taobao search engine. Technically it's written with Spring 3.0 + JPA2.
